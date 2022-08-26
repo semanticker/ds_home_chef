@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://3.35.90.143:55119/home
+    username: home2dber
+    password: E2yd3mz[LPr+
+
+  jpa:
+    open-in-view: false
