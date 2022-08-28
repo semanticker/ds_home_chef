@@ -1,5 +1,6 @@
 package kr.mythings.ds.mychef.repository;
 
+import kr.mythings.ds.mychef.domain.Food;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,8 @@ import javax.persistence.EntityManager;
 public class FoodRespository {
 
     private final EntityManager em;
+
+    public void add(Food food) {
+        em.persist(food);
+    }
 }

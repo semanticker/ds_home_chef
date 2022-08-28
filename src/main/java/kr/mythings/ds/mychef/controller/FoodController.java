@@ -1,21 +1,23 @@
 package kr.mythings.ds.mychef.controller;
 
+import kr.mythings.ds.mychef.domain.Food;
+import kr.mythings.ds.mychef.form.FoodForm;
 import kr.mythings.ds.mychef.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/food")
 public class FoodController {
 
     private final FoodService foodService;
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public String list(){
 
         foodService.list();
@@ -23,14 +25,23 @@ public class FoodController {
         return "food/foodList";
     }
 
-    @GetMapping("/add")
-    public String add(){
-        return "";
+    @GetMapping("/food/new")
+    public String add(Model model){
+        model.addAttribute("foodForm", new FoodForm());
+        return "food/createFood";
     }
 
-    @PutMapping("/add")
-    public String save() {
-        return "";
+    @PostMapping("/food/new")
+    public String save(@Valid FoodForm form, BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "members/createMemberForm";
+        }
+
+        Food food = Food.createOrder(form.getName());
+
+        foodService.add(food);
+        return "redirect:/";
     }
 
     @GetMapping("/{id}")
