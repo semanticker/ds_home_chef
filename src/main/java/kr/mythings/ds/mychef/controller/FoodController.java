@@ -35,7 +35,7 @@ public class FoodController {
     public String save(@Valid FoodForm form, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "members/createMemberForm";
+            return "food/createFood";
         }
 
         Food food = Food.createOrder(form.getName());
