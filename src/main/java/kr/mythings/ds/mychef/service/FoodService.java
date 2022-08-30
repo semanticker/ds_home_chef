@@ -21,4 +21,8 @@ public class FoodService {
 
         return food.getId();
     }
+
+    public Food findOne(Long foodId) {
+        return foodRespository.findOne(foodId);
+    }
 }

@@ -15,4 +15,8 @@ public class FoodRespository {
     public void add(Food food) {
         em.persist(food);
     }
+
+    public Food findOne(Long foodId) {
+        return em.find(Food.class, foodId);
+    }
 }

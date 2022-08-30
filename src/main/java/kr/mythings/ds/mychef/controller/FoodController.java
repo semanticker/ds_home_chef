@@ -44,8 +44,23 @@ public class FoodController {
         return "redirect:/";
     }
 
+    @GetMapping("/food/{id}/edit")
+    public String edit(@PathVariable("id") Long foodId, Model model) {
+
+        Food food = foodService.findOne(foodId);
+
+        FoodForm form = new FoodForm();
+        form.setId(food.getId());
+        form.setName(food.getName());
+
+        model.addAttribute("form", form);
+
+        return "food/editFood";
+    }
+
     @GetMapping("/{id}")
     public String detail() {
+
         return "";
     }
 
