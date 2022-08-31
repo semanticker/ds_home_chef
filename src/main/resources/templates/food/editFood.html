@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+</style>
+<body>
+
+
+
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="/image/chef.png" alt="" width="72" height="72">
+        <!--<h2>Checkout form</h2>
+        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+            <h4 class="mb-3">Food Info.</h4>
+            <form role="form" action="/food/new" th:object="${form}" method="post">
+                <div class="mb-3">
+                    <label th:for="name">음식 이름</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input type="text" th:field="*{name}" class="form-control" placeholder="음식 이름을 입력하세요"
+                               th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+                        <div class="invalid-feedback">
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+                        </div>
+                        <div class="is-invalid">
+                            a
+                        </div>
+                        <div class="invalid-tooltip">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" placeholder="1234 Main St" >
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
