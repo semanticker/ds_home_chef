@@ -3,13 +3,14 @@ package kr.mythings.ds.mychef.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "DMC_FOOD")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Food {
+public class Food extends BaseEntity{
 
     @Id
     @GeneratedValue
@@ -18,10 +19,12 @@ public class Food {
 
     private String name;
 
-    public static Food createOrder(String name) {
-        Food food = new Food();
-        food.setName(name);
-
-        return food;
+    public Food(String name) {
+        this.name = name;
+        LocalDateTime now = LocalDateTime.now();
+        this.setEnterBy("hyojong-insert");
+        this.setEnterDate(now);
+        //this.setModifyBy("hyojong-update");
+        //this.setModifyDate(LocalDateTime.now().plusHours(2));
     }
 }

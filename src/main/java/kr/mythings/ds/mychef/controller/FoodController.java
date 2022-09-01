@@ -38,7 +38,7 @@ public class FoodController {
             return "food/createFood";
         }
 
-        Food food = Food.createOrder(form.getName());
+        Food food = new Food(form.getName());
 
         foodService.add(food);
         return "redirect:/";
@@ -57,6 +57,19 @@ public class FoodController {
 
         return "food/editFood";
     }
+
+    @PostMapping("/food/{id}/edit")
+    public String update(@PathVariable("id") Long foodId, @Valid FoodForm form, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            return "food/" + foodId + "/edit";
+        }
+
+        foodService.update(form);
+
+        return "food/foodList";
+    }
+
 
     @GetMapping("/{id}")
     public String detail() {
