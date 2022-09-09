@@ -10,3 +10,4 @@
 |      | 수정 | /food/{id}/edit | POST |  |
 |      | 상세 | /food/{id}      | GET  |  |
 |      | 삭제 | /food/{id}/delete      | DELETE  |  |
+| 레시피 | 조회 | /receipe/       | GET  |  |
