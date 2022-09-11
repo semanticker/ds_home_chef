@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,5 +19,12 @@ public class FoodRespository {
 
     public Food findOne(Long foodId) {
         return em.find(Food.class, foodId);
+    }
+
+    public List<Food> findAll() {
+        String query = "select f from Food f";
+
+        return em.createQuery(query, Food.class)
+                .getResultList();
     }
 }

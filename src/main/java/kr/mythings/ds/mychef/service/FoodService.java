@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,7 +17,8 @@ public class FoodService {
     
     private final FoodRespository foodRespository;
 
-    public void list() {
+    public List<Food> list() {
+        return foodRespository.findAll();
     }
 
     public Long add(Food food) {
