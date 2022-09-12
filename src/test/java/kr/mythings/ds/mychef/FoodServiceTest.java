@@ -29,8 +29,6 @@ public class FoodServiceTest {
         food.setName("된장국");
 
         Long saveId = foodService.add(food);
-
-
         Food one = foodService.findOne(saveId);
 
         assertEquals(food, one);

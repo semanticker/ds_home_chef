@@ -38,6 +38,5 @@ public class FoodService {
         one.setName(form.getName());
         one.setModifyBy("hyojong-update");
         one.setModifyDate(LocalDateTime.now());
-
     }
 }
