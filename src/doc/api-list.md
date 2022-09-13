@@ -8,11 +8,11 @@
 |        | 수정 | /food/{id}/edit       | POST   |  |
 |        | 상세 | /food/{id}            | GET    |  |
 |        | 삭제 | /food/{id}/delete     | DELETE |  |
-| 레시피   | 조회 | /receipes/            | GET    |  |
-|        | 입력 | /receipes/new         | POST   |  |
-|        | 수정 | /receipes/{id}/edit   | POST   |  |
-|        | 상세 | /receipes/{id}        | GET    |  |
-|        | 삭제 | /receipe/{id}/delete  | DELETE |  |
+| 레시피   | 조회 | /recipes/            | GET    |  |
+|        | 입력 | /recipes/new         | POST   |  |
+|        | 수정 | /recipes/{id}/edit   | POST   |  |
+|        | 상세 | /recipes/{id}        | GET    |  |
+|        | 삭제 | /recipes/{id}/delete  | DELETE |  |
 | 서빙    | 조회 | /serving/            | GET    |  |
 |        | 입력 | /serving/new         | POST   |  |
 |        | 수정 | /serving/{id}/edit   | POST   |  |
