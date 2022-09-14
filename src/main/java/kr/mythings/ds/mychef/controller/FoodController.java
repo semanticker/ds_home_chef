@@ -17,12 +17,12 @@ public class FoodController {
 
     private final FoodService foodService;
 
-    @GetMapping("/")
+    @GetMapping("/food")
     public String list(){
 
         foodService.list();
 
-        return "food/foodList";
+        return "food/listFood";
     }
 
     @GetMapping("/food/new")
@@ -67,17 +67,25 @@ public class FoodController {
 
         foodService.update(form);
 
-        return "food/foodList";
+        return "food/listFood";
     }
 
 
-    @GetMapping("/{id}")
-    public String detail() {
+    @GetMapping("/food/{id}")
+    public String detail(@PathVariable("id") Long foodId, Model model) {
 
-        return "";
+        Food food = foodService.findOne(foodId);
+
+        FoodForm form = new FoodForm();
+        form.setId(food.getId());
+        form.setName(food.getName());
+
+        model.addAttribute("form", form);
+
+        return "food/viewFood";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/food/{id}")
     public String delete() {
         return "";
     }

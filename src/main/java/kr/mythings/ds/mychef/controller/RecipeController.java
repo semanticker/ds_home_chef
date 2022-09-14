@@ -17,7 +17,7 @@ import javax.validation.Valid;
 public class RecipeController {
 
 
-    @GetMapping("/")
+    @GetMapping("/recipe")
     public String list(){
         return "recipe/recipeList";
     }
@@ -59,13 +59,13 @@ public class RecipeController {
     }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/recipe/{id}")
     public String detail() {
 
         return "";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/recipe/{id}")
     public String delete() {
         return "";
     }
