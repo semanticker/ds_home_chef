@@ -16,7 +16,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class RecipeController {
 
-
     @GetMapping("/recipe")
     public String list(){
         return "recipe/recipeList";
