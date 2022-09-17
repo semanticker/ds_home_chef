@@ -1,6 +1,7 @@
 package kr.mythings.ds.mychef.service;
 
 import kr.mythings.ds.mychef.domain.Food;
+import kr.mythings.ds.mychef.form.FoodDTO;
 import kr.mythings.ds.mychef.form.FoodForm;
 import kr.mythings.ds.mychef.repository.FoodRespository;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -17,8 +19,15 @@ public class FoodService {
     
     private final FoodRespository foodRespository;
 
-    public List<Food> list() {
-        return foodRespository.findAll();
+    public List<FoodDTO> list() {
+
+        List<Food> list = foodRespository.findAll();
+
+        List<FoodDTO> collect = list.stream()
+                .map(m -> new FoodDTO(m.getId(), m.getName()))
+                .collect(Collectors.toList());
+
+        return collect;
     }
 
     public Long add(Food food) {

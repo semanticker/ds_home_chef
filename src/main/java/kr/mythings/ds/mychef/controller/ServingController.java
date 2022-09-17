@@ -40,9 +40,6 @@ public class ServingController {
     @GetMapping("/serving/{id}/edit")
     public String edit(@PathVariable("id") Long servingId, Model model) {
 
-
-
-
         return "serving/editServing";
     }
 

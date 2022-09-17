@@ -1,6 +1,7 @@
 package kr.mythings.ds.mychef.controller;
 
 import kr.mythings.ds.mychef.domain.Food;
+import kr.mythings.ds.mychef.form.FoodDTO;
 import kr.mythings.ds.mychef.form.FoodForm;
 import kr.mythings.ds.mychef.service.FoodService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,9 +20,11 @@ public class FoodController {
     private final FoodService foodService;
 
     @GetMapping("/food")
-    public String list(){
+    public String list(Model model){
 
-        foodService.list();
+        List<FoodDTO> list = foodService.list();
+
+        model.addAttribute("list", list);
 
         return "food/listFood";
     }
