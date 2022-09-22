@@ -4,6 +4,7 @@ import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.form.FoodDTO;
 import kr.mythings.ds.mychef.form.FoodForm;
 import kr.mythings.ds.mychef.repository.FoodRespository;
+import kr.mythings.ds.mychef.repository.FoodSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,8 @@ public class FoodService {
 
     public List<FoodDTO> list() {
 
-        List<Food> list = foodRespository.findAll();
+        FoodSearch foodSearch = new FoodSearch();
+        List<Food> list = foodRespository.findAll(foodSearch);
 
         List<FoodDTO> collect = list.stream()
                 .map(m -> new FoodDTO(m.getId(), m.getName()))

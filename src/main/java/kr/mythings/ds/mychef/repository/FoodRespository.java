@@ -2,6 +2,7 @@ package kr.mythings.ds.mychef.repository;
 
 import kr.mythings.ds.mychef.domain.Food;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,10 +22,13 @@ public class FoodRespository {
         return em.find(Food.class, foodId);
     }
 
-    public List<Food> findAll() {
+    public List<Food> findAll(FoodSearch foodSearch) {
+
         String query = "select f from Food f";
 
         return em.createQuery(query, Food.class)
+                .setFirstResult(foodSearch.getOffset())
+                .setMaxResults(foodSearch.getLimit())
                 .getResultList();
     }
 }
