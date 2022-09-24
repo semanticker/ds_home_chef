@@ -12,9 +12,11 @@
 <script>
     $(document).ready(function () {
         $('#example').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: 'api/v1/foods',
+            ajax: 'api/v2/foods',
+            columns: [
+                { data: 'id' },
+                { data: 'name' }
+            ],
         });
     });
 </script>
@@ -30,59 +32,18 @@
             <tr>
                 <th>#</th>
                 <th>음식 이름</th>
-                <!--<th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>-->
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${list}">
+            <!--<tr th:each="item : ${list}">
                 <td th:text="${item.id}"></td>
                 <td th:text="${item.name}"></td>
-            </tr>
-
+            </tr>-->
         </table>
-
-        <!--<div>
-            <form th:object="${orderSearch}" class="form-inline">
-                <div class="form-group mb-2">
-                    <input type="text" th:field="*{memberName}" class="form-control" placeholder="회원명"/>
-                </div>
-                <div class="form-group mx-sm-1 mb-2">
-                    <select th:field="*{orderStatus}" class="form-control">
-                        <option value="">주문상태</option>
-                        <option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"
-                                th:value="${status}"
-                                th:text="${status}">option
-                        </option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">검색</button>
-            </form>
-        </div>-->
-
-
-        <!--
-        <table id="table_i2d" class="display">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>음식 이름</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="item : ${list}">
-                <td th:text="${item.id}"></td>
-                <td th:text="${item.name}"></td>
-            </tr>
-
-            </tbody>
-        </table>
-        -->
     </div>
 
-</div> <!-- /container -->
+</div>
+<!-- /container -->
 
 </body>
 </html>

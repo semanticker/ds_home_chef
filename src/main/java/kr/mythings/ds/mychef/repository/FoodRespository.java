@@ -27,8 +27,8 @@ public class FoodRespository {
         String query = "select f from Food f";
 
         return em.createQuery(query, Food.class)
-                .setFirstResult(foodSearch.getOffset())
-                .setMaxResults(foodSearch.getLimit())
+                //.setFirstResult(foodSearch.getOffset())
+                //.setMaxResults(foodSearch.getLimit())
                 .getResultList();
     }
 }
