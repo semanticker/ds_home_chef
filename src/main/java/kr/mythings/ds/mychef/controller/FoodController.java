@@ -71,8 +71,6 @@ public class FoodController {
 
         foodService.update(form);
 
-        // return "redirect:/";
-
         return "redirect:/food";
     }
 
