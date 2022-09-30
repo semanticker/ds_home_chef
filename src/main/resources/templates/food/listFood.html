@@ -9,9 +9,11 @@
 
 
 
+
 <script>
+    let table;
     $(document).ready(function () {
-        var table = $('#example').DataTable({
+        table = $('#example').DataTable({
             ajax: '/api/v2/foods',
             columns: [
                 { data: 'id' },
@@ -20,8 +22,8 @@
             // 엔터키를 눌러야 검색되게
             search: {
                 return: true,
-            },
-            paging: true
+            }/*,
+            paging: true*/
         });
 
         $('#example tbody').on('click', 'tr', function () {
