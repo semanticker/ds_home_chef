@@ -1,9 +1,7 @@
 package kr.mythings.ds.mychef.controller;
 
-import kr.mythings.ds.mychef.form.FoodDTO;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;
-import kr.mythings.ds.mychef.service.FoodService;
 import kr.mythings.ds.mychef.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -71,9 +69,17 @@ public class RecipeController {
 
 
     @GetMapping("/recipe/{id}")
-    public String detail() {
+    public String detail(@PathVariable("id") Long recipeId, Model model) {
 
-        return "";
+        RecipeDTO recipeDTO = recipeService.findOne(recipeId);
+
+        RecipeForm recipeForm = new RecipeForm();
+        recipeForm.setId(recipeDTO.getId());
+        recipeForm.setName(recipeDTO.getName());
+
+        model.addAttribute("form", recipeForm);
+
+        return "recipe/viewRecipe";
     }
 
     @DeleteMapping("/recipe/{id}")

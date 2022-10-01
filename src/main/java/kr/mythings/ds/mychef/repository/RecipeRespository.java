@@ -1,6 +1,5 @@
 package kr.mythings.ds.mychef.repository;
 
-import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.domain.Recipe;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,7 @@ public class RecipeRespository {
 
     private final EntityManager em;
 
-    public List<Recipe> findAll(RecipeSearch recipeSearch) {
+    public List<Recipe> findAll() {
 
         String query = "select r from Recipe r";
 
@@ -22,5 +21,10 @@ public class RecipeRespository {
                 //.setFirstResult(foodSearch.getOffset())
                 //.setMaxResults(foodSearch.getLimit())
                 .getResultList();
+    }
+
+    public Recipe findOne(Long recipeId) {
+
+        return em.find(Recipe.class, recipeId);
     }
 }

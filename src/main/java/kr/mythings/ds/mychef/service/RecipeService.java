@@ -1,13 +1,8 @@
 package kr.mythings.ds.mychef.service;
 
-import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.domain.Recipe;
-import kr.mythings.ds.mychef.form.FoodDTO;
 import kr.mythings.ds.mychef.form.RecipeDTO;
-import kr.mythings.ds.mychef.repository.FoodRespository;
-import kr.mythings.ds.mychef.repository.FoodSearch;
 import kr.mythings.ds.mychef.repository.RecipeRespository;
-import kr.mythings.ds.mychef.repository.RecipeSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,14 +19,18 @@ public class RecipeService {
     public List<RecipeDTO> list() {
 
 
-        RecipeSearch recipeSearch = new RecipeSearch();
-        List<Recipe> list = recipeRespository.findAll(recipeSearch);
+        List<Recipe> list = recipeRespository.findAll();
 
-        List<RecipeDTO> collect = list.stream()
+        return list.stream()
                 .map(m -> new RecipeDTO(m.getId(), m.getName()))
                 .collect(Collectors.toList());
 
-        return collect;
+    }
 
+    public RecipeDTO findOne(Long recipeId) {
+
+        Recipe recipe = recipeRespository.findOne(recipeId);
+
+        return new RecipeDTO(recipe.getId(), recipe.getName());
     }
 }
