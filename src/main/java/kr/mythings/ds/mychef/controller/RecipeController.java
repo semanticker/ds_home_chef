@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -24,9 +25,9 @@ public class RecipeController {
     @GetMapping("/recipe")
     public String list(Model model){
 
-        List<RecipeDTO> list = recipeService.list();
+        //List<RecipeDTO> list = recipeService.list();
 
-        model.addAttribute("list", list);
+        model.addAttribute("list", Collections.emptyList());
 
         return "recipe/listRecipe";
     }

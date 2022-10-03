@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "DMC_FOOD")
@@ -18,6 +20,10 @@ public class Food extends BaseEntity{
     private Long id;
 
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_id")
+    private List<Recipe> recipes = new ArrayList<>();
 
     public Food(String name) {
         this.name = name;

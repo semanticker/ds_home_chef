@@ -20,7 +20,9 @@ public class Recipe extends BaseEntity{
     @Column(name="recipe_id")
     private Long id;
 
-    private Long food_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_id")
+    private Food food;
 
     private String recipeFrom;
 

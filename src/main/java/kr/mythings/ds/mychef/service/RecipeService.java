@@ -22,7 +22,11 @@ public class RecipeService {
         List<Recipe> list = recipeRespository.findAll();
 
         return list.stream()
-                .map(m -> new RecipeDTO(m.getId(), m.getName()))
+                .map(m -> new RecipeDTO(
+                        m.getId()
+                        ,m.getName()
+                        ,m.getFood().getName()
+                ))
                 .collect(Collectors.toList());
 
     }
@@ -31,6 +35,6 @@ public class RecipeService {
 
         Recipe recipe = recipeRespository.findOne(recipeId);
 
-        return new RecipeDTO(recipe.getId(), recipe.getName());
+        return new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName());
     }
 }

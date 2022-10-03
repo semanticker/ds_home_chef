@@ -14,6 +14,12 @@ public class RecipeRespository {
     private final EntityManager em;
 
     public List<Recipe> findAll() {
+        String query = "select r from Recipe r "
+                + "join fetch r.food f ";
+
+        return em.createQuery(query, Recipe.class).getResultList();
+    }
+    public List<Recipe> findAll2() {
 
         String query = "select r from Recipe r";
 
