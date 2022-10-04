@@ -77,6 +77,7 @@ public class RecipeController {
         RecipeForm recipeForm = new RecipeForm();
         recipeForm.setId(recipeDTO.getId());
         recipeForm.setName(recipeDTO.getName());
+        recipeForm.setRecipeFrom(recipeDTO.getRecipeFrom());
 
         model.addAttribute("form", recipeForm);
 

@@ -10,12 +10,16 @@ public class RecipeDTO {
     private Long id;
 
     private String name;
+
     private String foodName;
 
+    private String recipeFrom;
+
     public RecipeDTO
-            (Long id, String name, String foodName) {
+            (Long id, String name, String foodName, String recipeFrom) {
         this.id = id;
         this.name = name;
         this.foodName= foodName;
+        this.recipeFrom= recipeFrom;
     }
 }

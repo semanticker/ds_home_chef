@@ -26,6 +26,7 @@ public class RecipeService {
                         m.getId()
                         ,m.getName()
                         ,m.getFood().getName()
+                        ,m.getRecipeFrom()
                 ))
                 .collect(Collectors.toList());
 
@@ -35,6 +36,6 @@ public class RecipeService {
 
         Recipe recipe = recipeRespository.findOne(recipeId);
 
-        return new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName());
+        return new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName(), recipe.getRecipeFrom());
     }
 }
