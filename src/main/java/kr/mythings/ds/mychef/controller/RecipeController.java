@@ -1,5 +1,7 @@
 package kr.mythings.ds.mychef.controller;
 
+import kr.mythings.ds.mychef.domain.Food;
+import kr.mythings.ds.mychef.form.FoodForm;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;
 import kr.mythings.ds.mychef.service.RecipeService;
@@ -51,8 +53,15 @@ public class RecipeController {
     @GetMapping("/recipe/{id}/edit")
     public String edit(@PathVariable("id") Long recipeId, Model model) {
 
-        
 
+        RecipeDTO recipeDTO = recipeService.findOne(recipeId);
+
+        RecipeForm form = new RecipeForm();
+        form.setId(recipeDTO.getId());
+        form.setName(recipeDTO.getName());
+        form.setRecipeFrom(recipeDTO.getRecipeFrom());
+
+        model.addAttribute("form", form);
 
         return "recipe/editRecipe";
     }
@@ -64,8 +73,9 @@ public class RecipeController {
             return "recipe/" + recipeId + "/edit";
         }
 
+        recipeService.update(form);
 
-        return "recipe/recipeList";
+        return "redirect:/recipe";
     }
 
 
