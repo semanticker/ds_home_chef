@@ -1,6 +1,5 @@
 package kr.mythings.ds.mychef.service;
 
-import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;

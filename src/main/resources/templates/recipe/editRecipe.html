@@ -1,4 +1,4 @@
-`<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <style>
@@ -7,8 +7,6 @@
     }
 </style>
 <body>
-
-
 
 <div class="container">
     <div class="py-5 text-center">
@@ -46,8 +44,11 @@
                         Please enter your shipping address.
                     </div>
                 </div>
+                <div class="mb-3">
+                    <label for="a">STEP1</label>
+                    <input type="text" name="recipe.name" id="recipe.name" class="form-control" placeholder="레시피를 입력하세요">
+                </div>
                 <hr>
-
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">저장</button>
                     <button type="button" class="btn btn-primary" onclick="location.href='/recipe'">목록</button>

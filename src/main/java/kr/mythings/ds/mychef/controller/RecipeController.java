@@ -1,7 +1,5 @@
 package kr.mythings.ds.mychef.controller;
 
-import kr.mythings.ds.mychef.domain.Food;
-import kr.mythings.ds.mychef.form.FoodForm;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;
 import kr.mythings.ds.mychef.service.RecipeService;
@@ -9,14 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collections;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,8 +20,6 @@ public class RecipeController {
 
     @GetMapping("/recipe")
     public String list(Model model){
-
-        //List<RecipeDTO> list = recipeService.list();
 
         model.addAttribute("list", Collections.emptyList());
 
@@ -67,7 +59,7 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/{id}/edit")
-    public String update(@PathVariable("id") Long recipeId, @Valid RecipeForm form, BindingResult result, Model model) {
+    public String update(@PathVariable("id") Long recipeId, @Valid @ModelAttribute("recipeForm") RecipeForm form, BindingResult result) {
 
         if (result.hasErrors()) {
             return "recipe/" + recipeId + "/edit";
