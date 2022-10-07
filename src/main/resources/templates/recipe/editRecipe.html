@@ -45,8 +45,11 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="a">STEP1</label>
-                    <input type="text" name="recipe.name" id="recipe.name" class="form-control" placeholder="레시피를 입력하세요">
+                    <label>STEP1</label>
+                    <input type="text" name="recipeStepList[0].id"  class="form-control" placeholder="id">
+                    <input type="text" name="recipeStepList[0].recipeId"  class="form-control" placeholder="레시피 아이디" value="1">
+                    <input type="text" name="recipeStepList[0].howTo"  class="form-control" placeholder="조리과정 설명">
+                    <input type="text" name="recipeStepList[0].img"  class="form-control" placeholder="조리과정 이미지">
                 </div>
                 <hr>
                 <div class="form-group">

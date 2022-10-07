@@ -19,5 +19,5 @@ public class RecipeForm {
 
     private String recipeFrom;
 
-    private List<RecipeDTO> recipe = Collections.emptyList();
+    private List<RecipeStepDTO> recipeStepList = new ArrayList<>();
 }

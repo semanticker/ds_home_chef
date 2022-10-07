@@ -3,6 +3,7 @@ package kr.mythings.ds.mychef.service;
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;
+import kr.mythings.ds.mychef.form.RecipeStepDTO;
 import kr.mythings.ds.mychef.repository.RecipeRespository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,23 @@ public class RecipeService {
         recipe.setRecipeFrom(form.getRecipeFrom());
         recipe.setModifyBy("hyojong-update");
         recipe.setModifyDate(LocalDateTime.now());
+
+        List<RecipeStepDTO> recipeStepList = form.getRecipeStepList();
+
+        if (recipeStepList != null && !recipeStepList.isEmpty()) {
+
+            for (RecipeStepDTO recipeStepDTO : recipeStepList) {
+
+                if (recipeStepDTO.getId() == 0L) {
+                    // create
+                } else {
+                    // status에 따른 설정
+                }
+
+
+            }
+
+
+        }
     }
 }

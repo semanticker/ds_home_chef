@@ -22,4 +22,8 @@ public class RecipeDTO {
         this.foodName= foodName;
         this.recipeFrom= recipeFrom;
     }
+
+    public RecipeDTO() {
+
+    }
 }
