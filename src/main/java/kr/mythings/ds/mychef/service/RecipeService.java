@@ -1,9 +1,12 @@
 package kr.mythings.ds.mychef.service;
 
+import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.domain.Recipe;
+import kr.mythings.ds.mychef.domain.RecipeStep;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;
 import kr.mythings.ds.mychef.form.RecipeStepDTO;
+import kr.mythings.ds.mychef.form.Status;
 import kr.mythings.ds.mychef.repository.RecipeRespository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -57,10 +60,13 @@ public class RecipeService {
 
             for (RecipeStepDTO recipeStepDTO : recipeStepList) {
 
-                if (recipeStepDTO.getId() == 0L) {
+                // 입력
+                if (recipeStepDTO.getId() == 0L && Status.I == recipeStepDTO.getStatus()) {
                     // create
+                    RecipeStep food = new RecipeStep();
+
                 } else {
-                    // status에 따른 설정
+                    // status에 따른 설
                 }
 
 
