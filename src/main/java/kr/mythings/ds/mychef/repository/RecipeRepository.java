@@ -1,6 +1,7 @@
 package kr.mythings.ds.mychef.repository;
 
 import kr.mythings.ds.mychef.domain.Recipe;
+import kr.mythings.ds.mychef.domain.RecipeStep;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class RecipeRespository {
+public class RecipeRepository {
 
     private final EntityManager em;
 

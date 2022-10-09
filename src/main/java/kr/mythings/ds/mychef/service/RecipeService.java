@@ -7,7 +7,8 @@ import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;
 import kr.mythings.ds.mychef.form.RecipeStepDTO;
 import kr.mythings.ds.mychef.form.Status;
-import kr.mythings.ds.mychef.repository.RecipeRespository;
+import kr.mythings.ds.mychef.repository.RecipeRepository;
+import kr.mythings.ds.mychef.repository.RecipeStepRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RecipeService {
 
-    private final RecipeRespository recipeRespository;
+    private final RecipeRepository recipeRespository;
+    private final RecipeStepRepository recipeStepRepository;
     public List<RecipeDTO> list() {
 
 
@@ -61,9 +63,17 @@ public class RecipeService {
             for (RecipeStepDTO recipeStepDTO : recipeStepList) {
 
                 // 입력
-                if (recipeStepDTO.getId() == 0L && Status.I == recipeStepDTO.getStatus()) {
+                if (recipeStepDTO.getId() == null && Status.I == recipeStepDTO.getStatus()) {
                     // create
-                    RecipeStep food = new RecipeStep();
+                    RecipeStep recipeStep = new RecipeStep();
+                    recipeStep.create(
+                            recipeStepDTO.getRecipeId(),
+                            recipeStepDTO.getStep(),
+                            recipeStepDTO.getHowTo(),
+                            recipeStepDTO.getImg()
+                    );
+
+                    recipeStepRepository.add(recipeStep);
 
                 } else {
                     // status에 따른 설
