@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "DMC_RECIPE")
@@ -27,6 +29,10 @@ public class Recipe extends BaseEntity{
     private String recipeFrom;
 
     private String name;
+
+    @OneToMany
+    @JoinColumn(name = "recipe_id")
+    private List<RecipeStep> recipeStepList = new ArrayList<>();
 
     public Recipe(String name) {
         this.name = name;

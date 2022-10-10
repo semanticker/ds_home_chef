@@ -1,6 +1,5 @@
 package kr.mythings.ds.mychef.service;
 
-import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.RecipeStep;
 import kr.mythings.ds.mychef.form.RecipeDTO;
@@ -22,12 +21,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RecipeService {
 
-    private final RecipeRepository recipeRespository;
+    private final RecipeRepository recipeRepository;
     private final RecipeStepRepository recipeStepRepository;
     public List<RecipeDTO> list() {
 
 
-        List<Recipe> list = recipeRespository.findAll();
+        List<Recipe> list = recipeRepository.findAll();
 
         return list.stream()
                 .map(m -> new RecipeDTO(
@@ -42,7 +41,7 @@ public class RecipeService {
 
     public RecipeDTO findOne(Long recipeId) {
 
-        Recipe recipe = recipeRespository.findOne(recipeId);
+        Recipe recipe = recipeRepository.findOne(recipeId);
 
         return new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName(), recipe.getRecipeFrom());
     }
@@ -50,7 +49,7 @@ public class RecipeService {
     public void update(RecipeForm form) {
 
         Long id = form.getId();
-        Recipe recipe = recipeRespository.findOne(id);
+        Recipe recipe = recipeRepository.findOne(id);
         recipe.setName(form.getName());
         recipe.setRecipeFrom(form.getRecipeFrom());
         recipe.setModifyBy("hyojong-update");
@@ -72,11 +71,18 @@ public class RecipeService {
                             recipeStepDTO.getHowTo(),
                             recipeStepDTO.getImg()
                     );
-
                     recipeStepRepository.add(recipeStep);
 
-                } else {
-                    // status에 따른 설
+                } else if(recipeStepDTO.getId() != null && Status.U == recipeStepDTO.getStatus()) {
+                    // status 에 따른 설
+
+                    RecipeStep recipeStep = recipeStepRepository.findOne(recipeStepDTO.getId());
+                    recipeStep.setRecipeId(recipeStep.getRecipeId());
+                    recipeStep.setStep(recipeStep.getStep());
+                    recipeStep.setHowTo(recipeStep.getHowTo());
+                    recipeStep.setImg(recipeStep.getImg());
+
+
                 }
 
 
