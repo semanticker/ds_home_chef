@@ -34,6 +34,7 @@ public class RecipeService {
                         ,m.getName()
                         ,m.getFood().getName()
                         ,m.getRecipeFrom()
+                        ,null
                 ))
                 .collect(Collectors.toList());
 
@@ -43,7 +44,22 @@ public class RecipeService {
 
         Recipe recipe = recipeRepository.findOne(recipeId);
 
-        return new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName(), recipe.getRecipeFrom());
+        RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName(), recipe.getRecipeFrom());
+
+        List<RecipeStepDTO> collect = recipe.getRecipeStepList().stream()
+                .map(m -> new RecipeStepDTO(
+                        m.getId(),
+                        m.getRecipeId(),
+                        m.getStep(),
+                        m.getHowTo(),
+                        m.getImg()
+//Long id, Long recipeId, int step, String howTo, String img
+                ))
+                .collect(Collectors.toList());
+
+        recipeDTO.setRecipeStepList(collect);
+
+        return recipeDTO;
     }
 
     public void update(RecipeForm form) {

@@ -18,4 +18,12 @@ public class RecipeStepDTO {
     private String img;
 
     private Status status;
+
+    public RecipeStepDTO(Long id, Long recipeId, int step, String howTo, String img) {
+        this.id = id;
+        this.recipeId = recipeId;
+        this.step = step;
+        this.howTo = howTo;
+        this.img = img;
+    }
 }

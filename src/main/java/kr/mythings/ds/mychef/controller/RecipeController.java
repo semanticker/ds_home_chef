@@ -52,6 +52,7 @@ public class RecipeController {
         form.setId(recipeDTO.getId());
         form.setName(recipeDTO.getName());
         form.setRecipeFrom(recipeDTO.getRecipeFrom());
+        form.setRecipeStepList(recipeDTO.getRecipeStepList());
 
         model.addAttribute("form", form);
 
@@ -80,6 +81,7 @@ public class RecipeController {
         recipeForm.setId(recipeDTO.getId());
         recipeForm.setName(recipeDTO.getName());
         recipeForm.setRecipeFrom(recipeDTO.getRecipeFrom());
+        recipeForm.setRecipeStepList(recipeDTO.getRecipeStepList());
 
         model.addAttribute("form", recipeForm);
 

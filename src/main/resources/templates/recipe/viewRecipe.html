@@ -1,9 +1,12 @@
-`<!DOCTYPE HTML>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <style>
   .fieldError {
     border-color: #bd2130;
+  }
+  .input-group-text, .form-control {
+    margin-top: .5rem;
   }
 </style>
 <body>
@@ -46,6 +49,14 @@
             Please enter your shipping address.
           </div>
         </div>
+
+        <div th:each="recipeStep, iStat: ${form.recipeStepList}">
+          <label >STEP <span th:text="${iStat.index}+1"></span></label>
+          <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
+          <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
+          <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
+        </div>
+
         <hr>
 
         <div class="form-group">
