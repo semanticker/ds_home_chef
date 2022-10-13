@@ -17,7 +17,10 @@ public class RecipeStepDTO {
 
     private String img;
 
-    private Status status;
+    private Status status = Status.U;
+
+
+    public RecipeStepDTO() {}
 
     public RecipeStepDTO(Long id, Long recipeId, int step, String howTo, String img) {
         this.id = id;

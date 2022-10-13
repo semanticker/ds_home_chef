@@ -90,13 +90,14 @@ public class RecipeService {
                     recipeStepRepository.add(recipeStep);
 
                 } else if(recipeStepDTO.getId() != null && Status.U == recipeStepDTO.getStatus()) {
-                    // status 에 따른 설
+                    // status 에 따른 설정
 
                     RecipeStep recipeStep = recipeStepRepository.findOne(recipeStepDTO.getId());
                     recipeStep.setRecipeId(recipeStep.getRecipeId());
                     recipeStep.setStep(recipeStep.getStep());
                     recipeStep.setHowTo(recipeStep.getHowTo());
                     recipeStep.setImg(recipeStep.getImg());
+
 
 
                 }

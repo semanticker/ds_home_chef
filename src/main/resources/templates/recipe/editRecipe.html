@@ -49,6 +49,7 @@
 
                 <div th:each="recipeStep, iStat: ${form.recipeStepList}">
                     <label >STEP <span th:text="${iStat.index}+1"></span></label>
+                    <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
                     <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
                     <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
                     <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
