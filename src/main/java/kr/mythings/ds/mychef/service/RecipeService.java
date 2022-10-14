@@ -93,16 +93,12 @@ public class RecipeService {
                     // status 에 따른 설정
 
                     RecipeStep recipeStep = recipeStepRepository.findOne(recipeStepDTO.getId());
-                    recipeStep.setRecipeId(recipeStep.getRecipeId());
-                    recipeStep.setStep(recipeStep.getStep());
-                    recipeStep.setHowTo(recipeStep.getHowTo());
-                    recipeStep.setImg(recipeStep.getImg());
-
-
-
+                    recipeStep.setStep(recipeStepDTO.getStep());
+                    recipeStep.setHowTo(recipeStepDTO.getHowTo());
+                    recipeStep.setImg(recipeStepDTO.getImg());
+                } else if (recipeStepDTO.getId() != null && Status.D == recipeStepDTO.getStatus()) {
+                    recipeStepRepository.remove(recipeStepDTO.getId());
                 }
-
-
             }
 
 

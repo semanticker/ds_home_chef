@@ -37,13 +37,13 @@
             </div>
             <div class="is-invalid">
             </div>
-            <div class="invalid-tooltip">
-            </div>
+            <!--<div class="invalid-tooltip">
+            </div>-->
           </div>
         </div>
         <div class="mb-3">
           <label for="recipeFrom">레시피 출처</label>
-          <input type="text" th:field="*{recipeFrom}" class="form-control" readonly="readonly" placeholder="레시피 이름을 입력하세요"
+          <input type="text" th:field="*{recipeFrom}" class="form-control" readonly="readonly"
                  th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
           <div class="invalid-feedback">
             Please enter your shipping address.
@@ -52,9 +52,9 @@
 
         <div th:each="recipeStep, iStat: ${form.recipeStepList}">
           <label >STEP <span th:text="${iStat.index}+1"></span></label>
-          <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
-          <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
-          <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
+          <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control"  readonly="readonly">
+          <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control"  readonly="readonly">
+          <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control"  readonly="readonly">
         </div>
 
         <hr>
@@ -67,6 +67,5 @@
     </div>
   </div>
 </div>
-
 </body>
-</html>`
+</html>

@@ -18,8 +18,10 @@ public class RecipeStepRepository {
     }
 
     public RecipeStep findOne(Long id) {
-
         return em.find(RecipeStep.class, id);
+    }
 
+    public void remove(Long id) {
+        em.remove(findOne(id));
     }
 }
