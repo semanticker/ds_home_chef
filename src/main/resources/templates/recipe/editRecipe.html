@@ -1,11 +1,48 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
+
+<script   src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
+
 <style>
     .fieldError {
         border-color: #bd2130;
     }
 </style>
+<script language="JavaScript">
+
+    function ttt() {
+
+        /*
+
+        <div>
+            <label>STEP <span>1</span></label>
+            <input type="text" value="3" class="form-control" id="recipeStepList0.id" name="recipeStepList[0].id">
+            <input type="text" value="U" class="form-control" id="recipeStepList0.status" name="recipeStepList[0].status">
+            <input type="text" value="0" class="form-control" id="recipeStepList0.step" name="recipeStepList[0].step">
+            <input type="text" value="물을 끓인다.11" class="form-control" id="recipeStepList0.howTo" name="recipeStepList[0].howTo">
+            <input type="text" value="image03" class="form-control" id="recipeStepList0.img" name="recipeStepList[0].img">
+        </div>
+
+         */
+
+
+
+        var newRowAdd =
+            '<div>' +
+                '<label>STEP <span>1</span></label>' +
+                '<input type="text" value="3" className="form-control" id="recipeStepList0.id" name="recipeStepList[0].id">' +
+                    '<input type="text" value="U" className="form-control" id="recipeStepList0.status" name="recipeStepList[0].status">' +
+                    '<input type="text" value="0" className="form-control" id="recipeStepList0.step" name="recipeStepList[0].step">' +
+                    '<input type="text" value="물을 끓인다.11" className="form-control" id="recipeStepList0.howTo" name="recipeStepList[0].howTo">' +
+                    '<input type="text" value="image03" className="form-control" id="recipeStepList0.img" name="recipeStepList[0].img">' +
+            '</div>';
+
+        $('#newinput').parent().append(newRowAdd);
+
+    }
+
+</script>
 <body>
 
 <div class="container">
@@ -50,14 +87,17 @@
                 <div th:each="recipeStep, iStat: ${form.recipeStepList}">
                     <label >STEP <span th:text="${iStat.index}+1"></span></label>
                     <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
+                    <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
                     <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
                     <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
                     <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
                 </div>
 
+                <div id="newinput"></div>
 
                 <hr>
                 <div class="form-group">
+                    <button type="button" class="btn btn-primary" onclick="javascript:ttt();">추가</button>
                     <button type="submit" class="btn btn-primary">저장</button>
                     <button type="button" class="btn btn-primary" onclick="location.href='/recipe'">목록</button>
                 </div>
