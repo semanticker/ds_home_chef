@@ -11,6 +11,19 @@
 </style>
 <script language="JavaScript">
 
+
+    $(document).ready(function() {
+
+        $('button .fa-plus-square').on('click', bb);
+    });
+
+    function bb(a,b,c){
+        console.log(a);
+        console.log(b);
+        console.log(c);
+    }
+
+
     function ttt() {
 
         /*
@@ -111,14 +124,25 @@
 
                 <div id="steps">
 
-                <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="mb-3">
-                    <label >STEP <span th:text="${iStat.index}+1"></span></label>
-                    <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
-                    <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
-                    <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
-                    <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
-                    <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
-                </div>
+                    <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="mb-3">
+                        <div class="form-group" style="clear: both">
+                            <label >STEP <span th:text="${iStat.index}+1"></span></label>
+                            <span>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fas fa-plus-square"></i>
+                                    <i class="fas fa-minus-square"></i>
+                                    <i class="fas fa-chevron-up"></i>
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </span>
+                            <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
+                            <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
+                            <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
+                            <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
+                            <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
+                            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
+                        </div>
+                    </div>
 
                 <div id="newinput"></div>
 
