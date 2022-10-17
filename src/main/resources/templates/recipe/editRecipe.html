@@ -27,18 +27,45 @@
          */
 
 
+        const idx = (new Date()).getTime();
 
         var newRowAdd =
-            '<div>' +
+            '<div class="mb-3">' +
                 '<label>STEP <span>1</span></label>' +
-                '<input type="text" value="3" className="form-control" id="recipeStepList0.id" name="recipeStepList[0].id">' +
-                    '<input type="text" value="U" className="form-control" id="recipeStepList0.status" name="recipeStepList[0].status">' +
-                    '<input type="text" value="0" className="form-control" id="recipeStepList0.step" name="recipeStepList[0].step">' +
-                    '<input type="text" value="물을 끓인다.11" className="form-control" id="recipeStepList0.howTo" name="recipeStepList[0].howTo">' +
-                    '<input type="text" value="image03" className="form-control" id="recipeStepList0.img" name="recipeStepList[0].img">' +
+                '<input type="text" class="form-control" id="recipeStepList0.id" name="recipeStepList[' + idx +'].id">' +
+                    '<input type="text" value="I" class="form-control" id="recipeStepList0.status" name="recipeStepList[' + idx +'].status">' +
+                    '<input type="text" value="0" class="form-control" id="recipeStepList0.step" name="recipeStepList[' + idx +'].step">' +
+                    '<input type="text" class="form-control" id="recipeStepList0.howTo" name="recipeStepList[' + idx +'].howTo">' +
+                    '<input type="text" class="form-control" id="recipeStepList0.img" name="recipeStepList[' + idx +'].img">' +
             '</div>';
 
-        $('#newinput').parent().append(newRowAdd);
+        //$('#newinput').parent().append(newRowAdd);
+
+        const aa = $('form div.mb-3:last');
+
+        aa.after(newRowAdd);
+
+    }
+
+    function setIndex() {
+
+        const ss = $('div#steps').children();
+
+        for (let i = 0; i < ss.length; i++) {
+
+            var inputs = $(ss[i]).children('input');
+
+            for (let j = 0; j < inputs.length; j++) {
+                var old = inputs[j].name;
+                console.log(old);
+
+                var newName = old.substring(0, old.indexOf("[")) + '[' + i + '].' + old.substring(old.lastIndexOf('.')+1);
+                console.log(newName)
+                inputs[j].name = newName;
+            }
+
+        }
+
 
     }
 
@@ -82,9 +109,9 @@
                     </div>
                 </div>
 
+                <div id="steps">
 
-
-                <div th:each="recipeStep, iStat: ${form.recipeStepList}">
+                <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="mb-3">
                     <label >STEP <span th:text="${iStat.index}+1"></span></label>
                     <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
                     <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
@@ -95,9 +122,11 @@
 
                 <div id="newinput"></div>
 
+                </div>
+
                 <hr>
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" onclick="javascript:ttt();">추가</button>
+                    <button type="button" class="btn btn-primary" onclick="ttt();">추가</button>
                     <button type="submit" class="btn btn-primary">저장</button>
                     <button type="button" class="btn btn-primary" onclick="location.href='/recipe'">목록</button>
                 </div>
@@ -107,4 +136,4 @@
 </div>
 
 </body>
-</html>`
+</html>

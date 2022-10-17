@@ -4,7 +4,6 @@ package kr.mythings.ds.mychef.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,6 +32,7 @@ public class Recipe extends BaseEntity{
 
     @OneToMany
     @JoinColumn(name = "recipe_id")
+    @OrderBy("step ASC")
     private List<RecipeStep> recipeStepList = new ArrayList<>();
 
     public Recipe(String name) {
@@ -40,8 +40,6 @@ public class Recipe extends BaseEntity{
         LocalDateTime now = LocalDateTime.now();
         this.setEnterBy("hyojong-insert");
         this.setEnterDate(now);
-        //this.setModifyBy("hyojong-update");
-        //this.setModifyDate(LocalDateTime.now().plusHours(2));
     }
 
 

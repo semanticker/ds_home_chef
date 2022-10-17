@@ -64,8 +64,8 @@ public class RecipeService {
 
     public void update(RecipeForm form) {
 
-        Long id = form.getId();
-        Recipe recipe = recipeRepository.findOne(id);
+        Long recipeId = form.getId();
+        Recipe recipe = recipeRepository.findOne(recipeId);
         recipe.setName(form.getName());
         recipe.setRecipeFrom(form.getRecipeFrom());
         recipe.setModifyBy("hyojong-update");
@@ -75,6 +75,7 @@ public class RecipeService {
 
         if (recipeStepList != null && !recipeStepList.isEmpty()) {
 
+            int stepNo = 1;
             for (RecipeStepDTO recipeStepDTO : recipeStepList) {
 
                 // 입력
@@ -82,8 +83,8 @@ public class RecipeService {
                     // create
                     RecipeStep recipeStep = new RecipeStep();
                     recipeStep.create(
-                            recipeStepDTO.getRecipeId(),
-                            recipeStepDTO.getStep(),
+                            recipeId,
+                            stepNo++,
                             recipeStepDTO.getHowTo(),
                             recipeStepDTO.getImg()
                     );
@@ -93,7 +94,7 @@ public class RecipeService {
                     // status 에 따른 설정
 
                     RecipeStep recipeStep = recipeStepRepository.findOne(recipeStepDTO.getId());
-                    recipeStep.setStep(recipeStepDTO.getStep());
+                    recipeStep.setStep(stepNo++);
                     recipeStep.setHowTo(recipeStepDTO.getHowTo());
                     recipeStep.setImg(recipeStepDTO.getImg());
                 } else if (recipeStepDTO.getId() != null && Status.D == recipeStepDTO.getStatus()) {
