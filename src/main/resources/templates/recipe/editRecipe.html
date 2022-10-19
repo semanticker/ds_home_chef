@@ -13,7 +13,6 @@
 
 
     $(document).ready(function() {
-
         $('button .fa-plus-square').on('click', bb);
     });
 
@@ -23,6 +22,10 @@
         console.log(c);
     }
 
+    function add(obj) {
+        a = obj;
+        console.log(obj);
+    }
 
     function ttt() {
 
@@ -42,15 +45,7 @@
 
         const idx = (new Date()).getTime();
 
-        var newRowAdd =
-            '<div class="mb-3">' +
-                '<label>STEP <span>1</span></label>' +
-                '<input type="text" class="form-control" id="recipeStepList0.id" name="recipeStepList[' + idx +'].id">' +
-                    '<input type="text" value="I" class="form-control" id="recipeStepList0.status" name="recipeStepList[' + idx +'].status">' +
-                    '<input type="text" value="0" class="form-control" id="recipeStepList0.step" name="recipeStepList[' + idx +'].step">' +
-                    '<input type="text" class="form-control" id="recipeStepList0.howTo" name="recipeStepList[' + idx +'].howTo">' +
-                    '<input type="text" class="form-control" id="recipeStepList0.img" name="recipeStepList[' + idx +'].img">' +
-            '</div>';
+        var newRowAdd = getStep(idx);
 
         //$('#newinput').parent().append(newRowAdd);
 
@@ -58,6 +53,19 @@
 
         aa.after(newRowAdd);
 
+    }
+
+    function getStep(index) {
+         const  obj = '<div class="mb-3">' +
+            '<label>STEP <span>1</span></label>' +
+            '<input type="text" class="form-control" id="recipeStepList[$1].id" name="recipeStepList[$1].id">' +
+            '<input type="text" value="I" class="form-control" id="recipeStepList[$1].status" name="recipeStepList[$1].status">' +
+            '<input type="text" value="0" class="form-control" id="recipeStepList[$1].step" name="recipeStepList[$1].step">' +
+            '<input type="text" class="form-control" id="recipeStepList[$1].howTo" name="recipeStepList[$1].howTo">' +
+            '<input type="text" class="form-control" id="recipeStepList[$1].img" name="recipeStepList[$1].img">' +
+            '</div>';
+
+         return obj.replaceAll('$1', index);
     }
 
     function setIndex() {
@@ -125,15 +133,23 @@
                 <div id="steps">
 
                     <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="mb-3">
-                        <div class="form-group" style="clear: both">
+                        <div class="form-group" >
                             <label >STEP <span th:text="${iStat.index}+1"></span></label>
                             <span>
-                                <button type="button" class="btn btn-default">
-                                    <i class="fas fa-plus-square"></i>
-                                    <i class="fas fa-minus-square"></i>
-                                    <i class="fas fa-chevron-up"></i>
-                                    <i class="fas fa-chevron-down"></i>
-                                </button>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default" onclick="javascript:add(this)">
+                                        <i class="fas fa-plus-square"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-default">
+                                        <i class="fas fa-minus-square"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-default">
+                                        <i class="fas fa-chevron-up"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-default">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
                             </span>
                             <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
                             <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
