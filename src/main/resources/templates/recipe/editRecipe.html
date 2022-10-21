@@ -56,7 +56,7 @@
 
         //$('#newinput').parent().append(newRowAdd);
 
-        const aa = $('form div.mb-3:last');
+        const aa = $('form div.form-group:last');
 
         aa.after(newRowAdd);
 
@@ -69,7 +69,7 @@
      * @returns {string}
      */
     function getStep(index) {
-         const  obj = '<div class="mb-3">' +
+         const  obj = '<div class="form-group" >' +
             '<label>STEP <span>$1</span></label>' +
             '<input type="text" class="form-control" id="recipeStepList[$1].id" name="recipeStepList[$1].id" placeholder="자동생성">' +
             '<input type="text" value="I" class="form-control" id="recipeStepList[$1].status" name="recipeStepList[$1].status" placeholder="I/U/D">' +
@@ -88,6 +88,8 @@
         for (let i = 0; i < ss.length; i++) {
 
             var inputs = $(ss[i]).children('input');
+
+            console.log(inputs.length);
 
             for (let j = 0; j < inputs.length; j++) {
                 var old = inputs[j].name;
@@ -145,32 +147,30 @@
 
                 <div id="steps">
 
-                    <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="mb-3">
-                        <div class="form-group" >
-                            <label >STEP <span th:text="${iStat.index}+1"></span></label>
-                            <span>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" onclick="javascript:add(this)">
-                                        <i class="fas fa-plus-square"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default">
-                                        <i class="fas fa-minus-square"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default">
-                                        <i class="fas fa-chevron-up"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                </div>
-                            </span>
-                            <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
-                            <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
-                            <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
-                            <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
-                            <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
-                            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
-                        </div>
+                    <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="form-group" >
+                        <label >STEP <span th:text="${iStat.index}+1"></span></label>
+                        <span>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default" onclick="javascript:add(this)">
+                                    <i class="fas fa-plus-square"></i>
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fas fa-minus-square"></i>
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fas fa-chevron-up"></i>
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                            </div>
+                        </span>
+                        <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
+                        <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
+                        <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
+                        <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
+                        <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
+                        <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
                     </div>
 
                 <div id="newinput"></div>
