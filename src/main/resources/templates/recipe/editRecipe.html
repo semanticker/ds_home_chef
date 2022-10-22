@@ -22,37 +22,27 @@
         console.log(c);
     }
 
+    function getParentObj(obj) {
+        return $(obj).parentsUntil('div#step', 'div.form-group');
+    }
+
     function add(obj) {
 
         // 상위
+        var parentObj = getParentObj(obj);
 
-        var parentObj = $(obj).parentsUntil('div#step', 'div.form-group');
-
+        // 임시 stepNum
         const idx = (new Date()).getTime();
 
-        parentObj.after(getStep(idx));
-
+        // 부모 객체 밑에 레시피 단계를 추가한다.
+        parentObj.after(getNewStep(idx));
     }
 
     function ttt() {
 
-        /*
-
-        <div>
-            <label>STEP <span>1</span></label>
-            <input type="text" value="3" class="form-control" id="recipeStepList0.id" name="recipeStepList[0].id">
-            <input type="text" value="U" class="form-control" id="recipeStepList0.status" name="recipeStepList[0].status">
-            <input type="text" value="0" class="form-control" id="recipeStepList0.step" name="recipeStepList[0].step">
-            <input type="text" value="물을 끓인다.11" class="form-control" id="recipeStepList0.howTo" name="recipeStepList[0].howTo">
-            <input type="text" value="image03" class="form-control" id="recipeStepList0.img" name="recipeStepList[0].img">
-        </div>
-
-         */
-
-
         const idx = (new Date()).getTime();
 
-        var newRowAdd = getStep(idx);
+        var newRowAdd = getNewStep(idx);
 
         //$('#newinput').parent().append(newRowAdd);
 
@@ -68,7 +58,7 @@
      * @param index
      * @returns {string}
      */
-    function getStep(index) {
+    function getNewStep(index) {
          const  obj = '<div class="form-group" >' +
             '<label>STEP <span>$1</span></label>' +
             '<input type="text" class="form-control" id="recipeStepList[$1].id" name="recipeStepList[$1].id" placeholder="자동생성">' +
