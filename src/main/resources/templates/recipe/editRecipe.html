@@ -36,6 +36,16 @@
 
         // 부모 객체 밑에 레시피 단계를 추가한다.
         parentObj.after(getNewStep(idx));
+
+        setIndex();
+    }
+
+    function remove(obj) {
+        // 상위
+        const parentObj = getParentObj(obj);
+        parentObj.css("remove");
+        const statusInput = parentObj.children('input[name*=\'status\']');
+        statusInput.val('D');
     }
 
     function ttt() {
@@ -144,7 +154,7 @@
                                 <button type="button" class="btn btn-default" onclick="javascript:add(this)">
                                     <i class="fas fa-plus-square"></i>
                                 </button>
-                                <button type="button" class="btn btn-default">
+                                <button type="button" class="btn btn-default" onclick="javascript:remove(this)">
                                     <i class="fas fa-minus-square"></i>
                                 </button>
                                 <button type="button" class="btn btn-default">
