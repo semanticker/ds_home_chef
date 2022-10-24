@@ -48,6 +48,32 @@
         statusInput.val('D');
     }
 
+    function up(obj) {
+        const parentObj = getParentObj(obj);
+        // 이전 obj
+        const targetObj = parentObj.prev('div.form-group');
+
+        // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
+        if (targetObj.length != 0) {
+            const thisObj = parentObj.detach();
+            targetObj.before(thisObj);
+            setIndex();
+        }
+    }
+
+    function down(obj) {
+        const parentObj = getParentObj(obj);
+        // 이전 obj
+        const targetObj = parentObj.next('div.form-group');
+
+        // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
+        if (targetObj.length != 0) {
+            const thisObj = parentObj.detach();
+            targetObj.after(thisObj);
+            setIndex();
+        }
+    }
+
     function ttt() {
 
         const idx = (new Date()).getTime();
@@ -157,10 +183,10 @@
                                 <button type="button" class="btn btn-default" onclick="javascript:remove(this)">
                                     <i class="fas fa-minus-square"></i>
                                 </button>
-                                <button type="button" class="btn btn-default">
+                                <button type="button" class="btn btn-default" onclick="javascript:up(this)">
                                     <i class="fas fa-chevron-up"></i>
                                 </button>
-                                <button type="button" class="btn btn-default">
+                                <button type="button" class="btn btn-default" onclick="javascript:down(this)">
                                     <i class="fas fa-chevron-down"></i>
                                 </button>
                             </div>
