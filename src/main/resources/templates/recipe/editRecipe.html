@@ -8,6 +8,9 @@
     .fieldError {
         border-color: #bd2130;
     }
+    .objDelete {
+        text-decoration: line-through;
+    }
 </style>
 <script language="JavaScript">
 
@@ -41,11 +44,43 @@
     }
 
     function remove(obj) {
+
+        // 삭제 상태가 아닌 경우
+
+
         // 상위
         const parentObj = getParentObj(obj);
-        parentObj.css("remove");
-        const statusInput = parentObj.children('input[name*=\'status\']');
-        statusInput.val('D');
+        const statusObj = getStatusObj(parentObj);//parentObj.children('input[name*=\'status\']');
+        const stepIdObj = getStepIdObj(parentObj);
+
+        // bb = parentObj;
+
+        if (statusObj.val() == 'D') {
+
+            if (stepIdObj.val() == '') {
+                statusObj.val('I');
+            } else {
+                statusObj.val('U');
+            }
+
+            // 입력 혹은 삭제
+            parentObj.removeClass("objDelete");
+        } else {
+            parentObj.addClass("objDelete");
+            statusObj.val('D');
+        }
+    }
+
+    function getStatusObj(obj) {
+        return obj.children('input[name*=\'status\']');
+    }
+
+    function getStepIdObj(obj) {
+        return obj.children('input[name*=\'id\']');
+    }
+
+    function getStatusVal(obj) {
+        return obj.children('input[name*=\'status\']').val();
     }
 
     function up(obj) {
@@ -65,6 +100,8 @@
         const parentObj = getParentObj(obj);
         // 이전 obj
         const targetObj = parentObj.next('div.form-group');
+
+        aa = parentObj;
 
         // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
         if (targetObj.length != 0) {
@@ -97,6 +134,22 @@
     function getNewStep(index) {
          const  obj = '<div class="form-group" >' +
             '<label>STEP <span>$1</span></label>' +
+             '<span>' +
+                '<div className="btn-group">' +
+                    '<button type="button" className="btn btn-default" onClick="javascript:add(this)">' +
+                        '<i className="fas fa-plus-square"></i>' +
+                    '</button>' +
+                    '<button type="button" className="btn btn-default" onClick="javascript:remove(this)">' +
+                        '<i className="fas fa-minus-square"></i>' +
+                    '</button>' +
+                    '<button type="button" className="btn btn-default" onClick="javascript:up(this)">' +
+                        '<i className="fas fa-chevron-up"></i>' +
+                    '</button>' +
+                    '<button type="button" className="btn btn-default" onClick="javascript:down(this)">' +
+                        '<i className="fas fa-chevron-down"></i>' +
+                    '</button>' +
+                '</div>' +
+            '</span>' +
             '<input type="text" class="form-control" id="recipeStepList[$1].id" name="recipeStepList[$1].id" placeholder="자동생성">' +
             '<input type="text" value="I" class="form-control" id="recipeStepList[$1].status" name="recipeStepList[$1].status" placeholder="I/U/D">' +
             '<input type="text" value="0" class="form-control" id="recipeStepList[$1].step" name="recipeStepList[$1].step" placeholder="단계번호">' +
@@ -163,7 +216,7 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="recipeFrom">레시피 출처</label>
+                    <label th:for="recipeFrom">레시피 출처</label>
                     <input type="text" th:field="*{recipeFrom}" class="form-control" placeholder="레시피 이름을 입력하세요"
                            th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
                     <div class="invalid-feedback">
