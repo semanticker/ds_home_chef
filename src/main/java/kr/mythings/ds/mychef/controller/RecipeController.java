@@ -63,7 +63,8 @@ public class RecipeController {
     public String update(@PathVariable("id") Long recipeId, @Valid @ModelAttribute("recipeForm") RecipeForm form, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "recipe/" + recipeId + "/edit";
+            String urlEditRecipe = "recipe/" + recipeId + "/edit";
+            return urlEditRecipe;
         }
 
         recipeService.update(form);
@@ -90,6 +91,6 @@ public class RecipeController {
 
     @DeleteMapping("/recipe/{id}")
     public String delete() {
-        return "";
+        return "redirect:/recipe";
     }
 }

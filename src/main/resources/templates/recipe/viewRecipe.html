@@ -1,10 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" th:time="레시시 보기" />
 <style>
-  .fieldError {
-    border-color: #bd2130;
-  }
   .input-group-text, .form-control {
     margin-top: .5rem;
   }
@@ -42,12 +39,9 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="recipeFrom">레시피 출처</label>
+          <label th:for="recipeFrom">레시피 출처</label>
           <input type="text" th:field="*{recipeFrom}" class="form-control" readonly="readonly"
                  th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
-          <div class="invalid-feedback">
-            Please enter your shipping address.
-          </div>
         </div>
 
         <div th:each="recipeStep, iStat: ${form.recipeStepList}">

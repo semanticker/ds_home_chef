@@ -28,8 +28,6 @@ public class RecipeStep {
 
     private String img;
 
-    private Status status;
-
     public void create(Long recipeId, int step, String howTo, String img) {
         this.recipeId = recipeId;
         this.step = step;
