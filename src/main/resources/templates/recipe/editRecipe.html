@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 
-<script   src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
 
 <style>
     .fieldError {
@@ -197,7 +197,7 @@
     <div class="row">
         <div class="col-md">
             <h4 class="mb-3">Recipe Info.</h4>
-            <form role="form" th:action="@{|/recipe/${form.id}/edit|}" th:object="${form}" method="post">
+            <form role="form" th:action="@{|/recipe/${form.id}/edit|}" th:object="${form}" method="post" nctype="multipart/form-data">
                 <div class="mb-3">
                     <label th:for="name">레시피 이름</label>
                     <div class="input-group">
@@ -249,6 +249,8 @@
                         <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
                         <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
                         <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
+                        <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
+                        <input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">
                         <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
                     </div>
 
