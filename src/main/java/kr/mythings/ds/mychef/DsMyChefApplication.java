@@ -18,7 +18,7 @@ public class DsMyChefApplication {
 
     @Bean(initMethod = "start", destroyMethod = "stop")
     public Server h2Server() throws SQLException {
-        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9091");
+        return Server.createTcpServer().start();
     }
 
 /*    @Bean(initMethod = "start", destroyMethod = "stop")

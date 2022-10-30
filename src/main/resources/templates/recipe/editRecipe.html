@@ -119,7 +119,12 @@
 
         //$('#newinput').parent().append(newRowAdd);
 
-        const aa = $('form div.form-group:last');
+        //const aa = $('form div.form-group:last');
+        //const aa = $('form div.form-group:last');
+        var aa = $('form div#steps div.form-group:last');
+        if (aa.length == 0) {
+            aa = $('form div#newinput');
+        }
 
         aa.after(newRowAdd);
 
