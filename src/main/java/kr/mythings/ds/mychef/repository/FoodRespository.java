@@ -1,6 +1,7 @@
 package kr.mythings.ds.mychef.repository;
 
 import kr.mythings.ds.mychef.domain.Food;
+import kr.mythings.ds.mychef.form.ListTypeDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;

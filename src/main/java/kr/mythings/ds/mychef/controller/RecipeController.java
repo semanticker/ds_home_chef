@@ -1,5 +1,6 @@
 package kr.mythings.ds.mychef.controller;
 
+import kr.mythings.ds.mychef.form.ListTypeDTO;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;
 import kr.mythings.ds.mychef.service.RecipeService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -28,23 +30,28 @@ public class RecipeController {
 
     @GetMapping("/recipe/new")
     public String add(Model model){
+
+        List<ListTypeDTO> foodCodeList = recipeService.getFoodCodeList();
+
+        model.addAttribute("foodCodeList", foodCodeList);
         model.addAttribute("recipeForm", new RecipeForm());
         return "recipe/createRecipe";
     }
 
     @PostMapping("/recipe/new")
-    public String save(@Valid RecipeForm form, BindingResult result) {
+    public String save(@Valid RecipeForm recipeForm, BindingResult result) {
 
         if (result.hasErrors()) {
             return "recipe/createRecipe";
         }
+
+        recipeService.add(recipeForm);
         
-        return "redirect:/";
+        return "redirect:/recipe";
     }
 
     @GetMapping("/recipe/{id}/edit")
     public String edit(@PathVariable("id") Long recipeId, Model model) {
-
 
         RecipeDTO recipeDTO = recipeService.findOne(recipeId);
 

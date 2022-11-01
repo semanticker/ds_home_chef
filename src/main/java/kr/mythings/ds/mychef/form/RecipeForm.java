@@ -14,6 +14,9 @@ public class RecipeForm {
 
     private Long id;
 
+    @NotEmpty(message = "음식은 필수 입력 입니다.")
+    private Long foodId;
+
     @NotEmpty(message = "레시피 이름은 필수 입니다.")
     private String name;
 

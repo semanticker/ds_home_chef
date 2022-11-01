@@ -2,10 +2,8 @@ package kr.mythings.ds.mychef.service;
 
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.RecipeStep;
-import kr.mythings.ds.mychef.form.RecipeDTO;
-import kr.mythings.ds.mychef.form.RecipeForm;
-import kr.mythings.ds.mychef.form.RecipeStepDTO;
-import kr.mythings.ds.mychef.form.Status;
+import kr.mythings.ds.mychef.form.*;
+import kr.mythings.ds.mychef.repository.FoodRespository;
 import kr.mythings.ds.mychef.repository.RecipeRepository;
 import kr.mythings.ds.mychef.repository.RecipeStepRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +18,8 @@ import java.util.stream.Collectors;
 @Transactional
 @RequiredArgsConstructor
 public class RecipeService {
+
+    private final FoodRespository foodRespository;
 
     private final RecipeRepository recipeRepository;
     private final RecipeStepRepository recipeStepRepository;
@@ -104,5 +104,29 @@ public class RecipeService {
 
 
         }
+    }
+
+    public List<ListTypeDTO> getFoodCodeList() {
+
+        /*
+
+        List<OrderDto> collect = all.stream()
+                .map(o -> new OrderDto(o))
+                .collect(Collectors.toList());
+         */
+        return foodRespository.findAll(null)
+                .stream().map(o-> new ListTypeDTO(String.valueOf(o.getId()), o.getName()))
+                .collect(Collectors.toList());
+
+    }
+
+    public void add(RecipeForm recipeForm) {
+
+        Recipe recipe = new Recipe();
+        recipe.setFood(foodRespository.findOne(recipeForm.getFoodId()));
+        recipe.setName(recipeForm.getName());
+        recipe.setRecipeFrom(recipeForm.getRecipeFrom());
+        recipe.setEnterBy("hyojong-insert");
+        recipe.setEnterDate(LocalDateTime.now());
     }
 }
