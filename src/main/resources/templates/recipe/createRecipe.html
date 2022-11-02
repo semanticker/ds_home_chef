@@ -204,7 +204,16 @@
         <div class="col-md">
             <h4 class="mb-3">Recipe Info.</h4>
             <form role="form" action="/recipe/new" th:object="${recipeForm}" method="post" nctype="multipart/form-data">
-                <div
+                <div class="mb-3">
+                    <label th:for="recipeFrom">음식</label>
+
+                    <select th:field="*{foodId}" class="form-select">
+                        <option value="">음식</option>
+                        <option th:each="foodCode : ${foodCodeList}" th:value="${foodCode.code}"
+                                th:text="${foodCode.text}">FAST</option>
+                    </select>
+
+                </div>
                 <div class="mb-3">
                     <label th:for="name">레시피 이름</label>
                     <div class="input-group">

@@ -128,5 +128,7 @@ public class RecipeService {
         recipe.setRecipeFrom(recipeForm.getRecipeFrom());
         recipe.setEnterBy("hyojong-insert");
         recipe.setEnterDate(LocalDateTime.now());
+
+        recipeRepository.save(recipe);
     }
 }

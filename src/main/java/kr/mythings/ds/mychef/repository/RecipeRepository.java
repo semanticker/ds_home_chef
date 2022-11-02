@@ -33,4 +33,8 @@ public class RecipeRepository {
 
         return em.find(Recipe.class, recipeId);
     }
+
+    public void save(Recipe recipe) {
+        em.persist(recipe);
+    }
 }
