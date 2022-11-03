@@ -123,7 +123,7 @@ public class RecipeService {
     public void add(RecipeForm recipeForm) {
 
         Recipe recipe = new Recipe();
-        recipe.setFood(foodRespository.findOne(recipeForm.getFoodId()));
+        recipe.setFood(foodRespository.findOne(Long.valueOf(recipeForm.getFoodId())));
         recipe.setName(recipeForm.getName());
         recipe.setRecipeFrom(recipeForm.getRecipeFrom());
         recipe.setEnterBy("hyojong-insert");
