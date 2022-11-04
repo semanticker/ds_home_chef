@@ -22,6 +22,12 @@
       <h4 class="mb-3">Recipe Info.</h4>
       <form role="form" th:object="${form}">
         <div class="mb-3">
+          <label th:for="foodName">음식이름</label>
+          <input type="text" th:field="*{foodName}" class="form-control" readonly="readonly" th:class="form-control">
+        </div>
+
+
+        <div class="mb-3">
           <label th:for="name">레시피 이름</label>
           <div class="input-group">
             <div class="input-group-prepend">

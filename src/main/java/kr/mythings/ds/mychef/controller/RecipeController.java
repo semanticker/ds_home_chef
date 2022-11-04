@@ -42,7 +42,7 @@ public class RecipeController {
     public String save(@Valid RecipeForm recipeForm, BindingResult result) {
 
         if (result.hasErrors()) {
-            return "recipe/createRecipe";
+            return "redirect:/recipe/new";
         }
 
         recipeService.add(recipeForm);
