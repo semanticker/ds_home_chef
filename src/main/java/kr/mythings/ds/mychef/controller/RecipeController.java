@@ -57,10 +57,15 @@ public class RecipeController {
 
         RecipeForm form = new RecipeForm();
         form.setId(recipeDTO.getId());
+        form.setFoodId(recipeDTO.getFoodId());
+        form.setFoodName(recipeDTO.getFoodName());
         form.setName(recipeDTO.getName());
         form.setRecipeFrom(recipeDTO.getRecipeFrom());
         form.setRecipeStepList(recipeDTO.getRecipeStepList());
 
+        List<ListTypeDTO> foodCodeList = recipeService.getFoodCodeList();
+
+        model.addAttribute("foodCodeList", foodCodeList);
         model.addAttribute("form", form);
 
         return "recipe/editRecipe";
@@ -88,6 +93,7 @@ public class RecipeController {
         RecipeForm recipeForm = new RecipeForm();
         recipeForm.setId(recipeDTO.getId());
         recipeForm.setName(recipeDTO.getName());
+        recipeForm.setFoodName(recipeDTO.getFoodName());
         recipeForm.setRecipeFrom(recipeDTO.getRecipeFrom());
         recipeForm.setRecipeStepList(recipeDTO.getRecipeStepList());
 

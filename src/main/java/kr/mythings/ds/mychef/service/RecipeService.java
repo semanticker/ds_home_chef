@@ -45,6 +45,8 @@ public class RecipeService {
         Recipe recipe = recipeRepository.findOne(recipeId);
 
         RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName(), recipe.getRecipeFrom());
+        recipeDTO.setFoodId(String.valueOf(recipe.getFood().getId()));
+        recipeDTO.setFoodName(recipe.getFood().getName());
 
         List<RecipeStepDTO> collect = recipe.getRecipeStepList().stream()
                 .map(m -> new RecipeStepDTO(
@@ -67,6 +69,7 @@ public class RecipeService {
         Long recipeId = form.getId();
         Recipe recipe = recipeRepository.findOne(recipeId);
         recipe.setName(form.getName());
+        recipe.setFood(foodRespository.findOne(Long.valueOf(form.getFoodId())));
         recipe.setRecipeFrom(form.getRecipeFrom());
         recipe.setModifyBy("hyojong-update");
         recipe.setModifyDate(LocalDateTime.now());

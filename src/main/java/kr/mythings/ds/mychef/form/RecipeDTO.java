@@ -14,6 +14,7 @@ public class RecipeDTO {
 
     private String name;
 
+    private String foodId;
     private String foodName;
 
     private String recipeFrom;
