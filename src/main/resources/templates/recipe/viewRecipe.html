@@ -50,11 +50,20 @@
                  th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
         </div>
 
-        <div th:each="recipeStep, iStat: ${form.recipeStepList}">
-          <label >STEP <span th:text="${iStat.index}+1"></span></label>
-          <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control"  readonly="readonly">
-          <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control"  readonly="readonly">
-          <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control"  readonly="readonly">
+        <div id="steps">
+          <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="form-group" >
+            <label >STEP <span th:text="${iStat.index}+1"></span></label>
+
+            <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
+            <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control" readonly="readonly" >
+            <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control" readonly="readonly" >
+            <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control" readonly="readonly" >
+            <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control" readonly="readonly" >
+            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control" readonly="readonly" >
+            <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
+            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control" readonly="readonly" >
+          </div>
+          <div id="newinput"></div>
         </div>
 
         <hr>

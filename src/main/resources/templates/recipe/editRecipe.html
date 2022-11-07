@@ -159,7 +159,7 @@
             '<input type="text" value="I" class="form-control" id="recipeStepList[$1].status" name="recipeStepList[$1].status" placeholder="I/U/D">' +
             '<input type="text" value="0" class="form-control" id="recipeStepList[$1].step" name="recipeStepList[$1].step" placeholder="단계번호">' +
             '<input type="text" class="form-control" id="recipeStepList[$1].howTo" name="recipeStepList[$1].howTo" placeholder="레시피 단계를 입력하세요">' +
-            '<input type="file" class="form-control" id="recipeStepList[$1].uploadFile" name="recipeStepList[$1].uploadFile" placeholder="업로드할 이미지를 선택하세요">' +
+            //'<input type="file" class="form-control" id="recipeStepList[$1].uploadFile" name="recipeStepList[$1].uploadFile" placeholder="업로드할 이미지를 선택하세요">' +
              '<input type="text" class="form-control" id="recipeStepList[$1].img" name="recipeStepList[$1].img" placeholder="첨부파일">' +
             '</div>';
 
@@ -248,7 +248,6 @@
                 </div>
 
                 <div id="steps">
-
                     <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="form-group" >
                         <label >STEP <span th:text="${iStat.index}+1"></span></label>
                         <span>
@@ -273,12 +272,10 @@
                         <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
                         <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
                         <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
-                        <input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">
+                        <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
                         <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
                     </div>
-
-                <div id="newinput"></div>
-
+                    <div id="newinput"></div>
                 </div>
 
                 <hr>
