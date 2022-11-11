@@ -1,6 +1,9 @@
 package kr.mythings.ds.mychef.controller;
 
+import kr.mythings.ds.mychef.form.CustomerDTO;
 import kr.mythings.ds.mychef.form.CustomerForm;
+import kr.mythings.ds.mychef.service.CustomerService;
+import kr.mythings.ds.mychef.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,13 +14,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class CustomerController {
 
+    private final CustomerService customerService;
+
     @GetMapping("/customer")
-    public String list(){
+    public String list(Model model){
+        List<CustomerDTO> list = customerService.list();
+
+        model.addAttribute("list", list);
         return "customer/customerList";
     }
 
