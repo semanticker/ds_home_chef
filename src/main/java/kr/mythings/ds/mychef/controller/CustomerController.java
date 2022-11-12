@@ -27,7 +27,7 @@ public class CustomerController {
         List<CustomerDTO> list = customerService.list();
 
         model.addAttribute("list", list);
-        return "customer/customerList";
+        return "customer/listCustomer";
     }
 
     @GetMapping("/customer/new")
