@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" th:time="레시시 보기" />
+<style>
+  .input-group-text, .form-control {
+    margin-top: .5rem;
+  }
+</style>
+<body>
+
+
+
+<div class="container">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" src="/image/chef.png" alt="" width="72" height="72">
+    <!--<h2>Checkout form</h2>
+    <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
+  </div>
+
+  <div class="row">
+    <div class="col-md">
+      <h4 class="mb-3">Recipe Info.</h4>
+      <form role="form" th:object="${form}">
+        <div class="mb-3">
+          <label th:for="foodName">음식이름</label>
+          <input type="text" th:field="*{foodName}" class="form-control" readonly="readonly" th:class="form-control">
+        </div>
+
+
+        <div class="mb-3">
+          <label th:for="name">레시피 이름</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">@</span>
+            </div>
+            <input type="text" th:field="*{name}" class="form-control" readonly="readonly" placeholder="레시피 이름을 입력하세요"
+                   th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
+            <div class="invalid-feedback">
+              <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
+            </div>
+            <div class="is-invalid">
+            </div>
+            <!--<div class="invalid-tooltip">
+            </div>-->
+          </div>
+        </div>
+        <div class="mb-3">
+          <label th:for="recipeFrom">레시피 출처</label>
+          <input type="text" th:field="*{recipeFrom}" class="form-control" readonly="readonly"
+                 th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
+        </div>
+
+        <div id="steps">
+          <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="form-group" >
+            <label >STEP <span th:text="${iStat.index}+1"></span></label>
+
+            <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
+            <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control" readonly="readonly" >
+            <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control" readonly="readonly" >
+            <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control" readonly="readonly" >
+            <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control" readonly="readonly" >
+            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control" readonly="readonly" >
+            <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
+            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control" readonly="readonly" >
+          </div>
+          <div id="newinput"></div>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+          <button type="button" class="btn btn-primary" onclick="location.href='/recipe'">목록</button>
+          <button type="button" class="btn btn-primary" th:onclick="|location.href='/recipe/${form.id}/edit'|">수정</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

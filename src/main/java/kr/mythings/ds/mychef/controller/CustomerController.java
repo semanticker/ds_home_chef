@@ -1,5 +1,6 @@
 package kr.mythings.ds.mychef.controller;
 
+import kr.mythings.ds.mychef.domain.Customer;
 import kr.mythings.ds.mychef.form.CustomerDTO;
 import kr.mythings.ds.mychef.form.CustomerForm;
 import kr.mythings.ds.mychef.service.CustomerService;
@@ -43,6 +44,9 @@ public class CustomerController {
             return "customer/createCustomer";
         }
 
+        Customer customer = new Customer(form.getName());
+        customerService.add(customer);
+
         return "redirect:/";
     }
 
@@ -65,9 +69,16 @@ public class CustomerController {
 
 
     @GetMapping("/customer/{id}")
-    public String detail() {
+    public String detail(@PathVariable("id") Long customerId, Model model) {
 
-        return "";
+        Customer customer = customerService.findOne(customerId);
+        CustomerForm form = new CustomerForm();
+        form.setId(customer.getId());
+        form.setName(customer.getName());
+
+        model.addAttribute("form", form);
+
+        return "customer/viewCustomer";
     }
 
     @DeleteMapping("/customer/{id}")

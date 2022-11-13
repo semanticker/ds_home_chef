@@ -29,4 +29,14 @@ public class CustomerService {
 
         return collect;
     }
+
+    public Customer findOne(Long customerId) {
+        return customerRepository.findOne(customerId);
+    }
+
+    public Long add(Customer customer) {
+        customerRepository.add(customer);
+
+        return customer.getId();
+    }
 }

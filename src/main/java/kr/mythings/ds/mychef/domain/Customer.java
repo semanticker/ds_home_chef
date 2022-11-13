@@ -25,5 +25,12 @@ public class Customer extends BaseEntity {
 
     boolean active = false;
 
+    public Customer(String name) {
+        this.name = name;
+        LocalDateTime now = LocalDateTime.now();
+        this.setEnterBy("hyojong-insert");
+        this.setEnterDate(now);
+    }
+
 
 }
