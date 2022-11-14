@@ -1,8 +1,10 @@
 package kr.mythings.ds.mychef.controller;
 
 import kr.mythings.ds.mychef.domain.Customer;
+import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.form.CustomerDTO;
 import kr.mythings.ds.mychef.form.CustomerForm;
+import kr.mythings.ds.mychef.form.FoodForm;
 import kr.mythings.ds.mychef.service.CustomerService;
 import kr.mythings.ds.mychef.service.FoodService;
 import lombok.RequiredArgsConstructor;
@@ -52,8 +54,16 @@ public class CustomerController {
 
     @GetMapping("/customer/{id}/edit")
     public String edit(@PathVariable("id") Long customerId, Model model) {
+        Customer customer = customerService.findOne(customerId);
+
+        CustomerForm form = new CustomerForm();
+        form.setId(customer.getId());
+        form.setName(customer.getName());
+
+        model.addAttribute("form", form);
 
         return "customer/editCustomer";
+
     }
 
     @PostMapping("/customer/{id}/edit")
@@ -63,8 +73,9 @@ public class CustomerController {
             return "customer/" + customerId + "/edit";
         }
 
+        customerService.update(form);
 
-        return "customer/customerList";
+        return "redirect:/customer";
     }
 
 

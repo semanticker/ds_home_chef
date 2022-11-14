@@ -63,7 +63,7 @@ public class FoodController {
     }
 
     @PostMapping("/food/{id}/edit")
-    public String update(@PathVariable("id") Long foodId, @Valid FoodForm form, BindingResult result, Model model) {
+    public String update(@PathVariable("id") Long foodId, @Valid FoodForm form, BindingResult result) {
 
         if (result.hasErrors()) {
             return "food/" + foodId + "/edit";
