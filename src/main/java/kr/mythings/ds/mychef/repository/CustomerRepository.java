@@ -29,4 +29,8 @@ public class CustomerRepository {
     public void add(Customer customer) {
         em.persist(customer);
     }
+
+    public void delete(Long customerId) {
+        em.remove(em.find(Customer.class, customerId));
+    }
 }

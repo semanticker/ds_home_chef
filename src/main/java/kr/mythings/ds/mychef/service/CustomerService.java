@@ -50,4 +50,8 @@ public class CustomerService {
         one.setModifyBy("hyojong-update");
         one.setModifyDate(LocalDateTime.now());
     }
+
+    public void delete(Long customerId) {
+        customerRepository.delete(customerId);
+    }
 }
