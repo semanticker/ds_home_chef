@@ -92,7 +92,7 @@ public class CustomerController {
         return "customer/viewCustomer";
     }
 
-    @DeleteMapping("/customer/{id}/delete")
+    @GetMapping("/customer/{id}/delete")
     public String delete(@PathVariable("id") Long customerId) {
 
         customerService.delete(customerId);
