@@ -37,4 +37,8 @@ public class RecipeRepository {
     public void save(Recipe recipe) {
         em.persist(recipe);
     }
+
+    public void delete(Long recipeId) {
+        em.remove(em.find(Recipe.class, recipeId));
+    }
 }

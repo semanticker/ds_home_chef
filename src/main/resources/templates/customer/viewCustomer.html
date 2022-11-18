@@ -11,11 +11,11 @@
         const msg = '정말 삭제 하나요?';
 
         if (confirm(msg)) {
-            const form1 = $('form');
+            const form = $('form');
 
-            form1.attr('method', 'DELETE');
-            form1.attr('action', '/customer/' + id + '/delete');
-            form1.submit();
+            form.attr('method', 'DELETE');
+            form.attr('action', '/customer/' + id + '/delete');
+            form.submit();
         }
 
     }

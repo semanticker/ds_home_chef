@@ -134,4 +134,8 @@ public class RecipeService {
 
         recipeRepository.save(recipe);
     }
+
+    public void delete(Long recipeId) {
+        recipeRepository.delete(recipeId);
+    }
 }

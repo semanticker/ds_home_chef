@@ -1,6 +1,27 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" th:time="레시시 보기" />
+
+<script src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
+
+<script  th:inline="javascript">
+
+  function deleteRecipe(id) {
+
+    const msg = '정말 삭제 하나요?';
+
+    if (confirm(msg)) {
+      const form = $('form');
+
+      form.attr('method', 'DELETE');
+      form.attr('action', '/recipe/' + id + '/delete');
+      form.submit();
+    }
+
+  }
+
+</script>
+
 <style>
   .input-group-text, .form-control {
     margin-top: .5rem;
@@ -71,6 +92,7 @@
         <div class="form-group">
           <button type="button" class="btn btn-primary" onclick="location.href='/recipe'">목록</button>
           <button type="button" class="btn btn-primary" th:onclick="|location.href='/recipe/${form.id}/edit'|">수정</button>
+          <button type="button" class="btn btn-primary" th:onclick="|deleteRecipe('${form.id}')|">삭제</button>
         </div>
       </form>
     </div>

@@ -30,7 +30,7 @@ public class Recipe extends BaseEntity{
 
     private String name;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
     @OrderBy("step ASC")
     private List<RecipeStep> recipeStepList = new ArrayList<>();
