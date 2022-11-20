@@ -17,6 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FoodController {
 
+    static final String REDIRECT_FOOD_LIST = "redirect:/food";
+
     private final FoodService foodService;
 
     @GetMapping("/food")
@@ -45,7 +47,7 @@ public class FoodController {
         Food food = new Food(form.getName());
 
         foodService.add(food);
-        return "redirect:/";
+        return REDIRECT_FOOD_LIST;
     }
 
     @GetMapping("/food/{id}/edit")
@@ -65,13 +67,15 @@ public class FoodController {
     @PostMapping("/food/{id}/edit")
     public String update(@PathVariable("id") Long foodId, @Valid FoodForm form, BindingResult result) {
 
+        String  path = "food/" + foodId + "/edit";
+
         if (result.hasErrors()) {
-            return "food/" + foodId + "/edit";
+            return path;
         }
 
         foodService.update(form);
 
-        return "redirect:/food";
+        return REDIRECT_FOOD_LIST;
     }
 
 
@@ -89,9 +93,10 @@ public class FoodController {
         return "food/viewFood";
     }
 
-    @DeleteMapping("/food/{id}")
-    public String delete() {
-        return "";
+    @GetMapping("/food/{id}/delete")
+    public String delete(@PathVariable("id") Long foodId) {
+        foodService.delete(foodId);
+        return REDIRECT_FOOD_LIST;
     }
 
 }

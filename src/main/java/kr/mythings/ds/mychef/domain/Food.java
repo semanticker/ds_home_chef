@@ -21,7 +21,7 @@ public class Food extends BaseEntity{
 
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "food_id")
     private List<Recipe> recipes = new ArrayList<>();
 
@@ -30,7 +30,5 @@ public class Food extends BaseEntity{
         LocalDateTime now = LocalDateTime.now();
         this.setEnterBy("hyojong-insert");
         this.setEnterDate(now);
-        //this.setModifyBy("hyojong-update");
-        //this.setModifyDate(LocalDateTime.now().plusHours(2));
     }
 }

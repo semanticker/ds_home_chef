@@ -21,7 +21,7 @@ public class FoodRespository {
         return em.find(Food.class, foodId);
     }
 
-    public List<Food> findAll(FoodSearch foodSearch) {
+    public List<Food> findAll() {
 
         String query = "select f from Food f";
 
@@ -29,5 +29,9 @@ public class FoodRespository {
                 //.setFirstResult(foodSearch.getOffset())
                 //.setMaxResults(foodSearch.getLimit())
                 .getResultList();
+    }
+
+    public void delete(Long foodId) {
+        em.remove(em.find(Food.class, foodId));
     }
 }
