@@ -110,14 +110,7 @@ public class RecipeService {
     }
 
     public List<ListTypeDTO> getFoodCodeList() {
-
-        /*
-
-        List<OrderDto> collect = all.stream()
-                .map(o -> new OrderDto(o))
-                .collect(Collectors.toList());
-         */
-        return foodRespository.findAll(null)
+        return foodRespository.findAll()
                 .stream().map(o-> new ListTypeDTO(String.valueOf(o.getId()), o.getName()))
                 .collect(Collectors.toList());
 
