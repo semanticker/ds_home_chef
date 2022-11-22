@@ -1,17 +1,13 @@
 package kr.mythings.ds.mychef.controller;
 
 import kr.mythings.ds.mychef.domain.Customer;
-import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.form.CustomerDTO;
 import kr.mythings.ds.mychef.form.CustomerForm;
-import kr.mythings.ds.mychef.form.FoodForm;
 import kr.mythings.ds.mychef.service.CustomerService;
-import kr.mythings.ds.mychef.service.FoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +18,8 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class CustomerController {
+
+    static final String REDIRECT_CUSTOMER_LIST = "redirect:/customer";
 
     private final CustomerService customerService;
 
@@ -49,7 +47,7 @@ public class CustomerController {
         Customer customer = new Customer(form.getName());
         customerService.add(customer);
 
-        return "redirect:/";
+        return REDIRECT_CUSTOMER_LIST;
     }
 
     @GetMapping("/customer/{id}/edit")
@@ -67,15 +65,17 @@ public class CustomerController {
     }
 
     @PostMapping("/customer/{id}/edit")
-    public String update(@PathVariable("id") Long customerId, @Valid CustomerForm form, BindingResult result, Model model) {
+    public String update(@PathVariable("id") Long customerId, @Valid CustomerForm form, BindingResult result) {
+
+        String path = "/customer/" + customerId + "/edit";
 
         if (result.hasErrors()) {
-            return "customer/" + customerId + "/edit";
+            return path;
         }
 
         customerService.update(form);
 
-        return "redirect:/customer";
+        return REDIRECT_CUSTOMER_LIST;
     }
 
 
@@ -97,6 +97,6 @@ public class CustomerController {
 
         customerService.delete(customerId);
 
-        return "redirect:/customer";
+        return REDIRECT_CUSTOMER_LIST;
     }
 }
