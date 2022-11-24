@@ -1,14 +1,12 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>음식</title>
+</head>
 
-<script   src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.12.1/datatables.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css"/>
-
-
-
+<script type="text/javascript" src="/js/jquery-3.6.1.js"></script>
+<script type="text/javascript" src="/js/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap4.min.css"/>
 
 <script>
     let table;
@@ -27,9 +25,9 @@
         });
 
         $('#example tbody').on('click', 'tr', function () {
-            var data = table.row(this).data();
+            let data = table.row(this).data();
 
-            var id = data['id'];
+            let id = data['id'];
 
             if (id) {
                 location.href = 'food/' + id;
@@ -54,10 +52,6 @@
             </tr>
             </thead>
             <tbody>
-            <!--<tr th:each="item : ${list}">
-                <td th:text="${item.id}"></td>
-                <td th:text="${item.name}"></td>
-            </tr>-->
         </table>
     </div>
 
