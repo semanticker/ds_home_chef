@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>음식 보기</title>
+</head>
 
-<script src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
+<script src="/js/jquery-3.6.1.js"></script>
 
-<script  th:inline="javascript">
-
+<script th:inline="javascript">
     function deleteFood(id) {
 
         const msg = '정말 삭제 하나요?';
@@ -19,23 +20,16 @@
         }
 
     }
-
 </script>
 
-<style>
-    .fieldError {
-        border-color: #bd2130;
-    }
-</style>
+
 <body>
 
 
 
 <div class="container">
     <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="/image/chef.png" alt="" width="72" height="72">
-        <!--<h2>Checkout form</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
+        <img class="d-block mx-auto mb-4" src="/image/chef_72_72.png" alt="" width="72" height="72">
     </div>
 
     <div class="row">
@@ -48,32 +42,18 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">@</span>
                         </div>
-                        <input type="text" th:field="*{name}" class="form-control" readonly="readonly" placeholder="음식 이름을 입력하세요"
+                        <input type="text" id="name" th:field="*{name}" class="form-control" readonly="readonly" placeholder="음식 이름을 입력하세요"
                                th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
                         <div class="invalid-feedback">
                             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
                         </div>
-                        <div class="is-invalid">
-                            a
-                        </div>
-                        <div class="invalid-tooltip">
-
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" readonly="readonly" placeholder="1234 Main St" >
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
                     </div>
                 </div>
                 <hr>
-
                 <div class="form-group">
                     <button type="button" class="btn btn-primary" onclick="location.href='/food'">목록</button>
                     <button type="button" class="btn btn-primary" th:onclick="|location.href='/food/${form.id}/edit'|">수정</button>
-                    <button type="button" class="btn btn-primary" th:onclick="|deleteFood('${form.id}')|">삭제</button>
+                    <button type="button" class="btn btn-primary" th:attr="onclick=|deleteFood('${form.id}')|">삭제</button>
                 </div>
             </form>
         </div>
