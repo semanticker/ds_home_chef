@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>레시피 생성</title>
+</head>
 
-<script src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/jquery-3.6.1.js"></script>
 
 <style>
     .fieldError {
@@ -205,9 +207,9 @@
             <h4 class="mb-3">Recipe Info.</h4>
             <form role="form" action="/recipe/new" th:object="${recipeForm}" method="post" nctype="multipart/form-data">
                 <div class="mb-3">
-                    <label th:for="recipeFrom">음식</label>
+                    <label th:for="foodId">음식</label>
                     <div class="input-group">
-                        <select th:field="*{foodId}" class="form-select">
+                        <select id="foodId" th:field="*{foodId}" class="form-select">
                             <option value="">음식</option>
                             <option th:each="foodCode : ${foodCodeList}" th:value="${foodCode.code}"
                                     th:text="${foodCode.text}">FAST</option>
@@ -227,7 +229,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">@</span>
                         </div>
-                        <input type="text" th:field="*{name}" class="form-control" placeholder="레시피 이름을 입력하세요"
+                        <input type="text" id="name" th:field="*{name}" class="form-control" placeholder="레시피 이름을 입력하세요"
                                th:class="${#fields.hasErrors('name')}? 'form-control fieldError' : 'form-control'">
                         <div class="invalid-feedback">
                             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
@@ -240,7 +242,7 @@
                 </div>
                 <div class="mb-3">
                     <label th:for="recipeFrom">레시피 출처</label>
-                    <input type="text" th:field="*{recipeFrom}" class="form-control" placeholder="레시피 이름을 입력하세요"
+                    <input type="text" id="recipeFrom" th:field="*{recipeFrom}" class="form-control" placeholder="레시피 이름을 입력하세요"
                            th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
                     <div class="invalid-feedback">
                         Please enter your shipping address.
@@ -269,13 +271,12 @@
                                 </div>
                             </span>
                             <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
-                            <input type="text" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
-                            <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
-                            <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
+                            <input type="hidden" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
+                            <input type="hidden" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
+                            <input type="hidden" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
                             <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
                             <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
                             <input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">
-                            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
                         </div>
                     </div>
 
