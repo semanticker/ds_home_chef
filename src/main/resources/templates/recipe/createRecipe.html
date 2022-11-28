@@ -14,7 +14,7 @@
         text-decoration: line-through;
     }
 </style>
-<script language="JavaScript">
+<script>
 
 
     $(document).ready(function() {
@@ -34,7 +34,7 @@
     function add(obj) {
 
         // 상위
-        var parentObj = getParentObj(obj);
+        const parentObj = getParentObj(obj);
 
         // 임시 stepNum
         const idx = (new Date()).getTime();
@@ -57,9 +57,9 @@
 
         // bb = parentObj;
 
-        if (statusObj.val() == 'D') {
+        if (statusObj.val() === 'D') {
 
-            if (stepIdObj.val() == '') {
+            if (stepIdObj.val() === '') {
                 statusObj.val('I');
             } else {
                 statusObj.val('U');
@@ -81,17 +81,13 @@
         return obj.children('input[name*=\'id\']');
     }
 
-    function getStatusVal(obj) {
-        return obj.children('input[name*=\'status\']').val();
-    }
-
     function up(obj) {
         const parentObj = getParentObj(obj);
         // 이전 obj
         const targetObj = parentObj.prev('div.form-group');
 
-        // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
-        if (targetObj.length != 0) {
+        // todo : jquery selection 결과가 있는지 확인하는 구문이 필요함.
+        if (targetObj.length !== 0) {
             const thisObj = parentObj.detach();
             targetObj.before(thisObj);
             setIndex();
@@ -103,10 +99,8 @@
         // 이전 obj
         const targetObj = parentObj.next('div.form-group');
 
-        aa = parentObj;
-
-        // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
-        if (targetObj.length != 0) {
+        // todo : jquery selection 결과가 있는지 확인하는 구문이 필요함.
+        if (targetObj.length !== 0) {
             const thisObj = parentObj.detach();
             targetObj.after(thisObj);
             setIndex();
@@ -117,18 +111,14 @@
 
         const idx = (new Date()).getTime();
 
-        var newRowAdd = getNewStep(idx);
+        const newRowAdd = getNewStep(idx);
 
-        //$('#newinput').parent().append(newRowAdd);
-
-        //const aa = $('form div.form-group:last');
-        //const aa = $('form div.form-group:last');
-        var aa = $('form div#steps div.form-group:last');
-        if (aa.length == 0) {
-            aa = $('form div#newinput');
+        let lastInput = $('form div#steps div.form-group:last');
+        if (lastInput.length === 0) {
+            lastInput = $('form div#newinput');
         }
 
-        aa.after(newRowAdd);
+        lastInput.after(newRowAdd);
 
         setIndex();
     }
@@ -142,18 +132,18 @@
         const  obj = '<div class="form-group" >' +
             '<label>STEP <span>$1</span></label>' +
             '<span>' +
-            '<div className="btn-group">' +
-            '<button type="button" className="btn btn-default" onClick="javascript:add(this)">' +
-            '<i className="fas fa-plus-square"></i>' +
+            '<div class="btn-group">' +
+            '<button type="button" class="btn btn-default" onClick="javascript:add(this)">' +
+            '<i class="fas fa-plus-square"></i>' +
             '</button>' +
-            '<button type="button" className="btn btn-default" onClick="javascript:remove(this)">' +
-            '<i className="fas fa-minus-square"></i>' +
+            '<button type="button" class="btn btn-default" onClick="javascript:remove(this)">' +
+            '<i class="fas fa-minus-square"></i>' +
             '</button>' +
-            '<button type="button" className="btn btn-default" onClick="javascript:up(this)">' +
-            '<i className="fas fa-chevron-up"></i>' +
+            '<button type="button" class="btn btn-default" onClick="javascript:up(this)">' +
+            '<i class="fas fa-chevron-up"></i>' +
             '</button>' +
-            '<button type="button" className="btn btn-default" onClick="javascript:down(this)">' +
-            '<i className="fas fa-chevron-down"></i>' +
+            '<button type="button" class="btn btn-default" onClick="javascript:down(this)">' +
+            '<i class="fas fa-chevron-down"></i>' +
             '</button>' +
             '</div>' +
             '</span>' +
@@ -174,15 +164,15 @@
 
         for (let i = 0; i < ss.length; i++) {
 
-            var inputs = $(ss[i]).children('input');
+            const inputs = $(ss[i]).children('input');
 
             console.log(inputs.length);
 
             for (let j = 0; j < inputs.length; j++) {
-                var old = inputs[j].name;
+                const old = inputs[j].name;
                 console.log(old);
 
-                var newName = old.substring(0, old.indexOf("[")) + '[' + i + '].' + old.substring(old.lastIndexOf('.')+1);
+                const newName = old.substring(0, old.indexOf("[")) + '[' + i + '].' + old.substring(old.lastIndexOf('.')+1);
                 console.log(newName)
                 inputs[j].name = newName;
             }
@@ -197,7 +187,7 @@
 
 <div class="container">
     <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="/image/chef.png" alt="" width="72" height="72">
+        <img class="d-block mx-auto mb-4" src="/image/chef_72_72.png" alt="쉐프이미지">
         <!--<h2>Checkout form</h2>
         <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
     </div>
@@ -205,7 +195,8 @@
     <div class="row">
         <div class="col-md">
             <h4 class="mb-3">Recipe Info.</h4>
-            <form role="form" action="/recipe/new" th:object="${recipeForm}" method="post" nctype="multipart/form-data">
+            <form role="form" action="/recipe/new" th:object="${recipeForm}" method="post"
+                  enctype="multipart/form-data">
                 <div class="mb-3">
                     <label th:for="foodId">음식</label>
                     <div class="input-group">
@@ -250,36 +241,6 @@
                 </div>
 
                 <div id="steps">
-
-                    <div th:if="${not #lists.isEmpty(recipeStepList)}">
-                        <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="form-group" >
-                            <label >STEP <span th:text="${iStat.index}+1"></span></label>
-                            <span>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default" onclick="add(this)">
-                                        <i class="fas fa-plus-square"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default" onclick="remove(this)">
-                                        <i class="fas fa-minus-square"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default" onclick="up(this)">
-                                        <i class="fas fa-chevron-up"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default" onclick="down(this)">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </button>
-                                </div>
-                            </span>
-                            <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
-                            <input type="hidden" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control">
-                            <input type="hidden" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
-                            <input type="hidden" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
-                            <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
-                            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
-                            <input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">
-                        </div>
-                    </div>
-
                     <div id="newinput"></div>
 
                 </div>
