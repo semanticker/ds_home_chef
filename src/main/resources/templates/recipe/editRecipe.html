@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<head th:replace="fragments/header :: header">
+    <title>레시피 수정</title>
+</head>
 
-<script src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
+<script type="text/javascript" src="/js/jquery-3.6.1.js"></script>
 
 <style>
     .fieldError {
@@ -32,7 +34,7 @@
     function add(obj) {
 
         // 상위
-        var parentObj = getParentObj(obj);
+        const parentObj = getParentObj(obj);
 
         // 임시 stepNum
         const idx = (new Date()).getTime();
@@ -101,8 +103,6 @@
         // 이전 obj
         const targetObj = parentObj.next('div.form-group');
 
-        aa = parentObj;
-
         // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
         if (targetObj.length != 0) {
             const thisObj = parentObj.detach();
@@ -115,18 +115,14 @@
 
         const idx = (new Date()).getTime();
 
-        var newRowAdd = getNewStep(idx);
+        const newRowAdd = getNewStep(idx);
 
-        //$('#newinput').parent().append(newRowAdd);
-
-        //const aa = $('form div.form-group:last');
-        //const aa = $('form div.form-group:last');
-        var aa = $('form div#steps div.form-group:last');
-        if (aa.length == 0) {
-            aa = $('form div#newinput');
+        let lastInput = $('form div#steps div.form-group:last');
+        if (lastInput.length == 0) {
+            lastInput = $('form div#newinput');
         }
 
-        aa.after(newRowAdd);
+        lastInput.after(newRowAdd);
 
         setIndex();
     }
@@ -168,19 +164,19 @@
 
     function setIndex() {
 
-        const ss = $('div#steps').children();
+        const stepsChild = $('div#steps').children();
 
-        for (let i = 0; i < ss.length; i++) {
+        for (let i = 0; i < stepsChild.length; i++) {
 
-            var inputs = $(ss[i]).children('input');
+            const inputs = $(stepsChild[i]).children('input');
 
             console.log(inputs.length);
 
             for (let j = 0; j < inputs.length; j++) {
-                var old = inputs[j].name;
+                const old = inputs[j].name;
                 console.log(old);
 
-                var newName = old.substring(0, old.indexOf("[")) + '[' + i + '].' + old.substring(old.lastIndexOf('.')+1);
+                const newName = old.substring(0, old.indexOf("[")) + '[' + i + '].' + old.substring(old.lastIndexOf('.')+1);
                 console.log(newName)
                 inputs[j].name = newName;
             }
