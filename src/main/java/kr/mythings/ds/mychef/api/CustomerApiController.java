@@ -1,7 +1,6 @@
 package kr.mythings.ds.mychef.api;
 
 import kr.mythings.ds.mychef.form.CustomerDTO;
-import kr.mythings.ds.mychef.form.FoodDTO;
 import kr.mythings.ds.mychef.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -75,8 +75,7 @@ public class RecipeController {
     public String update(@PathVariable("id") Long recipeId, @Valid @ModelAttribute("recipeForm") RecipeForm form, BindingResult result) {
 
         if (result.hasErrors()) {
-            String urlEditRecipe = "recipe/" + recipeId + "/edit";
-            return urlEditRecipe;
+            return String.format("recipe/%s/edit", recipeId);
         }
 
         recipeService.update(form);
