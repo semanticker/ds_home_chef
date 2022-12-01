@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 public class RecipeService {
 
     private final FoodRespository foodRespository;
-
     private final RecipeRepository recipeRepository;
     private final RecipeStepRepository recipeStepRepository;
     public List<RecipeDTO> list() {

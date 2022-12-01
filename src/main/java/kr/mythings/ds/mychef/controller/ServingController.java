@@ -1,6 +1,9 @@
 package kr.mythings.ds.mychef.controller;
 
+import kr.mythings.ds.mychef.form.RecipeForm;
+import kr.mythings.ds.mychef.form.ServingDTO;
 import kr.mythings.ds.mychef.form.ServingForm;
+import kr.mythings.ds.mychef.service.ServingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,14 +14,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.Collections;
 
 @Controller
 @RequiredArgsConstructor
 public class ServingController {
+
+    private final ServingService servingService;
     
     @GetMapping("/serving")
-    public String list(){
-        return "serving/servingList";
+    public String list(Model model){
+
+        model.addAttribute("list", Collections.emptyList());
+
+        return "serving/listServing";
     }
 
     @GetMapping("/serving/new")
@@ -34,11 +43,17 @@ public class ServingController {
             return "serving/createServing";
         }
 
-        return "redirect:/";
+        return "redirect:/serving";
     }
 
     @GetMapping("/serving/{id}/edit")
     public String edit(@PathVariable("id") Long servingId, Model model) {
+
+        ServingDTO servingDTO = servingService.findOne(servingId);
+
+        ServingForm servingForm = new ServingForm();
+        servingForm.setId(servingDTO.getId());
+        model.addAttribute("form", servingForm);
 
         return "serving/editServing";
     }
@@ -47,22 +62,32 @@ public class ServingController {
     public String update(@PathVariable("id") Long servingId, @Valid ServingForm form, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            return "serving/" + servingId + "/edit";
+            return String.format("serving/%s/edit", servingId);
         }
 
+        servingService.update(form);
 
-        return "serving/servingList";
+        return "redirect:/serving";
     }
 
 
     @GetMapping("/serving/{id}")
-    public String detail() {
+    public String detail(@PathVariable("id") Long servingId, Model model) {
 
-        return "";
+        ServingDTO servingDTO = servingService.findOne(servingId);
+
+        ServingForm servingForm = new ServingForm();
+        servingForm.setId(servingId);
+
+        model.addAttribute("form", servingForm);
+        return "serving/viewServing";
     }
 
-    @DeleteMapping("/serving/{id}")
-    public String delete() {
-        return "";
+    @GetMapping("/serving/{id}/delete")
+    public String delete(@PathVariable("id") Long servingId) {
+
+        servingService.delete(servingId);
+
+        return "redirect:/serving";
     }
 }
