@@ -1,8 +1,7 @@
 package kr.mythings.ds.mychef.controller;
 
-import kr.mythings.ds.mychef.form.RecipeForm;
-import kr.mythings.ds.mychef.form.ServingDTO;
-import kr.mythings.ds.mychef.form.ServingForm;
+import kr.mythings.ds.mychef.form.*;
+import kr.mythings.ds.mychef.service.CustomerService;
 import kr.mythings.ds.mychef.service.ServingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,13 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
 public class ServingController {
 
     private final ServingService servingService;
-    
+    private final CustomerService customerService;
+
     @GetMapping("/serving")
     public String list(Model model){
 
@@ -32,6 +34,32 @@ public class ServingController {
 
     @GetMapping("/serving/new")
     public String add(Model model){
+
+
+        /*
+        List<RecipeStepDTO> collect = recipe.getRecipeStepList().stream()
+                .map(m -> new RecipeStepDTO(
+                        m.getId(),
+                        m.getRecipeId(),
+                        m.getStep(),
+                        m.getHowTo(),
+                        m.getImg()
+//Long id, Long recipeId, int step, String howTo, String img
+                ))
+                .collect(Collectors.toList());
+
+         */
+
+        ServingForm servingForm = new ServingForm();
+
+        List<CustomerDTO> list = customerService.list();
+        List<CustomerRatingDTO> collect = list.stream()
+                .map(m -> new CustomerRatingDTO(m.getId(), m.getName())).collect(Collectors.toList());
+
+        servingForm.setCustomerRatingList(collect);
+
+
+
         model.addAttribute("servingForm", new ServingForm());
         return "serving/createServing";
     }

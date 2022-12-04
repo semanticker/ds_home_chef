@@ -3,7 +3,9 @@ package kr.mythings.ds.mychef.form;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +23,8 @@ public class ServingForm {
 
     private String recipeFrom;
 
-    private ArrayList<CustomerDTO> list;
+    private List<CustomerRatingDTO> customerRatingList;
 
+    private LocalDateTime servingDate;
 
 }
