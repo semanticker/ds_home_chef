@@ -3,6 +3,7 @@ package kr.mythings.ds.mychef.service;
 import kr.mythings.ds.mychef.domain.Food;
 import kr.mythings.ds.mychef.form.FoodDTO;
 import kr.mythings.ds.mychef.form.FoodForm;
+import kr.mythings.ds.mychef.form.ListTypeDTO;
 import kr.mythings.ds.mychef.repository.FoodRespository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,5 +50,11 @@ public class FoodService {
 
     public void delete(Long foodId) {
         foodRespository.delete(foodId);
+    }
+
+    public List<ListTypeDTO> getFoodCodeList() {
+        return foodRespository.findAll()
+                .stream().map(o-> new ListTypeDTO(String.valueOf(o.getId()), o.getName()))
+                .collect(Collectors.toList());
     }
 }

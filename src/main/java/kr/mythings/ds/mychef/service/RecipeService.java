@@ -108,12 +108,7 @@ public class RecipeService {
         }
     }
 
-    public List<ListTypeDTO> getFoodCodeList() {
-        return foodRespository.findAll()
-                .stream().map(o-> new ListTypeDTO(String.valueOf(o.getId()), o.getName()))
-                .collect(Collectors.toList());
 
-    }
 
     public void add(RecipeForm recipeForm) {
 

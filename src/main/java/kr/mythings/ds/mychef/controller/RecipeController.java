@@ -3,6 +3,7 @@ package kr.mythings.ds.mychef.controller;
 import kr.mythings.ds.mychef.form.ListTypeDTO;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.RecipeForm;
+import kr.mythings.ds.mychef.service.FoodService;
 import kr.mythings.ds.mychef.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecipeController {
 
+    private final FoodService foodService;
     private final RecipeService recipeService;
 
     @GetMapping("/recipe")
@@ -31,7 +33,7 @@ public class RecipeController {
     @GetMapping("/recipe/new")
     public String add(Model model){
 
-        List<ListTypeDTO> foodCodeList = recipeService.getFoodCodeList();
+        List<ListTypeDTO> foodCodeList = foodService.getFoodCodeList();
 
         model.addAttribute("foodCodeList", foodCodeList);
         model.addAttribute("recipeForm", new RecipeForm());
@@ -63,7 +65,7 @@ public class RecipeController {
         form.setRecipeFrom(recipeDTO.getRecipeFrom());
         form.setRecipeStepList(recipeDTO.getRecipeStepList());
 
-        List<ListTypeDTO> foodCodeList = recipeService.getFoodCodeList();
+        List<ListTypeDTO> foodCodeList = foodService.getFoodCodeList();
 
         model.addAttribute("foodCodeList", foodCodeList);
         model.addAttribute("form", form);

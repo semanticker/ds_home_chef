@@ -2,6 +2,7 @@ package kr.mythings.ds.mychef.controller;
 
 import kr.mythings.ds.mychef.form.*;
 import kr.mythings.ds.mychef.service.CustomerService;
+import kr.mythings.ds.mychef.service.FoodService;
 import kr.mythings.ds.mychef.service.ServingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ServingController {
 
+    private final FoodService foodService;
     private final ServingService servingService;
+
     private final CustomerService customerService;
 
     @GetMapping("/serving")
@@ -50,7 +53,11 @@ public class ServingController {
 
          */
 
+
+
         ServingForm servingForm = new ServingForm();
+
+        List<ListTypeDTO> foodCodeList = foodService.getFoodCodeList();
 
         List<CustomerDTO> list = customerService.list();
         List<CustomerRatingDTO> collect = list.stream()
@@ -58,9 +65,8 @@ public class ServingController {
 
         servingForm.setCustomerRatingList(collect);
 
-
-
-        model.addAttribute("servingForm", new ServingForm());
+        model.addAttribute("foodCodeList", foodCodeList);
+        model.addAttribute("servingForm", servingForm);
         return "serving/createServing";
     }
 
