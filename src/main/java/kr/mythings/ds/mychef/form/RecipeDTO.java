@@ -38,4 +38,9 @@ public class RecipeDTO {
         this.foodName= foodName;
         this.recipeFrom= recipeFrom;
     }
+
+    public RecipeDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

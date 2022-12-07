@@ -125,4 +125,8 @@ public class RecipeService {
     public void delete(Long recipeId) {
         recipeRepository.delete(recipeId);
     }
+
+    public List<RecipeDTO> findFoodRecipeList(Long foodId) {
+        return recipeRepository.findFoodRecipe(foodId);
+    }
 }

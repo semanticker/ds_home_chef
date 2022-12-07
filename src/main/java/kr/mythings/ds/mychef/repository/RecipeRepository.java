@@ -1,6 +1,7 @@
 package kr.mythings.ds.mychef.repository;
 
 import kr.mythings.ds.mychef.domain.Recipe;
+import kr.mythings.ds.mychef.form.RecipeDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -40,5 +41,14 @@ public class RecipeRepository {
 
     public void delete(Long recipeId) {
         em.remove(em.find(Recipe.class, recipeId));
+    }
+
+    public List<RecipeDTO> findFoodRecipe(Long foodId) {
+        return em.createQuery(
+                        "select new kr.mythings.ds.mychef.form.RecipeDTO(r.id, r.name)" +
+                                " from Recipe r" +
+                                " where r.food.id = :foodId", RecipeDTO.class)
+                .setParameter("foodId", foodId)
+                .getResultList();
     }
 }
