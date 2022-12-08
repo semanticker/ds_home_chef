@@ -178,9 +178,64 @@
             }
 
         }
-
-
     }
+
+    function clearRecipeCodeList() {
+        $('#recipeId').children('option:not(:first)').remove();
+    }
+
+    function getRecipeCodeList() {
+
+       /* var submitObj = new Object();
+        submitObj.prgm_type= type;*/
+
+
+        let foodId = $('#foodId').val();
+
+        if (foodId === '') {
+            clearRecipeCodeList();
+        }
+
+        $.ajax({
+            url: "/api/v2/code/recipes/" + foodId,
+            type: "GET",
+            contentType: "application/json;charset=UTF-8",
+            //data:JSON.stringify(submitObj),
+            dataType: "json",
+            progress: true
+        }).done(function (data) {
+            console.log(data);
+
+            if (data.count > 0) {
+
+                clearRecipeCodeList();
+
+                for (var k in data.data) {
+                    var obj = data.data[k];
+
+                    var recipeOption = "<option value='" + obj.code +"'>" + obj.text + "</option>";
+                    $('#recipeId').append(recipeOption);
+                    console.log(obj);
+                }
+
+            }
+
+
+            /*$('#resv_program').children('option:not(:first)').remove();
+
+            var laborOption = "";
+            for(var k in data.programList){
+                var obj = data.programList[k];
+                var prgm_name = obj.prgm_name;
+                var prgm_idx = obj.prgm_idx;
+
+                laborOption = "<option value='" + prgm_idx + "'>" + prgm_name + "</option>";
+                $("#resv_program").append(laborOption);
+            }*/
+        });
+    }
+
+
 
 </script>
 <body>
@@ -199,7 +254,7 @@
                 <div class="mb-3">
                     <label th:for="foodId">음식</label>
                     <div class="input-group">
-                        <select id="foodId" th:field="*{foodId}" class="form-select">
+                        <select id="foodId" th:field="*{foodId}" class="form-select" onchange="getRecipeCodeList()">
                             <option value="">음식</option>
                             <option th:each="foodCode : ${foodCodeList}"
                                     th:value="${foodCode.code}"
@@ -212,6 +267,18 @@
                         </div>
                         <div class="invalid-tooltip">
                         </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label th:for="foodId">레시</label>
+                    <div class="input-group">
+                        <select id="recipeId" th:field="*{recipeId}" class="form-select">
+                            <option value="">레시피</option>
+                            <option th:each="recipeCode : ${recipeCodeList}"
+                                    th:value="${recipeCode.code}"
+                                    th:text="${recipeCode.text}">FAST</option>
+                        </select>
                     </div>
                 </div>
 
