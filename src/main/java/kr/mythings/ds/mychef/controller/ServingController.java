@@ -62,10 +62,11 @@ public class ServingController {
         List<CustomerDTO> list = customerService.list();
         List<CustomerRatingDTO> collect = list.stream()
                 .map(m -> new CustomerRatingDTO(m.getId(), m.getName())).collect(Collectors.toList());
-
         servingForm.setCustomerRatingList(collect);
 
+
         model.addAttribute("foodCodeList", foodCodeList);
+        model.addAttribute("customerList", collect);
         model.addAttribute("servingForm", servingForm);
         return "serving/createServing";
     }
@@ -76,6 +77,8 @@ public class ServingController {
         if (result.hasErrors()) {
             return "serving/createServing";
         }
+
+        servingService.add(form);
 
         return "redirect:/serving";
     }

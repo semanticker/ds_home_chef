@@ -15,6 +15,11 @@ public class CustomerRatingDTO {
 
     private Long rating;
 
+
+    public CustomerRatingDTO() {
+
+    }
+
     public CustomerRatingDTO(Long customerId, String customerName) {
         this.customerId = customerId;
         this.customerName = customerName;

@@ -23,7 +23,7 @@ public class ServingForm {
 
     private String recipeFrom;
 
-    private List<CustomerRatingDTO> customerRatingList;
+    private List<CustomerRatingDTO> customerRatingList = new ArrayList();
 
     private LocalDateTime servingDate;
 
