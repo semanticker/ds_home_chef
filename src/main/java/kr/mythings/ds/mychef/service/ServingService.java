@@ -58,7 +58,7 @@ public class ServingService {
                 .map(m -> new ServingDTO(
                         m.getId()
                         ,m.getFood().getName()
-                        ,"" // recipeName
+                        ,m.getRecipe() == null ? "" : m.getRecipe().getName()
                         ,String.valueOf(m.getServingDate())
                 ))
                 .collect(Collectors.toList());

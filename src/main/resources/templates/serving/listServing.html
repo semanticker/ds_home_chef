@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>서빙 목록</title>
+</head>
+
+<script type="text/javascript" src="/js/jquery-3.6.1.js"></script>
+<script type="text/javascript" src="/js/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap4.min.css"/>
+
+
+
+
+<script>
+    let table;
+    $(document).ready(function () {
+        table = $('#example').DataTable({
+            ajax: '/api/v2/servings',
+            columns: [
+                { data: 'id' },
+                { data: 'servingDate'},
+                { data: 'foodName' },
+                { data: 'recipeName' }
+            ],
+            // 엔터키를 눌러야 검색되게
+            search: {
+                return: true,
+            }/*,
+            paging: true*/
+        });
+
+        $('#example tbody').on('click', 'tr', function () {
+            var data = table.row(this).data();
+
+            var id = data['id'];
+
+            if (id) {
+                location.href = 'recipe/' + id;
+            }
+
+            //alert('You clicked on ' + data[0] + "'s row");
+        });
+    });
+</script>
+<body>
+
+<div class="container">
+
+    <div>
+
+
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>서빙 날짜</th>
+                <th>음식 이름</th>
+                <th>레시피 이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--<tr th:each="item : ${list}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+            </tr>-->
+        </table>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" onclick="location.href='/'">메인메뉴</button>
+        <button class="btn btn-primary" onclick="location.href='/recipe/new'">레시피 추가</button>
+    </div>
+
+</div>
+<!-- /container -->
+
+</body>
+</html>
