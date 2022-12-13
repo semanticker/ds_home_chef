@@ -1,5 +1,6 @@
 package kr.mythings.ds.mychef.controller;
 
+import kr.mythings.ds.mychef.common.DateFormat;
 import kr.mythings.ds.mychef.form.*;
 import kr.mythings.ds.mychef.service.CustomerService;
 import kr.mythings.ds.mychef.service.FoodService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,6 +67,11 @@ public class ServingController {
         servingForm.setCustomerRatingList(collect);
 
 
+        LocalDateTime ldt = LocalDateTime.now();
+
+        servingForm.setServingDate(ldt.format(DateFormat.DATE_TIME_FORMATTER_YMD));
+        servingForm.setServingTime(ldt.format(DateFormat.DATE_TIME_FORMATTER_HMS));
+
         model.addAttribute("foodCodeList", foodCodeList);
         model.addAttribute("customerList", collect);
         model.addAttribute("servingForm", servingForm);
@@ -114,7 +121,13 @@ public class ServingController {
         ServingDTO servingDTO = servingService.findOne(servingId);
 
         ServingForm servingForm = new ServingForm();
-        servingForm.setId(servingId);
+        servingForm.setId(servingDTO.getId());
+        servingForm.setFoodId(servingDTO.getFoodId());
+        servingForm.setFoodName(servingDTO.getFoodName());
+        servingForm.setRecipeId(servingDTO.getRecipeId());
+        servingForm.setRecipeName(servingDTO.getRecipeName());
+        servingForm.setRecipeFrom(servingDTO.getRecipeFrom());
+        servingForm.setServingDate(servingDTO.getServingDate());
 
         model.addAttribute("form", servingForm);
         return "serving/viewServing";

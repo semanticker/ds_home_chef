@@ -32,7 +32,6 @@ public class Serving extends BaseEntity{
 
     @OneToMany(orphanRemoval = true)
     @JoinColumn(name="serving_id")
-    @OrderBy("customerName ASC")
     private List<CustomerRating> customerRatingList = new java.util.ArrayList<>();
 
     private LocalDateTime servingDate;

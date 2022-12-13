@@ -25,6 +25,8 @@ public class ServingForm {
 
     private List<CustomerRatingDTO> customerRatingList = new ArrayList();
 
-    private LocalDateTime servingDate;
+    private String servingDate;
+
+    private String servingTime;
 
 }

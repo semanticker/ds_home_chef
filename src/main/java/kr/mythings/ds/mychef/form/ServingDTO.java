@@ -17,10 +17,13 @@ public class ServingDTO {
 
     private String servingDate;
 
-    public ServingDTO(Long id, String foodName, String recipeName, String servingDate) {
+    private String recipeFrom;
+
+    public ServingDTO(Long id, String foodName, String recipeName, String servingDate, String recipeFrom) {
         this.id = id;
         this.foodName = foodName;
         this.recipeName = recipeName;
         this.servingDate = servingDate;
+        this.recipeFrom = recipeFrom;
     }
 }
