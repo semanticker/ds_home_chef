@@ -1,5 +1,6 @@
 package kr.mythings.ds.mychef.service;
 
+import kr.mythings.ds.mychef.common.DateFormat;
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.Serving;
 import kr.mythings.ds.mychef.form.RecipeDTO;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +31,38 @@ public class ServingService {
 
 
     public ServingDTO findOne(Long servingId) {
-        return null;
+        Serving serving = servingRepository.findOne(servingId);
+
+        String foodName = null;
+
+        if (serving.getFood() != null) {
+            foodName = serving.getFood().getName();
+        }
+
+        String recipeName = null ;
+        String recipeFrom = null;
+
+        if (serving.getRecipe() != null) {
+            recipeName = serving.getRecipe().getName();
+            recipeFrom = serving.getRecipe().getRecipeFrom();
+        }
+
+        String servingDate = null;
+
+        if (serving.getServingDate() != null) {
+            servingDate = serving.getServingDate().format(DateFormat.DATE_TIME_FORMATTER_YMD);
+        }
+
+        ServingDTO servingDTO = new ServingDTO(
+                serving.getId()
+                ,foodName
+                ,recipeName
+                ,servingDate
+                ,recipeFrom
+        );
+
+        return servingDTO;
+
     }
 
     public void update(ServingForm form) {
@@ -40,12 +74,25 @@ public class ServingService {
     public void add(ServingForm form) {
 
         Serving serving = new Serving();
-        serving.setServingDate(form.getServingDate());
+
+        String strServingDate = form.getServingDate();
+
+        LocalDateTime servingDate = null;
+
+        if (strServingDate != null && !"".equals(strServingDate)) {
+
+            String servingTime = form.getServingTime();
+
+            if (servingTime == null || "".equals(serving)) {
+                servingTime = "00:00:00";
+            }
+
+            String strServingDateTime = String.format("%s %s", strServingDate, servingTime);
+            servingDate = LocalDateTime.parse(strServingDateTime, DateFormat.DATE_TIME_FORMATTER_FULL);
+        }
+        serving.setServingDate(servingDate);
         serving.setFood(foodRespository.findOne(Long.valueOf(form.getFoodId())));
         serving.setRecipe(recipeRepository.findOne(Long.valueOf(form.getRecipeId())));
-        serving.setServingDate(form.getServingDate());
-
-
 
         servingRepository.save(serving);
     }
@@ -60,6 +107,7 @@ public class ServingService {
                         ,m.getFood().getName()
                         ,m.getRecipe() == null ? "" : m.getRecipe().getName()
                         ,String.valueOf(m.getServingDate())
+                        ,m.getRecipe() == null ? "" : m.getRecipe().getRecipeFrom()
                 ))
                 .collect(Collectors.toList());
 

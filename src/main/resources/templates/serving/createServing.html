@@ -121,9 +121,9 @@
                     <label th:for="servingDate">서빙일자</label>
                     <input type="text" id="servingDate" th:field="*{servingDate}" class="form-control" placeholder="서빙 날짜를 입력하세요"
                            th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
+                    <input type="text" id="servingTime" th:field="*{servingTime}" class="form-control" placeholder="서빙 날짜를 입력하세요"
+                           th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
+
                 </div>
 
 
