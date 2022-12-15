@@ -102,15 +102,11 @@
                     <input type="text" id="servingDate" th:field="*{servingDate}" class="form-control" readonly="readonly">
                 </div>
 
-
-
-
-
-
                 <hr>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">저장</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='/recipe'">목록</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='/serving'">목록</button>
+                    <button type="button" class="btn btn-primary" th:onclick="|location.href='/serving/${form.id}/edit'|">수정</button>
+                    <button type="button" class="btn btn-primary" th:onclick="|deleteServing('${form.id}')|">삭제</button>
                 </div>
             </form>
         </div>

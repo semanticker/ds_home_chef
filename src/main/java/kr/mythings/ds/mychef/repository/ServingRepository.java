@@ -2,6 +2,7 @@ package kr.mythings.ds.mychef.repository;
 
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.Serving;
+import kr.mythings.ds.mychef.form.ServingDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -26,5 +27,9 @@ public class ServingRepository {
         return em.createQuery(query, Serving.class).getResultList();
 
 
+    }
+
+    public Serving findOne(Long servingId) {
+        return em.find(Serving.class, servingId);
     }
 }
