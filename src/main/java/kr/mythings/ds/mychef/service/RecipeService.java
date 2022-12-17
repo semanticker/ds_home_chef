@@ -1,5 +1,6 @@
 package kr.mythings.ds.mychef.service;
 
+import kr.mythings.ds.mychef.api.ApiController;
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.RecipeStep;
 import kr.mythings.ds.mychef.form.*;
@@ -128,5 +129,14 @@ public class RecipeService {
 
     public List<RecipeDTO> findFoodRecipeList(Long foodId) {
         return recipeRepository.findFoodRecipe(foodId);
+    }
+
+    public List<ListTypeDTO> getRecipeCodeList(Long foodId) {
+
+        List<RecipeDTO> list = this.findFoodRecipeList(foodId);
+
+        List<ListTypeDTO> codeList = list.stream().map(m->new ListTypeDTO(String.valueOf(m.getId()), m.getName())).collect(Collectors.toList());
+        return codeList;
+
     }
 }

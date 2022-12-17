@@ -4,6 +4,7 @@ import kr.mythings.ds.mychef.common.DateFormat;
 import kr.mythings.ds.mychef.form.*;
 import kr.mythings.ds.mychef.service.CustomerService;
 import kr.mythings.ds.mychef.service.FoodService;
+import kr.mythings.ds.mychef.service.RecipeService;
 import kr.mythings.ds.mychef.service.ServingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,10 @@ import java.util.stream.Collectors;
 public class ServingController {
 
     private final FoodService foodService;
+
+    private final RecipeService recipeService;
+
+
     private final ServingService servingService;
 
     private final CustomerService customerService;
@@ -96,6 +101,38 @@ public class ServingController {
         ServingDTO servingDTO = servingService.findOne(servingId);
 
         ServingForm servingForm = new ServingForm();
+
+        List<ListTypeDTO> foodCodeList = foodService.getFoodCodeList();
+        List<ListTypeDTO> recipeCodeList = Collections.emptyList();
+
+        if (servingDTO.getFoodId() != null && !"".equals(servingDTO.getFoodId())) {
+            recipeCodeList = recipeService.getRecipeCodeList(Long.valueOf(servingDTO.getFoodId()));
+        }
+
+        List<CustomerDTO> list = customerService.list();
+        List<CustomerRatingDTO> collect = list.stream()
+                .map(m -> new CustomerRatingDTO(m.getId(), m.getName())).collect(Collectors.toList());
+        servingForm.setCustomerRatingList(collect);
+
+
+        LocalDateTime ldt = LocalDateTime.now();
+
+
+        servingForm.setFoodId(servingDTO.getFoodId());
+        servingForm.setRecipeId(servingDTO.getRecipeId());
+        servingForm.setServingDate(ldt.format(DateFormat.DATE_TIME_FORMATTER_YMD));
+        servingForm.setServingTime(ldt.format(DateFormat.DATE_TIME_FORMATTER_HMS));
+
+        model.addAttribute("foodCodeList", foodCodeList);
+        model.addAttribute("recipeCodeList", recipeCodeList);
+        model.addAttribute("customerList", collect);
+        model.addAttribute("servingForm", servingForm);
+
+
+
+
+
+
         servingForm.setId(servingDTO.getId());
         model.addAttribute("form", servingForm);
 

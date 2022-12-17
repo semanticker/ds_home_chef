@@ -13,7 +13,7 @@ public class CustomerRatingDTO {
 
     private String customerName;
 
-    private Long rating;
+    private String rating;
 
 
     public CustomerRatingDTO() {
@@ -23,5 +23,13 @@ public class CustomerRatingDTO {
     public CustomerRatingDTO(Long customerId, String customerName) {
         this.customerId = customerId;
         this.customerName = customerName;
+    }
+
+    public CustomerRatingDTO(Long id, Long servingId, Long customerId, String customerName, String rating) {
+        this.id = id;
+        this.servingId = servingId;
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.rating = rating;
     }
 }
