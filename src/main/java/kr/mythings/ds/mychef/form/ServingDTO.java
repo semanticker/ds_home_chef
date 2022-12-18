@@ -20,6 +20,8 @@ public class ServingDTO {
 
     private String servingDate;
 
+    private String servingTime;
+
     private String recipeFrom;
 
     private List<CustomerRatingDTO> customerRatingList = new ArrayList();
@@ -43,13 +45,14 @@ public class ServingDTO {
         this.customerRatingList = customerRatingList;
     }
 
-    public ServingDTO(Long id, String foodId, String foodName, String recipeId, String recipeName, String servingDate, String recipeFrom) {
+    public ServingDTO(Long id, String foodId, String foodName, String recipeId, String recipeName, String servingDate, String servingTime, String recipeFrom) {
         this.id = id;
         this.foodId = foodId;
         this.foodName = foodName;
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.servingDate = servingDate;
+        this.servingTime = servingTime;
         this.recipeFrom = recipeFrom;
     }
 }

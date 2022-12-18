@@ -72,6 +72,9 @@ public class ServingController {
         servingForm.setCustomerRatingList(collect);
 
 
+
+
+
         LocalDateTime ldt = LocalDateTime.now();
 
         servingForm.setServingDate(ldt.format(DateFormat.DATE_TIME_FORMATTER_YMD));
@@ -109,29 +112,25 @@ public class ServingController {
             recipeCodeList = recipeService.getRecipeCodeList(Long.valueOf(servingDTO.getFoodId()));
         }
 
-        List<CustomerDTO> list = customerService.list();
-        List<CustomerRatingDTO> collect = list.stream()
-                .map(m -> new CustomerRatingDTO(m.getId(), m.getName())).collect(Collectors.toList());
-        servingForm.setCustomerRatingList(collect);
+        List<CustomerRatingDTO> customerRatingList = servingDTO.getCustomerRatingList();
 
+        if (customerRatingList == null || customerRatingList.size() == 0) {
+            List<CustomerDTO> list = customerService.list();
+            customerRatingList = list.stream()
+                    .map(m -> new CustomerRatingDTO(m.getId(), m.getName())).collect(Collectors.toList());
+        }
 
-        LocalDateTime ldt = LocalDateTime.now();
-
+        servingForm.setCustomerRatingList(customerRatingList);
 
         servingForm.setFoodId(servingDTO.getFoodId());
         servingForm.setRecipeId(servingDTO.getRecipeId());
-        servingForm.setServingDate(ldt.format(DateFormat.DATE_TIME_FORMATTER_YMD));
-        servingForm.setServingTime(ldt.format(DateFormat.DATE_TIME_FORMATTER_HMS));
+        servingForm.setServingDate(servingDTO.getServingDate());
+        servingForm.setServingTime(servingDTO.getServingTime());
 
         model.addAttribute("foodCodeList", foodCodeList);
         model.addAttribute("recipeCodeList", recipeCodeList);
-        model.addAttribute("customerList", collect);
+        model.addAttribute("customerList", customerRatingList);
         model.addAttribute("servingForm", servingForm);
-
-
-
-
-
 
         servingForm.setId(servingDTO.getId());
         model.addAttribute("form", servingForm);

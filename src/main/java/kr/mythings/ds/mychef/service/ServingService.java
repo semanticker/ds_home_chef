@@ -53,9 +53,11 @@ public class ServingService {
         }
 
         String servingDate = null;
+        String servingTime = null;
 
         if (serving.getServingDate() != null) {
             servingDate = serving.getServingDate().format(DateFormat.DATE_TIME_FORMATTER_YMD);
+            servingTime = serving.getServingDate().format(DateFormat.DATE_TIME_FORMATTER_HMS);
         }
 
         List<CustomerRatingDTO> customerRatings = Collections.emptyList();
@@ -80,6 +82,7 @@ public class ServingService {
                 ,String.valueOf(recipeId)
                 ,recipeName
                 ,servingDate
+                ,servingTime
                 ,recipeFrom
         );
 
@@ -88,6 +91,12 @@ public class ServingService {
     }
 
     public void update(ServingForm form) {
+
+        Long id = form.getId();
+
+        Serving serving = servingRepository.findOne(id);
+
+
     }
 
     public void delete(Long servingId) {

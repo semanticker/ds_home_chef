@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>서빙 생성</title>
+</head>
+
+<script type="text/javascript" src="/js/jquery-3.6.1.js"></script>
+
+<style>
+    .fieldError {
+        border-color: #bd2130;
+    }
+    .objDelete {
+        text-decoration: line-through;
+    }
+</style>
+<script>
+
+    $(document).ready(function() {
+        $('button .fa-plus-square').on('click', bb);
+    });
+
+    function clearRecipeCodeList() {
+        $('#recipeId').children('option:not(:first)').remove();
+    }
+
+    function getRecipeCodeList() {
+
+        let foodId = $('#foodId').val();
+
+        if (foodId === '') {
+            clearRecipeCodeList();
+        }
+
+        $.ajax({
+            url: "/api/v2/code/recipes/" + foodId,
+            type: "GET",
+            contentType: "application/json;charset=UTF-8",
+            //data:JSON.stringify(submitObj),
+            dataType: "json",
+            progress: true
+        }).done(function (data) {
+
+            if (data.count > 0) {
+
+                clearRecipeCodeList();
+
+                for (let k in data.data) {
+                    const obj = data.data[k];
+
+                    let recipeOption = "<option value='" + obj.code +"'>" + obj.text + "</option>";
+                    $('#recipeId').append(recipeOption);
+                    console.log(obj);
+                }
+
+            }
+
+
+            /*$('#resv_program').children('option:not(:first)').remove();
+
+            var laborOption = "";
+            for(var k in data.programList){
+                var obj = data.programList[k];
+                var prgm_name = obj.prgm_name;
+                var prgm_idx = obj.prgm_idx;
+
+                laborOption = "<option value='" + prgm_idx + "'>" + prgm_name + "</option>";
+                $("#resv_program").append(laborOption);
+            }*/
+        });
+    }
+
+
+
+</script>
+<body>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="/image/chef_72_72.png" alt="쉐프이미지">
+        <!--<h2>Checkout form</h2>
+        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
+    </div>
+
+    <div class="row">
+        <div class="col-md">
+            <h4 class="mb-3">Recipe Info.</h4>
+            <form role="form" action="/serving/new" th:object="${servingForm}" method="post">
+                <div class="mb-3">
+                    <label th:for="foodId">음식</label>
+                    <div class="input-group">
+                        <select id="foodId" th:field="*{foodId}" class="form-select" onchange="getRecipeCodeList()">
+                            <option value="">음식</option>
+                            <option th:each="foodCode : ${foodCodeList}"
+                                    th:value="${foodCode.code}"
+                                    th:text="${foodCode.text}">FAST</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            <p th:if="${#fields.hasErrors('foodId')}" th:errors="*{foodId}">Food is mandatory</p>
+                        </div>
+                        <div class="is-invalid">
+                        </div>
+                        <div class="invalid-tooltip">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label th:for="foodId">레시피</label>
+                    <div class="input-group">
+                        <select id="recipeId" th:field="*{recipeId}" class="form-select">
+                            <option value="">레시피</option>
+                            <option th:each="recipeCode : ${recipeCodeList}"
+                                    th:value="${recipeCode.code}"
+                                    th:text="${recipeCode.text}">FAST</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label th:for="servingDate">서빙일자</label>
+                    <input type="text" id="servingDate" th:field="*{servingDate}" class="form-control" placeholder="서빙 날짜를 입력하세요"
+                           th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
+                    <input type="text" id="servingTime" th:field="*{servingTime}" class="form-control" placeholder="서빙 날짜를 입력하세요"
+                           th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
+
+                </div>
+
+
+                <div th:each="customer, iStat: ${customerList}" class="form-group" >
+                    <label ><span th:text="${customer.customerName}"></span></label>
+                    <input type="text" th:value="${customer.customerId}" th:field="*{customerRatingList[__${iStat.index}__].customerId}" class="form-control">
+                    <input type="text" th:value="${customer.id}" th:field="*{customerRatingList[__${iStat.index}__].rating}" class="form-control">
+                </div>
+
+
+
+
+                <hr>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">저장</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='/recipe'">목록</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
