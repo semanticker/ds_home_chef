@@ -16,9 +16,7 @@
 </style>
 <script>
 
-    $(document).ready(function() {
-        $('button .fa-plus-square').on('click', bb);
-    });
+
 
     function clearRecipeCodeList() {
         $('#recipeId').children('option:not(:first)').remove();
@@ -84,8 +82,8 @@
 
     <div class="row">
         <div class="col-md">
-            <h4 class="mb-3">Recipe Info.</h4>
-            <form role="form" action="/serving/new" th:object="${servingForm}" method="post">
+            <h4 class="mb-3">Serving Info.</h4>
+            <form role="form" th:action="@{|/serving/${form.id}/edit|}" th:object="${form}" method="post">
                 <div class="mb-3">
                     <label th:for="foodId">음식</label>
                     <div class="input-group">
@@ -139,7 +137,7 @@
                 <hr>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">저장</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='/recipe'">목록</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='/serving'">목록</button>
                 </div>
             </form>
         </div>

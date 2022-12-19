@@ -97,6 +97,16 @@ public class ServingService {
         Serving serving = servingRepository.findOne(id);
 
 
+        serving.setFood(foodRespository.findOne(Long.valueOf(form.getFoodId())));
+        serving.setRecipe(recipeRepository.findOne(Long.valueOf(form.getRecipeId())));
+
+        LocalDateTime servingDate = getLocalDateTimeFromString(form.getServingDate(), form.getServingTime());
+        serving.setServingDate(servingDate);
+
+
+
+
+
     }
 
     public void delete(Long servingId) {
@@ -108,24 +118,28 @@ public class ServingService {
 
         String strServingDate = form.getServingDate();
 
-        LocalDateTime servingDate = null;
+        LocalDateTime servingDate = getLocalDateTimeFromString(form.getServingDate(), form.getServingTime());
 
-        if (strServingDate != null && !"".equals(strServingDate)) {
 
-            String servingTime = form.getServingTime();
-
-            if (servingTime == null || "".equals(serving)) {
-                servingTime = "00:00:00";
-            }
-
-            String strServingDateTime = String.format("%s %s", strServingDate, servingTime);
-            servingDate = LocalDateTime.parse(strServingDateTime, DateFormat.DATE_TIME_FORMATTER_FULL);
-        }
         serving.setServingDate(servingDate);
         serving.setFood(foodRespository.findOne(Long.valueOf(form.getFoodId())));
         serving.setRecipe(recipeRepository.findOne(Long.valueOf(form.getRecipeId())));
 
         servingRepository.save(serving);
+    }
+
+    private LocalDateTime getLocalDateTimeFromString(String date, String time) {
+        if (date != null && !"".equals(date)) {
+
+            if (time == null || "".equals(time)) {
+                time = "00:00:00";
+            }
+
+            String strServingDateTime = String.format("%s %s", date, time);
+            return LocalDateTime.parse(strServingDateTime, DateFormat.DATE_TIME_FORMATTER_FULL);
+        } else {
+            return null;
+        }
     }
 
     public List<ServingDTO> list() {
