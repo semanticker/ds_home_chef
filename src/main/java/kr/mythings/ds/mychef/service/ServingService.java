@@ -8,9 +8,7 @@ import kr.mythings.ds.mychef.form.CustomerRatingDTO;
 import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.ServingDTO;
 import kr.mythings.ds.mychef.form.ServingForm;
-import kr.mythings.ds.mychef.repository.FoodRespository;
-import kr.mythings.ds.mychef.repository.RecipeRepository;
-import kr.mythings.ds.mychef.repository.ServingRepository;
+import kr.mythings.ds.mychef.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +27,9 @@ public class ServingService {
     private final FoodRespository foodRespository;
     private final RecipeRepository recipeRepository;
     private final ServingRepository servingRepository;
+
+    private final CustomerRepository customerRepository;
+    private final CustomerRatingRepository customerRatingRepository;
 
 
     public ServingDTO findOne(Long servingId) {
@@ -86,6 +87,8 @@ public class ServingService {
                 ,recipeFrom
         );
 
+        servingDTO.setCustomerRatingList(customerRatings);
+
         return servingDTO;
 
     }
@@ -116,8 +119,6 @@ public class ServingService {
 
         Serving serving = new Serving();
 
-        String strServingDate = form.getServingDate();
-
         LocalDateTime servingDate = getLocalDateTimeFromString(form.getServingDate(), form.getServingTime());
 
 
@@ -126,6 +127,20 @@ public class ServingService {
         serving.setRecipe(recipeRepository.findOne(Long.valueOf(form.getRecipeId())));
 
         servingRepository.save(serving);
+
+
+        List<CustomerRatingDTO> customerRatingList = form.getCustomerRatingList();
+
+        for (CustomerRatingDTO crt : customerRatingList) {
+            CustomerRating cr = new CustomerRating();
+            cr.setServing(servingRepository.findOne(serving.getId()));
+            cr.setCustomer(customerRepository.findOne(crt.getCustomerId()));
+            cr.setRating(Long.valueOf(crt.getRating()));
+
+            customerRatingRepository.add(cr);
+        }
+
+
     }
 
     private LocalDateTime getLocalDateTimeFromString(String date, String time) {

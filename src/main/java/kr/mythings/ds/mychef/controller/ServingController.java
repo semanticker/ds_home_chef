@@ -60,8 +60,6 @@ public class ServingController {
 
          */
 
-
-
         ServingForm servingForm = new ServingForm();
 
         List<ListTypeDTO> foodCodeList = foodService.getFoodCodeList();
@@ -70,10 +68,6 @@ public class ServingController {
         List<CustomerRatingDTO> collect = list.stream()
                 .map(m -> new CustomerRatingDTO(m.getId(), m.getName())).collect(Collectors.toList());
         servingForm.setCustomerRatingList(collect);
-
-
-
-
 
         LocalDateTime ldt = LocalDateTime.now();
 
@@ -117,7 +111,10 @@ public class ServingController {
         if (customerRatingList == null || customerRatingList.size() == 0) {
             List<CustomerDTO> list = customerService.list();
             customerRatingList = list.stream()
-                    .map(m -> new CustomerRatingDTO(m.getId(), m.getName())).collect(Collectors.toList());
+                    .map(m -> new CustomerRatingDTO(
+                            m.getId()
+                            , m.getName())
+                    ).collect(Collectors.toList());
         }
 
         servingForm.setCustomerRatingList(customerRatingList);
@@ -130,7 +127,7 @@ public class ServingController {
         model.addAttribute("foodCodeList", foodCodeList);
         model.addAttribute("recipeCodeList", recipeCodeList);
         model.addAttribute("customerList", customerRatingList);
-        model.addAttribute("servingForm", servingForm);
+        ///model.addAttribute("servingForm", servingForm);
 
         servingForm.setId(servingDTO.getId());
         model.addAttribute("form", servingForm);
@@ -165,7 +162,13 @@ public class ServingController {
         servingForm.setRecipeFrom(servingDTO.getRecipeFrom());
         servingForm.setServingDate(servingDTO.getServingDate());
 
+        List<CustomerRatingDTO> customerRatingList = servingDTO.getCustomerRatingList();
+        servingForm.setCustomerRatingList(customerRatingList);
+
+
         model.addAttribute("form", servingForm);
+        model.addAttribute("customerList", customerRatingList);
+
         return "serving/viewServing";
     }
 

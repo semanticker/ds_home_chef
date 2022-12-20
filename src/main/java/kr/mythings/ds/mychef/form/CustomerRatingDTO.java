@@ -15,10 +15,8 @@ public class CustomerRatingDTO {
 
     private String rating;
 
+    public CustomerRatingDTO(){}
 
-    public CustomerRatingDTO() {
-
-    }
 
     public CustomerRatingDTO(Long customerId, String customerName) {
         this.customerId = customerId;
