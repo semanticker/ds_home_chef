@@ -127,8 +127,10 @@
 
                 <div th:each="customer, iStat: ${customerList}" class="form-group" >
                     <label ><span th:text="${customer.customerName}"></span></label>
+
+                    <input type="text" th:value="${customer.id}" th:field="*{customerRatingList[__${iStat.index}__].id}" class="form-control">
                     <input type="text" th:value="${customer.customerId}" th:field="*{customerRatingList[__${iStat.index}__].customerId}" class="form-control">
-                    <input type="text" th:value="${customer.id}" th:field="*{customerRatingList[__${iStat.index}__].rating}" class="form-control">
+                    <input type="text" th:value="${customer.rating}" th:field="*{customerRatingList[__${iStat.index}__].rating}" class="form-control">
                 </div>
 
 

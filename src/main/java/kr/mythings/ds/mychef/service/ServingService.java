@@ -95,10 +95,9 @@ public class ServingService {
 
     public void update(ServingForm form) {
 
-        Long id = form.getId();
+        Long servingId = form.getId();
 
-        Serving serving = servingRepository.findOne(id);
-
+        Serving serving = servingRepository.findOne(servingId);
 
         serving.setFood(foodRespository.findOne(Long.valueOf(form.getFoodId())));
         serving.setRecipe(recipeRepository.findOne(Long.valueOf(form.getRecipeId())));
@@ -106,8 +105,25 @@ public class ServingService {
         LocalDateTime servingDate = getLocalDateTimeFromString(form.getServingDate(), form.getServingTime());
         serving.setServingDate(servingDate);
 
+        List<CustomerRatingDTO> customerRatingList = form.getCustomerRatingList();
+
+        for (CustomerRatingDTO customerRatingDTO : customerRatingList) {
+
+            Long ratingId = customerRatingDTO.getId();
+            CustomerRating serverRating = customerRatingRepository.find(ratingId);
+
+            if (serverRating == null) {
+                serverRating = new CustomerRating();
+            }
+
+            serverRating.setServing(servingRepository.findOne(serving.getId()));
+            serverRating.setCustomer(customerRepository.findOne(customerRatingDTO.getCustomerId()));
+            serverRating.setRating(Long.valueOf(customerRatingDTO.getRating()));
+
+            customerRatingRepository.update(serverRating);
 
 
+        }
 
 
     }

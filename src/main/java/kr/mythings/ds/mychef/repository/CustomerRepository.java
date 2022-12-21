@@ -2,6 +2,7 @@ package kr.mythings.ds.mychef.repository;
 
 import kr.mythings.ds.mychef.domain.Customer;
 import kr.mythings.ds.mychef.domain.Food;
+import kr.mythings.ds.mychef.form.CustomerRatingDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -33,4 +34,6 @@ public class CustomerRepository {
     public void delete(Long customerId) {
         em.remove(em.find(Customer.class, customerId));
     }
+
+
 }

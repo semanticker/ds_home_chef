@@ -165,7 +165,6 @@ public class ServingController {
         List<CustomerRatingDTO> customerRatingList = servingDTO.getCustomerRatingList();
         servingForm.setCustomerRatingList(customerRatingList);
 
-
         model.addAttribute("form", servingForm);
         model.addAttribute("customerList", customerRatingList);
 
