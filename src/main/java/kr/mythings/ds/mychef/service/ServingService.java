@@ -129,6 +129,7 @@ public class ServingService {
     }
 
     public void delete(Long servingId) {
+        servingRepository.delete(servingId);
     }
 
     public void add(ServingForm form) {

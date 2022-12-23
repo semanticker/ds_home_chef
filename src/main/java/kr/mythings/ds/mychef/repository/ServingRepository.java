@@ -32,4 +32,8 @@ public class ServingRepository {
     public Serving findOne(Long servingId) {
         return em.find(Serving.class, servingId);
     }
+
+    public void delete(Long servingId) {
+        em.remove(em.find(Serving.class, servingId));
+    }
 }

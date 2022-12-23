@@ -16,58 +16,18 @@
 </style>
 <script>
 
-    $(document).ready(function() {
-        $('button .fa-plus-square').on('click', bb);
-    });
+    function deleteServing(id) {
 
-    function clearRecipeCodeList() {
-        $('#recipeId').children('option:not(:first)').remove();
-    }
+        const msg = '정말 삭제 하나요?';
 
-    function getRecipeCodeList() {
+        if (confirm(msg)) {
+            const form = $('form');
 
-        let foodId = $('#foodId').val();
-
-        if (foodId === '') {
-            clearRecipeCodeList();
+            form.attr('method', 'DELETE');
+            form.attr('action', '/serving/' + id + '/delete');
+            form.submit();
         }
 
-        $.ajax({
-            url: "/api/v2/code/recipes/" + foodId,
-            type: "GET",
-            contentType: "application/json;charset=UTF-8",
-            //data:JSON.stringify(submitObj),
-            dataType: "json",
-            progress: true
-        }).done(function (data) {
-
-            if (data.count > 0) {
-
-                clearRecipeCodeList();
-
-                for (let k in data.data) {
-                    const obj = data.data[k];
-
-                    let recipeOption = "<option value='" + obj.code +"'>" + obj.text + "</option>";
-                    $('#recipeId').append(recipeOption);
-                    console.log(obj);
-                }
-
-            }
-
-
-            /*$('#resv_program').children('option:not(:first)').remove();
-
-            var laborOption = "";
-            for(var k in data.programList){
-                var obj = data.programList[k];
-                var prgm_name = obj.prgm_name;
-                var prgm_idx = obj.prgm_idx;
-
-                laborOption = "<option value='" + prgm_idx + "'>" + prgm_name + "</option>";
-                $("#resv_program").append(laborOption);
-            }*/
-        });
     }
 
 
