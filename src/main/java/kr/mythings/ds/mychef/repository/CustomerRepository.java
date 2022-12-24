@@ -13,8 +13,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerRepository {
 
-    private final EntityManager em;
-
     public List<Customer> findAll() {
 
         String query = "select c from Customer c";
@@ -22,6 +20,8 @@ public class CustomerRepository {
         return em.createQuery(query, Customer.class)
                 .getResultList();
     }
+
+    private final EntityManager em;
 
     public Customer findOne(Long customerId) {
         return em.find(Customer.class, customerId);
