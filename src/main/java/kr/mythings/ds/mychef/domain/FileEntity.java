@@ -1,5 +1,6 @@
 package kr.mythings.ds.mychef.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "DMC_FILE")
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 public class FileEntity extends BaseEntity{
 

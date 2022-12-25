@@ -4,6 +4,7 @@ import kr.mythings.ds.mychef.form.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 
@@ -26,12 +27,10 @@ public class RecipeStep {
 
     private String howTo;
 
-    private String img;
 
-    public void create(Long recipeId, int step, String howTo, String img) {
+    public void create(Long recipeId, int step, String howTo) {
         this.recipeId = recipeId;
         this.step = step;
         this.howTo = howTo;
-        this.img = img;
     }
 }

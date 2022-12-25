@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/{id}/edit")
-    public String update(@PathVariable("id") Long recipeId, @Valid @ModelAttribute("recipeForm") RecipeForm form, BindingResult result) {
+    public String update(@PathVariable("id") Long recipeId, @Valid @ModelAttribute("recipeForm") RecipeForm form, BindingResult result) throws IOException {
 
         if (result.hasErrors()) {
             return String.format("recipe/%s/edit", recipeId);

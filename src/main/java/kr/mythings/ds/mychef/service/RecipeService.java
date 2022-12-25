@@ -10,7 +10,9 @@ import kr.mythings.ds.mychef.repository.RecipeStepRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,8 @@ public class RecipeService {
     private final FoodRespository foodRespository;
     private final RecipeRepository recipeRepository;
     private final RecipeStepRepository recipeStepRepository;
+
+    private final FileService fileService;
     public List<RecipeDTO> list() {
 
 
@@ -54,7 +58,7 @@ public class RecipeService {
                         m.getRecipeId(),
                         m.getStep(),
                         m.getHowTo(),
-                        m.getImg()
+                        null
 //Long id, Long recipeId, int step, String howTo, String img
                 ))
                 .collect(Collectors.toList());
@@ -64,7 +68,7 @@ public class RecipeService {
         return recipeDTO;
     }
 
-    public void update(RecipeForm form) {
+    public void update(RecipeForm form) throws IOException {
 
         Long recipeId = form.getId();
         Recipe recipe = recipeRepository.findOne(recipeId);
@@ -88,8 +92,7 @@ public class RecipeService {
                     recipeStep.create(
                             recipeId,
                             stepNo++,
-                            recipeStepDTO.getHowTo(),
-                            recipeStepDTO.getImg()
+                            recipeStepDTO.getHowTo()
                     );
                     recipeStepRepository.add(recipeStep);
 
@@ -99,10 +102,13 @@ public class RecipeService {
                     RecipeStep recipeStep = recipeStepRepository.findOne(recipeStepDTO.getId());
                     recipeStep.setStep(stepNo++);
                     recipeStep.setHowTo(recipeStepDTO.getHowTo());
-                    recipeStep.setImg(recipeStepDTO.getImg());
+                    //recipeStep.setImg(recipeStepDTO.getImg());
                 } else if (recipeStepDTO.getId() != null && Status.D == recipeStepDTO.getStatus()) {
                     recipeStepRepository.remove(recipeStepDTO.getId());
                 }
+
+                MultipartFile img = recipeStepDTO.getImg();
+                fileService.saveFile(img);
             }
 
 

@@ -13,8 +13,11 @@ public class FileRepository {
 
     private final EntityManager em;
 
-    public FileEntity save(MultipartFile file) {
+    public FileEntity save(FileEntity file) {
 
-        return em.persist(file);
+         em.persist(file);
+
+         return file;
+
     }
 }

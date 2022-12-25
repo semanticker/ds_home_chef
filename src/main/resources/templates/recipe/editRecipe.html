@@ -199,7 +199,7 @@
     <div class="row">
         <div class="col-md">
             <h4 class="mb-3">Recipe Info.</h4>
-            <form role="form" th:action="@{|/recipe/${form.id}/edit|}" th:object="${form}" method="post" nctype="multipart/form-data">
+            <form role="form" th:action="@{|/recipe/${form.id}/edit|}" th:object="${form}" method="post" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label th:for="recipeFrom">음식</label>
                     <div class="input-group">
@@ -267,7 +267,7 @@
                         <input type="text" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control">
                         <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
                         <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
-                        <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
+                        <input type="file" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
                         <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
                     </div>
                     <div id="newinput"></div>

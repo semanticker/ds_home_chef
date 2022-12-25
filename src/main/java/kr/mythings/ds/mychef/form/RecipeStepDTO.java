@@ -16,7 +16,7 @@ public class RecipeStepDTO {
 
     private String howTo;
 
-    private String img;
+    private MultipartFile img;
 
     private Status status = Status.U;
 
@@ -24,7 +24,7 @@ public class RecipeStepDTO {
 
     public RecipeStepDTO() {}
 
-    public RecipeStepDTO(Long id, Long recipeId, int step, String howTo, String img) {
+    public RecipeStepDTO(Long id, Long recipeId, int step, String howTo, MultipartFile img) {
         this.id = id;
         this.recipeId = recipeId;
         this.step = step;
