@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class FileEntity extends BaseEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "file_id")
     private Long id;
 

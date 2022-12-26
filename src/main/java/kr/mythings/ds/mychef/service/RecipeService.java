@@ -107,8 +107,11 @@ public class RecipeService {
                     recipeStepRepository.remove(recipeStepDTO.getId());
                 }
 
+
                 MultipartFile img = recipeStepDTO.getImg();
-                fileService.saveFile(img);
+                if (img.getOriginalFilename() != null && !"".equals(img.getOriginalFilename())) {
+                    fileService.saveFile(img);
+                }
             }
 
 
