@@ -7,6 +7,9 @@ import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "DMC_RECIPE_STEP")
@@ -26,6 +29,10 @@ public class RecipeStep {
     private int step;
 
     private String howTo;
+
+    @OneToMany(orphanRemoval = true)
+    @JoinColumn(name = "recipe_id")
+    private List<FileEntity> fileList = new ArrayList<FileEntity>();
 
 
     public void create(Long recipeId, int step, String howTo) {

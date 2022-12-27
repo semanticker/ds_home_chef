@@ -28,6 +28,8 @@ public class FileEntity extends BaseEntity{
 
     private String fileExtName;
 
+
+
     public FileEntity(Long id, String fileName, String fileSaveName, Long fileSize, String fileExtName) {
         this.id = id;
         this.fileName = fileName;
