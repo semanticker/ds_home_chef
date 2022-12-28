@@ -20,4 +20,8 @@ public class FileRepository {
          return file;
 
     }
+
+    public FileEntity findOne(Long id) {
+        return em.find(FileEntity.class, id);
+    }
 }

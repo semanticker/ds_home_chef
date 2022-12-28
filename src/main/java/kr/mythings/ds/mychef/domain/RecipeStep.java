@@ -30,8 +30,7 @@ public class RecipeStep {
 
     private String howTo;
 
-    @OneToMany(orphanRemoval = true)
-    @JoinColumn(name = "recipe_id")
+    @OneToMany(mappedBy = "recipeStep")
     private List<FileEntity> fileList = new ArrayList<FileEntity>();
 
 

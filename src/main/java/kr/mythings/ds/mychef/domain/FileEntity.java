@@ -28,13 +28,17 @@ public class FileEntity extends BaseEntity{
 
     private String fileExtName;
 
+    @ManyToOne
+    @JoinColumn(name="recipe_step_id")
+    private RecipeStep recipeStep;
 
 
-    public FileEntity(Long id, String fileName, String fileSaveName, Long fileSize, String fileExtName) {
+    public FileEntity(Long id, String fileName, String fileSaveName, Long fileSize, String fileExtName, RecipeStep recipeStep) {
         this.id = id;
         this.fileName = fileName;
         this.fileSaveName = fileSaveName;
         this.fileSize = fileSize;
         this.fileExtName = fileExtName;
+        this.recipeStep = recipeStep;
     }
 }

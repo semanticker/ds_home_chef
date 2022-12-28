@@ -110,7 +110,7 @@ public class RecipeService {
 
                 MultipartFile img = recipeStepDTO.getImg();
                 if (img.getOriginalFilename() != null && !"".equals(img.getOriginalFilename())) {
-                    fileService.saveFile(recipe.getId(),img);
+                    fileService.saveFile(recipeStepDTO.getId(),img);
                 }
             }
 
