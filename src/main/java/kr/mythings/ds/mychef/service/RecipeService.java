@@ -1,6 +1,7 @@
 package kr.mythings.ds.mychef.service;
 
 import kr.mythings.ds.mychef.api.ApiController;
+import kr.mythings.ds.mychef.domain.FileEntity;
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.RecipeStep;
 import kr.mythings.ds.mychef.form.*;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,19 +53,56 @@ public class RecipeService {
         RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName(), recipe.getRecipeFrom());
         recipeDTO.setFoodId(String.valueOf(recipe.getFood().getId()));
         recipeDTO.setFoodName(recipe.getFood().getName());
-
+/*
         List<RecipeStepDTO> collect = recipe.getRecipeStepList().stream()
                 .map(m -> new RecipeStepDTO(
                         m.getId(),
                         m.getRecipeId(),
                         m.getStep(),
                         m.getHowTo(),
+                        null,
                         null
 //Long id, Long recipeId, int step, String howTo, String img
                 ))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
 
-        recipeDTO.setRecipeStepList(collect);
+        List <RecipeStepDTO> recipeStepDTOList = new ArrayList<RecipeStepDTO>();
+
+        List<RecipeStep> recipeStepList = recipe.getRecipeStepList();
+
+        if (recipeStepList != null && recipeStepList.size() > 0) {
+
+            for (RecipeStep recipeStep : recipeStepList) {
+
+                String imagePath = null;
+
+                List<FileEntity> fileList = recipeStep.getFileList();
+
+                if (fileList != null && fileList.size() > 0) {
+                    imagePath = fileList.get(0).getFileSaveName();
+                    imagePath = String.valueOf(fileList.get(0).getId());
+                }
+
+
+                RecipeStepDTO recipeStepDTO = new RecipeStepDTO(
+                        recipeStep.getId(),
+                        recipeStep.getRecipeId(),
+                        recipeStep.getStep(),
+                        recipeStep.getHowTo(),
+                        null,
+                        imagePath
+                );
+
+                recipeStepDTOList.add(recipeStepDTO);
+
+
+            }
+
+
+        }
+
+
+        recipeDTO.setRecipeStepList(recipeStepDTOList);
 
         return recipeDTO;
     }
