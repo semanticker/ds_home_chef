@@ -85,7 +85,9 @@
             <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control" readonly="readonly" >
             <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
             <div th:if="${not #strings.isEmpty(recipeStep.imagePath)}">
-              <img th:src="|/images/${recipeStep.imagePath}|"/>
+              <a th:href="|/attach/${recipeStep.imagePath}|">
+                <img th:src="|/images/${recipeStep.imagePath}|"/>
+              </a>
             </div>
           </div>
           <div id="newinput"></div>
