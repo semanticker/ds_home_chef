@@ -1,5 +1,6 @@
 package kr.mythings.ds.mychef.service;
 
+import kr.mythings.ds.mychef.common.SuccessResult;
 import kr.mythings.ds.mychef.domain.FileEntity;
 import kr.mythings.ds.mychef.repository.FileRepository;
 import kr.mythings.ds.mychef.repository.RecipeStepRepository;
@@ -10,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -58,5 +58,40 @@ public class FileService {
     public FileEntity findOne(Long id) {
 
         return fileRepository.findOne(id);
+    }
+
+    public SuccessResult delete(Long fileId) {
+
+        boolean success = false;
+        String msg = "";
+
+        FileEntity fileEntity = findOne(fileId);
+
+        if (fileEntity != null) {
+
+            String fileSaveName = fileEntity.getFileSaveName();
+
+            if (fileSaveName != null && "".equals(fileSaveName)) {
+
+                File file = new File(fileSaveName);
+                ;
+
+                if (file.exists() && file.isFile()) {
+
+                    success = file.delete();
+                    fileRepository.delete(fileId);
+
+                } else {
+                    msg = "대상이 되는 파일이 존재하지 않습니다.";
+                }
+
+            } else {
+                msg = "대상이 되는 파일 위치를 찾을수 없습니다.";
+            }
+        } else {
+            msg = "대상이 되는 파일 정보를 찾을수 없습니다.";
+        }
+
+        return new SuccessResult(success, msg);
     }
 }

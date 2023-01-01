@@ -3,7 +3,6 @@ package kr.mythings.ds.mychef.repository;
 import kr.mythings.ds.mychef.domain.FileEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 
@@ -23,5 +22,11 @@ public class FileRepository {
 
     public FileEntity findOne(Long id) {
         return em.find(FileEntity.class, id);
+    }
+
+    public void delete(Long fileId) {
+
+        FileEntity one = findOne(fileId);
+        em.remove(one);
     }
 }

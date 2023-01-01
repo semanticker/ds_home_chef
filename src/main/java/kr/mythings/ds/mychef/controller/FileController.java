@@ -1,11 +1,13 @@
 package kr.mythings.ds.mychef.controller;
 
+import kr.mythings.ds.mychef.common.SuccessResult;
 import kr.mythings.ds.mychef.domain.FileEntity;
 import kr.mythings.ds.mychef.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +41,7 @@ public class FileController {
     }
 
     //
-    @GetMapping("/attach/{fileId}")
+    @GetMapping("/attach/download/{fileId}")
     public ResponseEntity<Resource> downloadAttach(@PathVariable Long fileId) throws MalformedURLException {
 
         FileEntity one = fileService.findOne(fileId);
@@ -51,6 +53,22 @@ public class FileController {
         String contentDisposition = "attachment; filename=\"" + encode + "\"";
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition).body(resource);
 
+    }
+
+    @GetMapping(value = "/attach/delete/{fileId}" , produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public SuccessResult deleteAttach(@PathVariable Long fileId) {
+
+        SuccessResult result = null;
+
+        if (fileId != null) {
+            result = fileService.delete(fileId);
+        } else {
+            String msg = "파일번호가 없습니다.";
+            result = new SuccessResult(false, msg);
+        }
+
+        return result;
     }
 
 }
