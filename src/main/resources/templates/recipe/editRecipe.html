@@ -186,6 +186,28 @@
 
     }
 
+    function deleteImage(id) {
+        const msg = '이미지를 정말 삭제 하나요?';
+        const tg = 'recipe_step_image_' + id;
+
+
+
+
+        if (confirm(msg)) {
+            $.ajax({
+                url: "/attach/delete/" + id,
+                type: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                progress: true
+            }).done(function (data) {
+
+                console.log(arguments);
+
+            });
+        }
+    }
+
 </script>
 <body>
 
@@ -269,6 +291,12 @@
                         <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
                         <input type="file" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
                         <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
+                        <div th:if="${not #strings.isEmpty(recipeStep.imagePath)}" th:id="|recipe_step_image_${recipeStep.imagePath}|">
+                            <a th:href="|/attach/download/${recipeStep.imagePath}|">
+                                <img th:src="|/images/${recipeStep.imagePath}|"/>
+                            </a>
+                            <button th:attr="onclick=|deleteImage('${recipeStep.imagePath}')|">삭제</button>
+                        </div>
                     </div>
                     <div id="newinput"></div>
                 </div>
