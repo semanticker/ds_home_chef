@@ -190,9 +190,6 @@
         const msg = '이미지를 정말 삭제 하나요?';
         const tg = 'recipe_step_image_' + id;
 
-
-
-
         if (confirm(msg)) {
             $.ajax({
                 url: "/attach/delete/" + id,
@@ -202,8 +199,11 @@
                 progress: true
             }).done(function (data) {
 
-                console.log(arguments);
-
+                if (data.success) {
+                    $('#' + tg).remove();
+                } else {
+                    alert(data.msg);
+                }
             });
         }
     }
@@ -295,7 +295,7 @@
                             <a th:href="|/attach/download/${recipeStep.imagePath}|">
                                 <img th:src="|/images/${recipeStep.imagePath}|"/>
                             </a>
-                            <button th:attr="onclick=|deleteImage('${recipeStep.imagePath}')|">삭제</button>
+                            <button type="button" th:attr="onclick=|deleteImage('${recipeStep.imagePath}')|">삭제</button>
                         </div>
                     </div>
                     <div id="newinput"></div>
