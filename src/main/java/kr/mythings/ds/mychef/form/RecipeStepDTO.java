@@ -27,12 +27,11 @@ public class RecipeStepDTO {
 
     public RecipeStepDTO() {}
 
-    public RecipeStepDTO(Long id, Long recipeId, int step, String howTo, MultipartFile img, String imagePath) {
+    public RecipeStepDTO(Long id, Long recipeId, int step, String howTo, String imagePath) {
         this.id = id;
         this.recipeId = recipeId;
         this.step = step;
         this.howTo = howTo;
-        this.img = img;
         this.imagePath = imagePath;
     }
 }

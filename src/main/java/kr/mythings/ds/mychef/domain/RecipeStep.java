@@ -30,8 +30,8 @@ public class RecipeStep {
 
     private String howTo;
 
-    @OneToMany(mappedBy = "recipeStep")
-    private List<FileEntity> fileList = new ArrayList<FileEntity>();
+    @OneToOne(mappedBy = "recipeStep")
+    private FileEntity image;
 
 
     public void create(Long recipeId, int step, String howTo) {

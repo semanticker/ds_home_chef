@@ -53,18 +53,6 @@ public class RecipeService {
         RecipeDTO recipeDTO = new RecipeDTO(recipe.getId(), recipe.getName(), recipe.getFood().getName(), recipe.getRecipeFrom());
         recipeDTO.setFoodId(String.valueOf(recipe.getFood().getId()));
         recipeDTO.setFoodName(recipe.getFood().getName());
-/*
-        List<RecipeStepDTO> collect = recipe.getRecipeStepList().stream()
-                .map(m -> new RecipeStepDTO(
-                        m.getId(),
-                        m.getRecipeId(),
-                        m.getStep(),
-                        m.getHowTo(),
-                        null,
-                        null
-//Long id, Long recipeId, int step, String howTo, String img
-                ))
-                .collect(Collectors.toList());*/
 
         List <RecipeStepDTO> recipeStepDTOList = new ArrayList<RecipeStepDTO>();
 
@@ -76,30 +64,21 @@ public class RecipeService {
 
                 String imagePath = null;
 
-                List<FileEntity> fileList = recipeStep.getFileList();
+                FileEntity image = recipeStep.getImage();
 
-                if (fileList != null && fileList.size() > 0) {
-                    imagePath = fileList.get(0).getFileSaveName();
-                    imagePath = String.valueOf(fileList.get(0).getId());
+                if (image != null) {
+                    imagePath = String.valueOf(image.getId());
                 }
-
 
                 RecipeStepDTO recipeStepDTO = new RecipeStepDTO(
                         recipeStep.getId(),
                         recipeStep.getRecipeId(),
                         recipeStep.getStep(),
                         recipeStep.getHowTo(),
-                        null,
                         imagePath
                 );
-
-
                 recipeStepDTOList.add(recipeStepDTO);
-
-
             }
-
-
         }
 
 
@@ -146,7 +125,6 @@ public class RecipeService {
                 } else if (recipeStepDTO.getId() != null && Status.D == recipeStepDTO.getStatus()) {
                     recipeStepRepository.remove(recipeStepDTO.getId());
                 }
-
 
                 MultipartFile img = recipeStepDTO.getImg();
                 if (img.getOriginalFilename() != null && !"".equals(img.getOriginalFilename())) {

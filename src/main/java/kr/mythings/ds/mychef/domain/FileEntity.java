@@ -28,7 +28,7 @@ public class FileEntity extends BaseEntity{
 
     private String fileExtName;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="recipe_step_id")
     private RecipeStep recipeStep;
 
