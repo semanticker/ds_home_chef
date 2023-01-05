@@ -24,7 +24,7 @@ public class ServingDTO {
 
     private String recipeFrom;
 
-    private List<CustomerRatingDTO> customerRatingList = new ArrayList();
+    private List<CustomerRatingDTO> customerRatingList = new ArrayList<>();
 
     public ServingDTO(Long id, String foodName, String recipeName, String servingDate, String recipeFrom) {
         this.id = id;

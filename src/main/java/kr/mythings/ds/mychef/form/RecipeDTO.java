@@ -22,7 +22,7 @@ public class RecipeDTO {
     private List<RecipeStepDTO> recipeStepList = new ArrayList<>();
 
     public RecipeDTO
-            (Long id, String name, String foodName, String recipeFrom, List recipeStepList) {
+            (Long id, String name, String foodName, String recipeFrom, List<RecipeStepDTO> recipeStepList) {
         this.id = id;
         this.name = name;
         this.foodName= foodName;

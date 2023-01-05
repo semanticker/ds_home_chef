@@ -21,10 +21,6 @@ public class DsMyChefApplication {
         return Server.createTcpServer().start();
     }
 
-/*    @Bean(initMethod = "start", destroyMethod = "stop")
-    public Server inMemoryH2DatabaseServer() throws SQLException {
-        return Server.createTcpServer("-tcp", "-tcpAllowOthers", "-tcpPort", "9091");
-    }*/
     @Bean
     Hibernate5Module hibernate5Module() {
         // case1

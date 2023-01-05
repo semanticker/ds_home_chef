@@ -71,10 +71,9 @@ public class FileService {
 
             String fileSaveName = fileEntity.getFileSaveName();
 
-            if (fileSaveName != null && "".equals(fileSaveName)) {
+            if ("".equals(fileSaveName)) {
 
                 File file = new File(fileSaveName);
-                ;
 
                 if (file.exists() && file.isFile()) {
 

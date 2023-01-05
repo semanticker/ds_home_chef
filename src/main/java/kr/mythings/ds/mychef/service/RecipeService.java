@@ -1,6 +1,5 @@
 package kr.mythings.ds.mychef.service;
 
-import kr.mythings.ds.mychef.api.ApiController;
 import kr.mythings.ds.mychef.domain.FileEntity;
 import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.RecipeStep;
@@ -54,11 +53,11 @@ public class RecipeService {
         recipeDTO.setFoodId(String.valueOf(recipe.getFood().getId()));
         recipeDTO.setFoodName(recipe.getFood().getName());
 
-        List <RecipeStepDTO> recipeStepDTOList = new ArrayList<RecipeStepDTO>();
+        List <RecipeStepDTO> recipeStepDTOList = new ArrayList<>();
 
         List<RecipeStep> recipeStepList = recipe.getRecipeStepList();
 
-        if (recipeStepList != null && recipeStepList.size() > 0) {
+        if (recipeStepList != null && !recipeStepList.isEmpty()) {
 
             for (RecipeStep recipeStep : recipeStepList) {
 
@@ -121,7 +120,6 @@ public class RecipeService {
                     RecipeStep recipeStep = recipeStepRepository.findOne(recipeStepDTO.getId());
                     recipeStep.setStep(stepNo++);
                     recipeStep.setHowTo(recipeStepDTO.getHowTo());
-                    //recipeStep.setImg(recipeStepDTO.getImg());
                 } else if (recipeStepDTO.getId() != null && Status.D == recipeStepDTO.getStatus()) {
                     recipeStepRepository.remove(recipeStepDTO.getId());
                 }
@@ -131,8 +129,6 @@ public class RecipeService {
                     fileService.saveFile(recipeStepDTO.getId(),img);
                 }
             }
-
-
         }
     }
 
@@ -162,8 +158,6 @@ public class RecipeService {
 
         List<RecipeDTO> list = this.findFoodRecipeList(foodId);
 
-        List<ListTypeDTO> codeList = list.stream().map(m->new ListTypeDTO(String.valueOf(m.getId()), m.getName())).collect(Collectors.toList());
-        return codeList;
-
+        return list.stream().map(m->new ListTypeDTO(String.valueOf(m.getId()), m.getName())).collect(Collectors.toList());
     }
 }

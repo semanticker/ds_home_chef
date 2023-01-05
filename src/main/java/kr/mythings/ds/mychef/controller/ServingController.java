@@ -45,21 +45,6 @@ public class ServingController {
     @GetMapping("/serving/new")
     public String add(Model model){
 
-
-        /*
-        List<RecipeStepDTO> collect = recipe.getRecipeStepList().stream()
-                .map(m -> new RecipeStepDTO(
-                        m.getId(),
-                        m.getRecipeId(),
-                        m.getStep(),
-                        m.getHowTo(),
-                        m.getImg()
-//Long id, Long recipeId, int step, String howTo, String img
-                ))
-                .collect(Collectors.toList());
-
-         */
-
         ServingForm servingForm = new ServingForm();
 
         List<ListTypeDTO> foodCodeList = foodService.getFoodCodeList();

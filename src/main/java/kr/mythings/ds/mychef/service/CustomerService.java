@@ -25,11 +25,9 @@ public class CustomerService {
         List<Customer> list = customerRepository.findAll();
 
 
-        List<CustomerDTO> collect = list.stream()
+        return list.stream()
                 .map(m -> new CustomerDTO(m.getId(), m.getName()))
                 .collect(Collectors.toList());
-
-        return collect;
     }
 
     public Customer findOne(Long customerId) {
