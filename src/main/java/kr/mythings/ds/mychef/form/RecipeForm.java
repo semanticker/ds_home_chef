@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Getter

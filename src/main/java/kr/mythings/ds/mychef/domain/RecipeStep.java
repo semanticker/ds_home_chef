@@ -1,15 +1,10 @@
 package kr.mythings.ds.mychef.domain;
 
-import kr.mythings.ds.mychef.form.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "DMC_RECIPE_STEP")

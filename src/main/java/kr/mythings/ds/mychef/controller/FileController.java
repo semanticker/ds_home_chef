@@ -58,7 +58,7 @@ public class FileController {
     @ResponseBody
     public SuccessResult deleteAttach(@PathVariable Long fileId) {
 
-        SuccessResult result = null;
+        SuccessResult result;
 
         if (fileId != null) {
             result = fileService.delete(fileId);

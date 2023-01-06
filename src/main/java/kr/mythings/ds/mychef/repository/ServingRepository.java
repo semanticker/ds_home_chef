@@ -1,8 +1,6 @@
 package kr.mythings.ds.mychef.repository;
 
-import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.Serving;
-import kr.mythings.ds.mychef.form.ServingDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

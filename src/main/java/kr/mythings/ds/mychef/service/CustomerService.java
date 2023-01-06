@@ -3,7 +3,6 @@ package kr.mythings.ds.mychef.service;
 import kr.mythings.ds.mychef.domain.Customer;
 import kr.mythings.ds.mychef.form.CustomerDTO;
 import kr.mythings.ds.mychef.form.CustomerForm;
-import kr.mythings.ds.mychef.form.FoodDTO;
 import kr.mythings.ds.mychef.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

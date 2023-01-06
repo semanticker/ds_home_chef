@@ -2,10 +2,8 @@ package kr.mythings.ds.mychef.service;
 
 import kr.mythings.ds.mychef.common.DateFormat;
 import kr.mythings.ds.mychef.domain.CustomerRating;
-import kr.mythings.ds.mychef.domain.Recipe;
 import kr.mythings.ds.mychef.domain.Serving;
 import kr.mythings.ds.mychef.form.CustomerRatingDTO;
-import kr.mythings.ds.mychef.form.RecipeDTO;
 import kr.mythings.ds.mychef.form.ServingDTO;
 import kr.mythings.ds.mychef.form.ServingForm;
 import kr.mythings.ds.mychef.repository.*;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -137,7 +134,6 @@ public class ServingService {
         Serving serving = new Serving();
 
         LocalDateTime servingDate = getLocalDateTimeFromString(form.getServingDate(), form.getServingTime());
-
 
         serving.setServingDate(servingDate);
         serving.setFood(foodRespository.findOne(Long.valueOf(form.getFoodId())));
