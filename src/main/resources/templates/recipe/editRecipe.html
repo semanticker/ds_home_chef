@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
     <title>레시피 수정</title>
 </head>
@@ -14,7 +14,7 @@
         text-decoration: line-through;
     }
 </style>
-<script language="JavaScript">
+<script>
 
 
     $(document).ready(function() {
@@ -293,7 +293,7 @@
                         <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
                         <div th:if="${not #strings.isEmpty(recipeStep.imagePath)}" th:id="|recipe_step_image_${recipeStep.imagePath}|">
                             <a th:href="|/attach/download/${recipeStep.imagePath}|">
-                                <img th:src="|/images/${recipeStep.imagePath}|"/>
+                                <img alt="레시피 단계 이미지" th:src="|/images/${recipeStep.imagePath}|"/>
                             </a>
                             <button type="button" th:attr="onclick=|deleteImage('${recipeStep.imagePath}')|">삭제</button>
                         </div>

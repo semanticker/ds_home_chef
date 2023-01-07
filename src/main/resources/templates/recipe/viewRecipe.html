@@ -87,7 +87,7 @@
             <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
             <div th:if="${not #strings.isEmpty(recipeStep.imagePath)}">
               <a th:href="|/attach/download/${recipeStep.imagePath}|">
-                <img th:src="|/images/${recipeStep.imagePath}|"/>
+                <img alt="레시피 단계 이미지" th:src="|/images/${recipeStep.imagePath}|"/>
               </a>
             </div>
           </div>
