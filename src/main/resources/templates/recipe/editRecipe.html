@@ -57,9 +57,9 @@
 
         // bb = parentObj;
 
-        if (statusObj.val() == 'D') {
+        if (statusObj.val() === 'D') {
 
-            if (stepIdObj.val() == '') {
+            if (stepIdObj.val() === '') {
                 statusObj.val('I');
             } else {
                 statusObj.val('U');
@@ -91,7 +91,7 @@
         const targetObj = parentObj.prev('div.form-group');
 
         // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
-        if (targetObj.length != 0) {
+        if (targetObj.length !== 0) {
             const thisObj = parentObj.detach();
             targetObj.before(thisObj);
             setIndex();
@@ -104,7 +104,7 @@
         const targetObj = parentObj.next('div.form-group');
 
         // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
-        if (targetObj.length != 0) {
+        if (targetObj.length !== 0) {
             const thisObj = parentObj.detach();
             targetObj.after(thisObj);
             setIndex();
@@ -118,7 +118,7 @@
         const newRowAdd = getNewStep(idx);
 
         let lastInput = $('form div#steps div.form-group:last');
-        if (lastInput.length == 0) {
+        if (lastInput.length === 0) {
             lastInput = $('form div#newinput');
         }
 
