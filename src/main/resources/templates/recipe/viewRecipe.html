@@ -18,6 +18,9 @@
 <link rel="stylesheet" href="/blueimp-gallery/blueimp-gallery-video.css" />
 <!--<link rel="stylesheet" href="/blueimp-gallery/demo/demo.css" />-->
 
+
+
+
 <script type="text/javascript" src="/js/jquery-3.6.1.js"></script>
 <!--<script type="text/javascript" src="/photoswipe/photoswipe.esm.js"></script>-->
 <!--<script type="text/javascript" src="/photoswipe/photoswipe-lightbox.esm.js"></script>-->
@@ -104,20 +107,66 @@
               <a th:href="|/attach/download/${recipeStep.imagePath}|">
                 <img alt="레시피 단계 이미지" th:src="|/images/${recipeStep.imagePath}|"/>
               </a>
-
-              <ul id="images">
-                <li><img th:src="|/images/${recipeStep.imagePath}|" alt="Picture 1"></li>
-                <!--<li><img src="picture-2.jpg" alt="Picture 2"></li>
-                <li><img src="picture-3.jpg" alt="Picture 3"></li>-->
-              </ul>
-
-
             </div>
           </div>
           <div id="newinput"></div>
         </div>
 
+        <hr>
+        <div id="links">
+          <a href="/image/img.png" title="노란">
+            <img src="/image/img_1.png" alt="바나나" />
+          </a>
+          <a href="/image/img.png" title="바바">
+            <img src="/image/img_1.png" alt="바나바나" />
+          </a>
+          <a href="/image/img.png" title="나나">
+            <img src="/image/img_1.png" alt="랄랄" />
+          </a>
+        </div>
 
+        <hr>
+
+
+
+        <!-- The Gallery as lightbox dialog, should be a document body child element -->
+        <div
+                id="blueimp-gallery"
+                class="blueimp-gallery"
+                aria-label="image gallery"
+                aria-modal="true"
+                role="dialog"
+        >
+          <div class="slides" aria-live="polite"></div>
+          <h3 class="title"></h3>
+          <a
+                  class="prev"
+                  aria-controls="blueimp-gallery"
+                  aria-label="previous slide"
+                  aria-keyshortcuts="ArrowLeft"
+          ></a>
+          <a
+                  class="next"
+                  aria-controls="blueimp-gallery"
+                  aria-label="next slide"
+                  aria-keyshortcuts="ArrowRight"
+          ></a>
+          <a
+                  class="close"
+                  aria-controls="blueimp-gallery"
+                  aria-label="close"
+                  aria-keyshortcuts="Escape"
+          ></a>
+          <a
+                  class="play-pause"
+                  aria-controls="blueimp-gallery"
+                  aria-label="play slideshow"
+                  aria-keyshortcuts="Space"
+                  aria-pressed="false"
+                  role="button"
+          ></a>
+          <ol class="indicator"></ol>
+        </div>
 
 
         <hr>
@@ -132,119 +181,7 @@
   </div>
 </div>
 
-<h1>blueimp Gallery</h1>
-<p>
-  <a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is a
-  touch-enabled, responsive and customizable image &amp; video gallery,
-  carousel and lightbox, optimized for both mobile and desktop web browsers.
-</p>
-<p>
-  It features swipe, mouse and keyboard navigation, transition effects,
-  slideshow functionality, fullscreen support and on-demand content loading
-  and can be extended to display additional content types.
-</p>
-<ul id="navigation">
-  <li>
-    <a href="https://github.com/blueimp/Gallery/releases">Download</a>
-  </li>
-  <li><a href="https://github.com/blueimp/Gallery">Source Code</a></li>
-  <li>
-    <a href="https://github.com/blueimp/Gallery/blob/master/README.md"
-    >Documentation</a
-    >
-  </li>
-  <li><a href="https://blueimp.net">&copy; Sebastian Tschan</a></li>
-</ul>
-<h2>Carousel image gallery</h2>
-<!-- The Gallery as inline carousel -->
-<div
-        id="blueimp-image-carousel"
-        class="blueimp-gallery blueimp-gallery-carousel"
-        aria-label="image carousel"
->
-  <div class="slides" aria-live="off"></div>
-  <h3 class="title"></h3>
-  <a
-          class="prev"
-          aria-controls="blueimp-image-carousel"
-          aria-label="previous slide"
-  ></a>
-  <a
-          class="next"
-          aria-controls="blueimp-image-carousel"
-          aria-label="next slide"
-  ></a>
-  <a
-          class="play-pause"
-          aria-controls="blueimp-image-carousel"
-          aria-label="play slideshow"
-          aria-pressed="true"
-          role="button"
-  ></a>
-</div>
-<h2>Carousel video gallery</h2>
-<!-- The Gallery as inline carousel -->
-<div
-        id="blueimp-video-carousel"
-        class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel"
-        aria-label="video carousel"
->
-  <div class="slides" aria-live="polite"></div>
-  <h3 class="title"></h3>
-  <a
-          class="prev"
-          aria-controls="blueimp-video-carousel"
-          aria-label="previous slide"
-  ></a>
-  <a
-          class="next"
-          aria-controls="blueimp-video-carousel"
-          aria-label="next slide"
-  ></a>
-</div>
-<h2>Lightbox image gallery</h2>
-<p>
-  <input type="checkbox" id="fullscreen" />
-  <label for="fullscreen">Fullscreen</label>
-</p>
-<!-- The container for the list of example images -->
-<div id="links" class="links"></div>
-<!-- The Gallery as lightbox dialog -->
-<div
-        id="blueimp-gallery"
-        class="blueimp-gallery"
-        aria-label="image gallery"
-        aria-modal="true"
-        role="dialog"
->
-  <div class="slides" aria-live="polite"></div>
-  <h3 class="title"></h3>
-  <a
-          class="prev"
-          aria-controls="blueimp-gallery"
-          aria-label="previous slide"
-          aria-keyshortcuts="ArrowLeft"
-  ></a>
-  <a
-          class="next"
-          aria-controls="blueimp-gallery"
-          aria-label="next slide"
-          aria-keyshortcuts="ArrowRight"
-  ></a>
-  <a
-          class="close"
-          aria-controls="blueimp-gallery"
-          aria-label="close"
-          aria-keyshortcuts="Escape"
-  ></a>
-  <a
-          class="play-pause"
-          aria-controls="blueimp-gallery"
-          aria-label="play slideshow"
-          aria-keyshortcuts="Space"
-          aria-pressed="false"
-          role="button"
-  ></a>
+
   <ol class="indicator"></ol>
 </div>
 <script src="/blueimp-gallery/blueimp-helper.js"></script>
@@ -254,8 +191,19 @@
 <script src="/blueimp-gallery/blueimp-gallery-video.js"></script>
 <script src="/blueimp-gallery/blueimp-gallery-vimeo.js"></script>
 <script src="/blueimp-gallery/blueimp-gallery-youtube.js"></script>
-<script src="/blueimp-gallery/vendor/jquery.js"></script>
+<!--<script src="/blueimp-gallery/vendor/jquery.js"></script>-->
 <script src="/blueimp-gallery/jquery.blueimp-gallery.js"></script>
-<script src="/blueimp-gallery/demo/demo.js"></script>
+<!--<script src="/blueimp-gallery/demo/demo.js"></script>-->
+
+<script>
+  document.getElementById('links').onclick = function (event) {
+    event = event || window.event
+    var target = event.target || event.srcElement
+    var link = target.src ? target.parentNode : target
+    var options = { index: link, event: event }
+    var links = this.getElementsByTagName('a')
+    blueimp.Gallery(links, options)
+  }
+</script>
 </body>
 </html>
