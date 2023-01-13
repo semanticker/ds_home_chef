@@ -115,12 +115,30 @@
         <hr>
         <div id="links">
           <div th:each="recipeStep, iStat: ${form.recipeStepList}" >
-            <a th:if="${recipeStep.imagePath != null}" th:src="|/images/${recipeStep.imagePath}|"/>
-              <img alt="레시피 단계 이미지" th:src="|/images/${recipeStep.imagePath}|"/>
+            <a th:href="|/images/${recipeStep.imagePath}|" title="aaaa"/>
+              <img alt="레시피 단계 이미지" th:src="|/image/img_1.png|"/>
             </a>
           </div>
         </div>
 
+        <!--<div id="links3">
+            <a href="/images/53" title="aaaa">
+              <img alt="레시피 단계 이미지" src="/images/53">
+            </a>
+          </a>
+          <a href="/images/54" title="aaaa">
+            <img alt="레시피 단계 이미지" src="/images/54">
+          </a>
+            <a href="/images/55" title="aaaa">
+            <img alt="레시피 단계 이미지" src="/images/55">
+          </a>
+        </div>-->
+
+        <!--<div id="links2">
+          <a href="/images/55" title="나라말쌈이뒹국에달사">
+            <img src="/image/img_1.png" alt="바나나" />
+          </a>
+        </div>-->
          <!-- <a href="/image/img.png" title="나라말쌈이뒹국에달사">
             <img src="/image/img_1.png" alt="바나나" />
           </a>
