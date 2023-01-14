@@ -59,17 +59,17 @@
     <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
   </div>
 
-  <div class="row">
-    <div class="col-md">
-      <h4 class="mb-3">Recipe Info.</h4>
-      <form role="form" th:object="${form}">
-        <div class="mb-3">
+
+
+    <form role="form" th:object="${form}">
+        <h4 class="mb-3">Recipe Info.</h4>
+        <div class="row">
+            <div class="col-md">
+                <div class="mb-3">
           <label th:for="foodName">음식이름</label>
           <input type="text" id="foodName" th:field="*{foodName}" class="form-control" readonly="readonly" th:class="form-control">
         </div>
-
-
-        <div class="mb-3">
+                <div class="mb-3">
           <label th:for="name">레시피 이름</label>
           <div class="input-group">
             <div class="input-group-prepend">
@@ -86,27 +86,39 @@
             </div>-->
           </div>
         </div>
-        <div class="mb-3">
+                <div class="mb-3">
           <label th:for="recipeFrom">레시피 출처</label>
           <input type="text" id="recipeFrom" th:field="*{recipeFrom}" class="form-control" readonly="readonly"
                  th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
         </div>
+            </div>
+        </div>
+
+        <hr>
+        <div class="row">
+            <label >STEP 123</label>
+            <div class="col-8">col-8</div>
+            <div class="col-4">col-4</div>
+        </div>
+
 
         <div id="steps">
-          <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="form-group" >
+          <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="row" >
             <label >STEP <span th:text="${iStat.index}+1"></span></label>
-
-            <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
-            <input type="hidden" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control" readonly="readonly" >
-            <input type="hidden" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control" readonly="readonly" >
-            <input type="hidden" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control" readonly="readonly" >
-            <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control" readonly="readonly" >
-            <input type="text" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control" readonly="readonly" >
-            <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
-            <div th:id="|image_div_${iStat.index}|" id="image_div" th:if="${not #strings.isEmpty(recipeStep.imagePath)}">
-              <a th:href="|/attach/download/${recipeStep.imagePath}|">
-                <img alt="레시피 단계 이미지" th:src="|/images/${recipeStep.imagePath}|"/>
-              </a>
+            <div class="col-8">
+                <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
+                <input type="hidden" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control" readonly="readonly" >
+                <input type="hidden" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control" readonly="readonly" >
+                <input type="hidden" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control" readonly="readonly" >
+                <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control" readonly="readonly" >
+            </div>
+            <div class="col-4">
+                <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
+                <div th:id="|image_div_${iStat.index}|" id="image_div" th:if="${not #strings.isEmpty(recipeStep.imagePath)}">
+                  <a th:href="|/attach/download/${recipeStep.imagePath}|">
+                    <img alt="레시피 단계 이미지" th:src="|/images/${recipeStep.imagePath}|"/>
+                  </a>
+                </div>
             </div>
           </div>
           <div id="newinput"></div>
@@ -121,57 +133,7 @@
           </div>
         </div>
 
-        <!--<div id="links3">
-            <a href="/images/53" title="aaaa">
-              <img alt="레시피 단계 이미지" src="/images/53">
-            </a>
-          </a>
-          <a href="/images/54" title="aaaa">
-            <img alt="레시피 단계 이미지" src="/images/54">
-          </a>
-            <a href="/images/55" title="aaaa">
-            <img alt="레시피 단계 이미지" src="/images/55">
-          </a>
-        </div>-->
 
-        <!--<div id="links2">
-          <a href="/images/55" title="나라말쌈이뒹국에달사">
-            <img src="/image/img_1.png" alt="바나나" />
-          </a>
-        </div>-->
-         <!-- <a href="/image/img.png" title="나라말쌈이뒹국에달사">
-            <img src="/image/img_1.png" alt="바나나" />
-          </a>
-          <a href="/image/img_2.png" title="서로 사맛디아니할쎄">
-            <img src="/image/img_1.png" alt="바나바나" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>
-          <a href="/image/img.png" title="물을 꿇입니다. 왕창">
-            <img src="/image/img_1.png" alt="랄랄" />
-          </a>-->
         <hr>
 
 
@@ -222,9 +184,9 @@
           <button type="button" class="btn btn-primary" th:onclick="|location.href='/recipe/${form.id}/edit'|">수정</button>
           <button type="button" class="btn btn-primary" th:onclick="|deleteRecipe('${form.id}')|">삭제</button>
         </div>
-      </form>
     </div>
   </div>
+  </form>
 </div>
 
 
