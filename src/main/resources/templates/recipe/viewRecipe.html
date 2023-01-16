@@ -95,18 +95,11 @@
         </div>
 
         <hr>
-        <div class="row">
-            <label >STEP 123</label>
-            <div class="col-8">col-8</div>
-            <div class="col-4">col-4</div>
-        </div>
-
 
         <div id="steps">
           <div th:each="recipeStep, iStat: ${form.recipeStepList}" class="row" >
             <label >STEP <span th:text="${iStat.index}+1"></span></label>
             <div class="col-8">
-                <a href="javascript:void(0)"><span class="glyphicon glyphicon-chevron-up moveUp"></span></a>
                 <input type="hidden" th:value="${recipeStep.id}" th:field="*{recipeStepList[__${iStat.index}__].id}" class="form-control" readonly="readonly" >
                 <input type="hidden" th:value="${recipeStep.status}" th:field="*{recipeStepList[__${iStat.index}__].status}" class="form-control" readonly="readonly" >
                 <input type="hidden" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control" readonly="readonly" >
@@ -123,16 +116,6 @@
           </div>
           <div id="newinput"></div>
         </div>
-
-        <hr>
-        <div id="links">
-          <div th:each="recipeStep, iStat: ${form.recipeStepList}" >
-            <a th:href="|/images/${recipeStep.imagePath}|" title="aaaa"/>
-              <img alt="레시피 단계 이미지" th:src="|/image/img_1.png|"/>
-            </a>
-          </div>
-        </div>
-
 
         <hr>
 

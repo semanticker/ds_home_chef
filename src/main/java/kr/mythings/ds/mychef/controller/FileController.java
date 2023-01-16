@@ -57,7 +57,7 @@ public class FileController {
 
             return ResponseEntity.ok()
                     .contentLength(file.getFileSize())
-                    .contentType(MediaType.parseMediaType(file.getFileExtName()))
+                    .contentType(MediaType.parseMediaType(file.getContentType()))
                     .body(new InputStreamResource(urlResource.getInputStream()));
         } else {
             return null;
@@ -71,20 +71,20 @@ public class FileController {
 
         if (file != null) {
 
-            String name = file.getFileName();
             String pathName = file.getFileSaveName();
+            String name = pathName.substring(pathName.lastIndexOf(File.separator)+1);
 
             String fileName = name.substring(0, name.indexOf("."));
             String ext = name.substring(name.indexOf("."));
             String path = pathName.substring(0, pathName.lastIndexOf(File.separator));
 
-            String aa = String.format("%s%s%s%s%s",path,File.separator,fileName,"", ext);
+            String aa = String.format("%s%s%s%s%s",path,File.separator,fileName,"_s", ext);
 
             UrlResource urlResource = new UrlResource("file:" + aa);
 
             return ResponseEntity.ok()
                     .contentLength(urlResource.contentLength())
-                    .contentType(MediaType.parseMediaType(file.getFileExtName()))
+                    .contentType(MediaType.parseMediaType(file.getContentType()))
                     .body(new InputStreamResource(urlResource.getInputStream()));
         } else {
             return null;

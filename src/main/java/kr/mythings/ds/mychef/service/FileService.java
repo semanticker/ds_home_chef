@@ -27,13 +27,12 @@ public class FileService {
     public Long saveFile(Long id, MultipartFile multipartFile) throws IOException {
 
         String fileName = multipartFile.getOriginalFilename();
-        String extName = fileName.substring(fileName.lastIndexOf("."));
+        String fileExtName = fileName.substring(fileName.lastIndexOf(".")+1);
         String uuid = UUID.randomUUID().toString();
-        String savedPath = "/Users/asdfiop1517/file_upload/" + uuid + extName;
-        String fileSaveName = "";
+        String savedPath = "/Users/asdfiop1517/file_upload/" + uuid +  "." + fileExtName;
 
         long fileSize = multipartFile.getSize();
-        String fileExtName = multipartFile.getContentType();
+        String contentType = multipartFile.getContentType();
 
         // 파일 엔티티 생성
         FileEntity file = FileEntity.builder()
@@ -41,6 +40,7 @@ public class FileService {
                 .fileName(fileName)
                 .fileSaveName(savedPath)
                 .fileSize(fileSize)
+                .contentType(contentType)
                 .fileExtName(fileExtName)
                 .build();
 
@@ -71,7 +71,7 @@ public class FileService {
 
             String fileSaveName = fileEntity.getFileSaveName();
 
-            if ("".equals(fileSaveName)) {
+            if (!"".equals(fileSaveName)) {
 
                 File file = new File(fileSaveName);
 

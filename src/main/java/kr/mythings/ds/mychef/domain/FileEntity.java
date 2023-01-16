@@ -26,6 +26,8 @@ public class FileEntity extends BaseEntity{
 
     private Long fileSize;
 
+    private String contentType;
+
     private String fileExtName;
 
     @OneToOne
@@ -33,11 +35,12 @@ public class FileEntity extends BaseEntity{
     private RecipeStep recipeStep;
 
 
-    public FileEntity(Long id, String fileName, String fileSaveName, Long fileSize, String fileExtName, RecipeStep recipeStep) {
+    public FileEntity(Long id, String fileName, String fileSaveName, Long fileSize, String contentType, String fileExtName, RecipeStep recipeStep) {
         this.id = id;
         this.fileName = fileName;
         this.fileSaveName = fileSaveName;
         this.fileSize = fileSize;
+        this.contentType = contentType;
         this.fileExtName = fileExtName;
         this.recipeStep = recipeStep;
     }
