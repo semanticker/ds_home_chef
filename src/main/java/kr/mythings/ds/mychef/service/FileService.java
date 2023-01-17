@@ -1,10 +1,12 @@
 package kr.mythings.ds.mychef.service;
 
 import kr.mythings.ds.mychef.common.SuccessResult;
+import kr.mythings.ds.mychef.config.StorageConfig;
 import kr.mythings.ds.mychef.domain.FileEntity;
 import kr.mythings.ds.mychef.repository.FileRepository;
 import kr.mythings.ds.mychef.repository.RecipeStepRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +26,13 @@ public class FileService {
 
     private final RecipeStepRepository recipeStepRepository;
 
+
+    private final StorageConfig storageConfig;
+
     public Long saveFile(Long id, MultipartFile multipartFile) throws IOException {
+
+
+        //storageConfig.getPath();
 
         String fileName = multipartFile.getOriginalFilename();
         String fileExtName = fileName.substring(fileName.lastIndexOf(".")+1);

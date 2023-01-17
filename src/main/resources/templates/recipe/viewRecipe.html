@@ -108,8 +108,8 @@
             <div class="col-4">
                 <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
                 <div th:id="|image_div_${iStat.index}|" id="image_div" th:if="${not #strings.isEmpty(recipeStep.imagePath)}">
-                  <a th:href="|/images/${recipeStep.imagePath}|">
-                    <img alt="레시피 단계 이미지" th:src="|/thumbnail/${recipeStep.imagePath}|"/>
+                  <a th:href="|/images/${recipeStep.imagePath}|" th:alt="${recipeStep.howTo}" th:title="${recipeStep.howTo}" >
+                    <img th:alt="${recipeStep.howTo}" th:src="|/thumbnail/${recipeStep.imagePath}|"/>
                   </a>
                 </div>
             </div>
@@ -119,9 +119,6 @@
 
         <hr>
 
-
-
-        <!-- The Gallery as lightbox dialog, should be a document body child element -->
         <div
                 id="blueimp-gallery"
                 class="blueimp-gallery"
@@ -192,7 +189,7 @@
     event = event || window.event
     var target = event.target || event.srcElement
     var link = target.src ? target.parentNode : target
-    var options = { index: link, event: event }
+    var options = { index: link, event: event, toggleClass: 'toggle' }
     var links = this.getElementsByTagName('a')
     blueimp.Gallery(links, options)
     console.log(links);
