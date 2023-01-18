@@ -1,6 +1,8 @@
 package kr.mythings.ds.mychef.service;
 
 import kr.mythings.ds.mychef.common.SuccessResult;
+import kr.mythings.ds.mychef.common.ThumbnailGenerator;
+import kr.mythings.ds.mychef.common.ThumbnailSize;
 import kr.mythings.ds.mychef.config.StorageConfig;
 import kr.mythings.ds.mychef.domain.FileEntity;
 import kr.mythings.ds.mychef.repository.FileRepository;
@@ -32,12 +34,12 @@ public class FileService {
     public Long saveFile(Long id, MultipartFile multipartFile) throws IOException {
 
 
-        //storageConfig.getPath();
+        String path = storageConfig.getPath();
 
         String fileName = multipartFile.getOriginalFilename();
         String fileExtName = fileName.substring(fileName.lastIndexOf(".")+1);
         String uuid = UUID.randomUUID().toString();
-        String savedPath = "/Users/asdfiop1517/file_upload/" + uuid +  "." + fileExtName;
+        String savedPath = path + "/" + uuid +  "." + fileExtName;
 
         long fileSize = multipartFile.getSize();
         String contentType = multipartFile.getContentType();
@@ -53,14 +55,15 @@ public class FileService {
                 .build();
 
 
-
-
+        File savedFile = new File(savedPath);
         // 실제로 로컬에 uuid를 파일명으로 저장
-        multipartFile.transferTo(new File(savedPath));
+        multipartFile.transferTo(savedFile);
 
-        FileEntity savedFile = fileRepository.save(file);
+        ThumbnailGenerator.generate(savedFile, ThumbnailSize.SMALL);
 
-        return savedFile.getId();
+        FileEntity savedFileEntity = fileRepository.save(file);
+
+        return savedFileEntity.getId();
     }
 
     public FileEntity findOne(Long id) {
