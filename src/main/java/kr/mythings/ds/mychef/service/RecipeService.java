@@ -114,6 +114,7 @@ public class RecipeService {
                     );
                     recipeStepRepository.add(recipeStep);
 
+                    recipeStepDTO.setId(recipeStep.getId());
                 } else if(recipeStepDTO.getId() != null && Status.U == recipeStepDTO.getStatus()) {
                     // status 에 따른 설정
 

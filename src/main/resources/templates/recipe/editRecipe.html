@@ -46,9 +46,7 @@
     }
 
     function remove(obj) {
-
         // 삭제 상태가 아닌 경우
-
 
         // 상위
         const parentObj = getParentObj(obj);
@@ -156,7 +154,7 @@
             '<input type="text" value="0" class="form-control" id="recipeStepList[$1].step" name="recipeStepList[$1].step" placeholder="단계번호">' +
             '<input type="text" class="form-control" id="recipeStepList[$1].howTo" name="recipeStepList[$1].howTo" placeholder="레시피 단계를 입력하세요">' +
             //'<input type="file" class="form-control" id="recipeStepList[$1].uploadFile" name="recipeStepList[$1].uploadFile" placeholder="업로드할 이미지를 선택하세요">' +
-             '<input type="text" class="form-control" id="recipeStepList[$1].img" name="recipeStepList[$1].img" placeholder="첨부파일">' +
+             '<input type="file" class="form-control" id="recipeStepList[$1].img" name="recipeStepList[$1].img" placeholder="첨부파일">' +
             '</div>';
 
          return obj.replaceAll('$1', index);
