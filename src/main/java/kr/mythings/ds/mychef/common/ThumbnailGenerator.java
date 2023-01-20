@@ -68,4 +68,25 @@ public class ThumbnailGenerator {
                 .toFile(new File(saveName));
 
     }
+
+    public static String getThumbnailName(String saveName, ThumbnailSize size) {
+
+        String onlyName = saveName.substring(0, saveName.lastIndexOf("."));
+        String extension = saveName.substring(saveName.lastIndexOf(".")+1);
+
+        switch (size) {
+            case LARGE:
+                onlyName = onlyName + LARGE_SUFFIX;
+            case MEDIUM:
+                onlyName = onlyName + MEDIUM_SUFFIX;
+            case SMALL:
+            default:
+                onlyName = onlyName + SMALL_SUFFIX;
+                break;
+        }
+
+
+        return String.format("%s.%s", onlyName, extension);
+
+    }
 }

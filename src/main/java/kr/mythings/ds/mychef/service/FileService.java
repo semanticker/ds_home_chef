@@ -84,12 +84,13 @@ public class FileService {
 
             if (!"".equals(fileSaveName)) {
 
-                File file = new File(fileSaveName);
 
-                if (file.exists() && file.isFile()) {
-
-                    success = file.delete();
+                if (deleteFile(fileSaveName)) {
                     fileRepository.delete(fileId);
+
+                    deleteFile(ThumbnailGenerator.getThumbnailName(fileSaveName, ThumbnailSize.SMALL));
+                    deleteFile(ThumbnailGenerator.getThumbnailName(fileSaveName, ThumbnailSize.MEDIUM));
+                    deleteFile(ThumbnailGenerator.getThumbnailName(fileSaveName, ThumbnailSize.LARGE));
 
                 } else {
                     msg = "대상이 되는 파일이 존재하지 않습니다.";
@@ -103,5 +104,18 @@ public class FileService {
         }
 
         return new SuccessResult(success, msg);
+    }
+
+    private boolean deleteFile(String path) {
+
+        boolean result = false;
+
+        File file = new File(path);
+
+        if (file.exists() && file.isFile()) {
+            result = file.delete();
+        }
+
+        return result;
     }
 }
