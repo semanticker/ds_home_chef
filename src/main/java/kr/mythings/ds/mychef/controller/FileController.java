@@ -46,7 +46,7 @@ public class FileController {
 
     @GetMapping("/images/{fileId}")
     @ResponseBody
-    public ResponseEntity<InputStreamResource>  downloadImage2(@PathVariable("fileId") Long id, Model model) throws IOException {
+    public ResponseEntity<InputStreamResource> downloadImage2(@PathVariable("fileId") Long id, Model model) throws IOException {
 
         FileEntity file = fileService.findOne(id);
 

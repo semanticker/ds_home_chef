@@ -126,7 +126,7 @@ public class RecipeService {
                 }
 
                 MultipartFile img = recipeStepDTO.getImg();
-                if (img.getOriginalFilename() != null && !"".equals(img.getOriginalFilename())) {
+                if (img != null && img.getOriginalFilename() != null && !"".equals(img.getOriginalFilename())) {
                     fileService.saveFile(recipeStepDTO.getId(),img);
                 }
             }
@@ -148,6 +148,20 @@ public class RecipeService {
     }
 
     public void delete(Long recipeId) {
+
+        Recipe one = recipeRepository.findOne(recipeId);
+
+        List<RecipeStep> recipeStepList = one.getRecipeStepList();
+
+        if (recipeStepList != null && recipeStepList.size() > 0) {
+            for (RecipeStep rs : recipeStepList) {
+                FileEntity image = rs.getImage();
+                fileService.delete(image.getId());
+            }
+
+        }
+
+
         recipeRepository.delete(recipeId);
     }
 
