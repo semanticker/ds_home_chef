@@ -107,7 +107,15 @@ public class ServingService {
         for (CustomerRatingDTO customerRatingDTO : customerRatingList) {
 
             Long ratingId = customerRatingDTO.getId();
-            CustomerRating serverRating = customerRatingRepository.find(ratingId);
+
+
+            CustomerRating serverRating;
+
+            if (ratingId == null) {
+                serverRating = new CustomerRating();
+            } else {
+                serverRating = customerRatingRepository.find(ratingId);
+            }
 
             if (serverRating == null) {
                 serverRating = new CustomerRating();
@@ -115,7 +123,16 @@ public class ServingService {
 
             serverRating.setServing(servingRepository.findOne(serving.getId()));
             serverRating.setCustomer(customerRepository.findOne(customerRatingDTO.getCustomerId()));
-            serverRating.setRating(Long.valueOf(customerRatingDTO.getRating()));
+
+            Long rating = 0L;
+
+            try {
+                rating = Long.valueOf(customerRatingDTO.getRating());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+
+            serverRating.setRating(rating);
 
             customerRatingRepository.update(serverRating);
 

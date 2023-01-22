@@ -145,6 +145,7 @@ public class ServingController {
         servingForm.setRecipeName(servingDTO.getRecipeName());
         servingForm.setRecipeFrom(servingDTO.getRecipeFrom());
         servingForm.setServingDate(servingDTO.getServingDate());
+        servingForm.setServingTime(servingDTO.getServingTime());
 
         List<CustomerRatingDTO> customerRatingList = servingDTO.getCustomerRatingList();
         servingForm.setCustomerRatingList(customerRatingList);

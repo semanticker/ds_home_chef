@@ -68,6 +68,15 @@
         });
     }
 
+    function setCurrentDate() {
+        let current = new Date();
+
+        $('#servingDate').val(current.toISOString().split('T')[0]);
+
+        const tt = current.toISOString().split('T')[1];
+        $('#servingTime').val(tt.split('.')[0]);
+    }
+
 
 
 </script>
@@ -121,7 +130,7 @@
                            th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
                     <input type="text" id="servingTime" th:field="*{servingTime}" class="form-control" placeholder="서빙 날짜를 입력하세요"
                            th:class="${#fields.hasErrors('recipeFrom')}? 'form-control fieldError' : 'form-control'">
-
+                    <button type="button" class="btn btn-primary" onclick="setCurrentDate()">현재일자시간 입력</button>
                 </div>
 
 
