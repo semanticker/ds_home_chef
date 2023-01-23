@@ -61,7 +61,7 @@ public class ServingService {
         List<CustomerRatingDTO> customerRatings = Collections.emptyList();
 
         List<CustomerRating> customerRatingList = serving.getCustomerRatingList();
-        if (serving.getCustomerRatingList() != null && serving.getCustomerRatingList().size() > 0) {
+        if (serving.getCustomerRatingList() != null && !serving.getCustomerRatingList().isEmpty()) {
             customerRatings = customerRatingList.stream()
                     .map(m -> new CustomerRatingDTO(
                             m.getId()
@@ -124,10 +124,10 @@ public class ServingService {
             serverRating.setServing(servingRepository.findOne(serving.getId()));
             serverRating.setCustomer(customerRepository.findOne(customerRatingDTO.getCustomerId()));
 
-            Long rating = 0L;
+            long rating = 0L;
 
             try {
-                rating = Long.valueOf(customerRatingDTO.getRating());
+                rating = Long.parseLong(customerRatingDTO.getRating());
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
@@ -165,7 +165,16 @@ public class ServingService {
             CustomerRating cr = new CustomerRating();
             cr.setServing(servingRepository.findOne(serving.getId()));
             cr.setCustomer(customerRepository.findOne(crt.getCustomerId()));
-            cr.setRating(Long.valueOf(crt.getRating()));
+
+            long rating = 0L;
+
+            try {
+                rating = Long.parseLong(crt.getRating());
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+
+            cr.setRating(rating);
 
             customerRatingRepository.add(cr);
         }
