@@ -33,11 +33,24 @@
                             <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect date</p>
                         </div>
                         <div class="is-invalid">
-                            a
                         </div>
                         <div class="invalid-tooltip">
 
                         </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="address">활성화</label>
+                    <select id="active" th:field="*{active}" class="form-select">
+                        <option value="">예/아니오</option>
+                        <option th:each="activeCode : ${activeList}"
+                                th:value="${activeCode.code}"
+                                th:text="${activeCode.text}">FAST</option>
+                    </select>
+
+
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
                     </div>
                 </div>
                 <div class="mb-3">

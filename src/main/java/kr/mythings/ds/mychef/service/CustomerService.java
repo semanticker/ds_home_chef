@@ -44,6 +44,7 @@ public class CustomerService {
         Long id = form.getId();
         Customer one = findOne(id);
         one.setName(form.getName());
+        one.setActive(Boolean.parseBoolean(form.getActive()));
         one.setModifyBy("hyojong-update");
         one.setModifyDate(LocalDateTime.now());
     }

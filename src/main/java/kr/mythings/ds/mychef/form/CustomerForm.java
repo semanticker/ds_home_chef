@@ -13,4 +13,8 @@ public class CustomerForm {
 
     @NotEmpty(message = "고객 이름은 필수 입니다.")
     private String name;
+
+    private String active;
+
+
 }

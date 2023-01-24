@@ -3,6 +3,7 @@ package kr.mythings.ds.mychef.controller;
 import kr.mythings.ds.mychef.domain.Customer;
 import kr.mythings.ds.mychef.form.CustomerDTO;
 import kr.mythings.ds.mychef.form.CustomerForm;
+import kr.mythings.ds.mychef.form.ListTypeDTO;
 import kr.mythings.ds.mychef.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -57,7 +59,13 @@ public class CustomerController {
         CustomerForm form = new CustomerForm();
         form.setId(customer.getId());
         form.setName(customer.getName());
+        form.setActive(String.valueOf(customer.isActive()));
 
+        List<ListTypeDTO> activeList = new ArrayList<>();
+        activeList.add(new ListTypeDTO("true","활성화"));
+        activeList.add(new ListTypeDTO("false","비활성화"));
+
+        model.addAttribute("activeList", activeList);
         model.addAttribute("form", form);
 
         return "customer/editCustomer";
