@@ -21,7 +21,7 @@ public class Customer extends BaseEntity {
 
     private String name;
 
-    private LocalDateTime birthDate;
+    private String birthDate;
 
     boolean active = false;
 

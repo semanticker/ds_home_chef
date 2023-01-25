@@ -53,8 +53,22 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" readonly="readonly" placeholder="1234 Main St" >
+                    <label for="active">활성화</label>
+                    <select id="active" th:field="*{active}" class="form-select" readonly="readonly" disabled="disabled">
+                        <option value="">예/아니오</option>
+                        <option th:each="activeCode : ${activeList}"
+                                th:value="${activeCode.code}"
+                                th:text="${activeCode.text}">FAST</option>
+                    </select>
+
+
+                    <div class="invalid-feedback">
+                        Please enter your shipping address.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="birthDate">생년월일</label>
+                    <input type="text" id="birthDate" th:field="*{birthDate}" class="form-control" readonly="readonly" >
                     <div class="invalid-feedback">
                         Please enter your shipping address.
                     </div>

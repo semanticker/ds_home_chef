@@ -16,5 +16,7 @@ public class CustomerForm {
 
     private String active;
 
+    private String birthDate;
+
 
 }

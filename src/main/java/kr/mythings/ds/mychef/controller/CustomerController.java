@@ -60,16 +60,22 @@ public class CustomerController {
         form.setId(customer.getId());
         form.setName(customer.getName());
         form.setActive(String.valueOf(customer.isActive()));
+        form.setBirthDate(customer.getBirthDate());
+
+        model.addAttribute("activeList", getActiveList());
+        model.addAttribute("form", form);
+
+        return "customer/editCustomer";
+
+    }
+
+    private List<ListTypeDTO> getActiveList() {
 
         List<ListTypeDTO> activeList = new ArrayList<>();
         activeList.add(new ListTypeDTO("true","활성화"));
         activeList.add(new ListTypeDTO("false","비활성화"));
 
-        model.addAttribute("activeList", activeList);
-        model.addAttribute("form", form);
-
-        return "customer/editCustomer";
-
+        return activeList;
     }
 
     @PostMapping("/customer/{id}/edit")
@@ -94,7 +100,10 @@ public class CustomerController {
         CustomerForm form = new CustomerForm();
         form.setId(customer.getId());
         form.setName(customer.getName());
+        form.setActive(String.valueOf(customer.isActive()));
+        form.setBirthDate(customer.getBirthDate());
 
+        model.addAttribute("activeList", getActiveList());
         model.addAttribute("form", form);
 
         return "customer/viewCustomer";
