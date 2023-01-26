@@ -35,6 +35,8 @@ public class CustomerController {
 
     @GetMapping("/customer/new")
     public String add(Model model){
+
+        model.addAttribute("activeList", getActiveList());
         model.addAttribute("customerForm", new CustomerForm());
         return "customer/createCustomer";
     }
@@ -47,6 +49,8 @@ public class CustomerController {
         }
 
         Customer customer = new Customer(form.getName());
+        customer.setBirthDate(form.getBirthDate());
+        customer.setActive(Boolean.parseBoolean(form.getActive()));
         customerService.add(customer);
 
         return REDIRECT_CUSTOMER_LIST;
