@@ -88,7 +88,6 @@
         // 이전 obj
         const targetObj = parentObj.prev('div.form-group');
 
-        // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
         if (targetObj.length !== 0) {
             const thisObj = parentObj.detach();
             targetObj.before(thisObj);
@@ -101,7 +100,6 @@
         // 이전 obj
         const targetObj = parentObj.next('div.form-group');
 
-        // todo : jquery selection의 결과가 있는지 확인하는 구문이 필요함.
         if (targetObj.length !== 0) {
             const thisObj = parentObj.detach();
             targetObj.after(thisObj);
