@@ -24,6 +24,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ServingController {
 
+    private static final String LIST_CUSTOMER = "customerList";
+    private static final String REDIRECT_SERVING = "redirect:/serving";
+
     private final FoodService foodService;
 
     private final RecipeService recipeService;
@@ -59,7 +62,7 @@ public class ServingController {
         servingForm.setServingTime(ldt.format(DateFormat.DATE_TIME_FORMATTER_HMS));
 
         model.addAttribute("foodCodeList", foodCodeList);
-        model.addAttribute("customerList", collect);
+        model.addAttribute(LIST_CUSTOMER, collect);
         model.addAttribute("servingForm", servingForm);
         return "serving/createServing";
     }
@@ -73,7 +76,7 @@ public class ServingController {
 
         servingService.add(form);
 
-        return "redirect:/serving";
+        return REDIRECT_SERVING;
     }
 
     @GetMapping("/serving/{id}/edit")
@@ -92,7 +95,7 @@ public class ServingController {
 
         List<CustomerRatingDTO> customerRatingList = servingDTO.getCustomerRatingList();
 
-        if (customerRatingList == null || customerRatingList.size() == 0) {
+        if (customerRatingList == null || customerRatingList.isEmpty()) {
             List<CustomerDTO> list = customerService.list();
             customerRatingList = list.stream()
                     .map(m -> new CustomerRatingDTO(
@@ -110,8 +113,7 @@ public class ServingController {
 
         model.addAttribute("foodCodeList", foodCodeList);
         model.addAttribute("recipeCodeList", recipeCodeList);
-        model.addAttribute("customerList", customerRatingList);
-        ///model.addAttribute("servingForm", servingForm);
+        model.addAttribute(LIST_CUSTOMER, customerRatingList);
 
         servingForm.setId(servingDTO.getId());
         model.addAttribute("form", servingForm);
@@ -120,7 +122,7 @@ public class ServingController {
     }
 
     @PostMapping("/serving/{id}/edit")
-    public String update(@PathVariable("id") Long servingId, @Valid ServingForm form, BindingResult result, Model model) {
+    public String update(@PathVariable("id") Long servingId, @Valid ServingForm form, BindingResult result) {
 
         if (result.hasErrors()) {
             return String.format("serving/%s/edit", servingId);
@@ -128,7 +130,7 @@ public class ServingController {
 
         servingService.update(form);
 
-        return "redirect:/serving";
+        return REDIRECT_SERVING;
     }
 
 
@@ -151,7 +153,7 @@ public class ServingController {
         servingForm.setCustomerRatingList(customerRatingList);
 
         model.addAttribute("form", servingForm);
-        model.addAttribute("customerList", customerRatingList);
+        model.addAttribute(LIST_CUSTOMER, customerRatingList);
 
         return "serving/viewServing";
     }
@@ -161,6 +163,6 @@ public class ServingController {
 
         servingService.delete(servingId);
 
-        return "redirect:/serving";
+        return REDIRECT_SERVING;
     }
 }

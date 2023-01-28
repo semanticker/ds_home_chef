@@ -21,7 +21,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomerController {
 
-    static final String REDIRECT_CUSTOMER_LIST = "redirect:/customer";
+    private static final String REDIRECT_CUSTOMER_LIST = "redirect:/customer";
+
+    private static final String LIST_ACTIVE = "activeList";
+
 
     private final CustomerService customerService;
 
@@ -36,7 +39,7 @@ public class CustomerController {
     @GetMapping("/customer/new")
     public String add(Model model){
 
-        model.addAttribute("activeList", getActiveList());
+        model.addAttribute(LIST_ACTIVE, getActiveList());
         model.addAttribute("customerForm", new CustomerForm());
         return "customer/createCustomer";
     }
@@ -66,7 +69,7 @@ public class CustomerController {
         form.setActive(String.valueOf(customer.isActive()));
         form.setBirthDate(customer.getBirthDate());
 
-        model.addAttribute("activeList", getActiveList());
+        model.addAttribute(LIST_ACTIVE, getActiveList());
         model.addAttribute("form", form);
 
         return "customer/editCustomer";
@@ -107,7 +110,7 @@ public class CustomerController {
         form.setActive(String.valueOf(customer.isActive()));
         form.setBirthDate(customer.getBirthDate());
 
-        model.addAttribute("activeList", getActiveList());
+        model.addAttribute(LIST_ACTIVE, getActiveList());
         model.addAttribute("form", form);
 
         return "customer/viewCustomer";

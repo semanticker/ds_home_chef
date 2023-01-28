@@ -20,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecipeController {
 
+    private static final String REDIRECT_RECIPE = "redirect:/recipe";
     private final FoodService foodService;
     private final RecipeService recipeService;
 
@@ -50,7 +51,7 @@ public class RecipeController {
 
         recipeService.add(recipeForm);
         
-        return "redirect:/recipe";
+        return REDIRECT_RECIPE;
     }
 
     @GetMapping("/recipe/{id}/edit")
@@ -83,7 +84,7 @@ public class RecipeController {
 
         recipeService.update(form);
 
-        return "redirect:/recipe";
+        return REDIRECT_RECIPE;
     }
 
 
@@ -109,6 +110,6 @@ public class RecipeController {
 
         recipeService.delete(recipeId);
 
-        return "redirect:/recipe";
+        return REDIRECT_RECIPE;
     }
 }

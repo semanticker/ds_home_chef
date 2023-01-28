@@ -12,6 +12,5 @@ public class DateFormat {
     public static final DateTimeFormatter DATE_TIME_FORMATTER_YMD = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_STRING_YMD);
     public static final DateTimeFormatter DATE_TIME_FORMATTER_HMS = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_STRING_HMS);
 
-
-
+    private DateFormat() {}
 }

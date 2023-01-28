@@ -11,7 +11,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,26 +18,26 @@ import org.springframework.web.util.UriUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
-import java.util.BitSet;
 
 @Controller
 @RequiredArgsConstructor
 public class FileController {
+
+    private static final String PATH_FILE = "file:";
 
     private final FileService fileService;
 
     //   이미지 출력
     @GetMapping("/images2/{fileId}")
     @ResponseBody
-    public Resource downloadImage(@PathVariable("fileId") Long id, Model model) throws IOException {
+    public Resource downloadImage(@PathVariable("fileId") Long id) throws IOException {
 
         FileEntity file = fileService.findOne(id);
 
         if (file != null) {
-            return new UrlResource("file:" + file.getFileSaveName());
+            return new UrlResource(PATH_FILE + file.getFileSaveName());
         } else {
             return null;
         }
@@ -46,14 +45,12 @@ public class FileController {
 
     @GetMapping("/images/{fileId}")
     @ResponseBody
-    public ResponseEntity<InputStreamResource> downloadImage2(@PathVariable("fileId") Long id, Model model) throws IOException {
+    public ResponseEntity<InputStreamResource> downloadImage2(@PathVariable("fileId") Long id) throws IOException {
 
         FileEntity file = fileService.findOne(id);
 
         if (file != null) {
-            //return new UrlResource("file:" + file.getFileSaveName());
-
-            UrlResource urlResource = new UrlResource("file:" + file.getFileSaveName());
+            UrlResource urlResource = new UrlResource(PATH_FILE + file.getFileSaveName());
 
             return ResponseEntity.ok()
                     .contentLength(file.getFileSize())
@@ -65,7 +62,7 @@ public class FileController {
     }
     @GetMapping("/thumbnail/{fileId}")
     @ResponseBody
-    public ResponseEntity<InputStreamResource>  imageThumb(@PathVariable("fileId") Long id, Model model) throws IOException {
+    public ResponseEntity<InputStreamResource>  imageThumb(@PathVariable("fileId") Long id) throws IOException {
 
         FileEntity file = fileService.findOne(id);
 
@@ -80,7 +77,7 @@ public class FileController {
 
             String aa = String.format("%s%s%s%s%s",path,File.separator,fileName,"_s", ext);
 
-            UrlResource urlResource = new UrlResource("file:" + aa);
+            UrlResource urlResource = new UrlResource(PATH_FILE + aa);
 
             return ResponseEntity.ok()
                     .contentLength(urlResource.contentLength())
@@ -99,7 +96,7 @@ public class FileController {
 
         FileEntity one = fileService.findOne(fileId);
 
-        UrlResource resource = new UrlResource("file:" + one.getFileSaveName());
+        UrlResource resource = new UrlResource(PATH_FILE + one.getFileSaveName());
 
         String encode = UriUtils.encode(one.getFileName(), StandardCharsets.UTF_8);
 
