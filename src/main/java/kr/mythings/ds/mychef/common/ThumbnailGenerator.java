@@ -23,15 +23,15 @@ public class ThumbnailGenerator {
 
         String name = file.getName();
 
-        String fileName = "";
-        String ext = "";
+        String fileName;
+        String ext;
         String path = file.getCanonicalPath();
 
         int width;
         int height;
 
 
-        if (name != null && !"".equals(name)) {
+        if (!"".equals(name)) {
 
             fileName = name.substring(0, name.indexOf("."));
             ext = name.substring(name.indexOf("."));
@@ -77,8 +77,10 @@ public class ThumbnailGenerator {
         switch (size) {
             case LARGE:
                 onlyName = onlyName + LARGE_SUFFIX;
+                break;
             case MEDIUM:
                 onlyName = onlyName + MEDIUM_SUFFIX;
+                break;
             case SMALL:
             default:
                 onlyName = onlyName + SMALL_SUFFIX;
@@ -89,4 +91,6 @@ public class ThumbnailGenerator {
         return String.format("%s.%s", onlyName, extension);
 
     }
+
+    private ThumbnailGenerator() {}
 }

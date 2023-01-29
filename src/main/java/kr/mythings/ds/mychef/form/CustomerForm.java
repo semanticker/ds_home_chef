@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
-public class CustomerForm {
+public class CustomerForm extends BaseForm{
 
     private Long id;
 

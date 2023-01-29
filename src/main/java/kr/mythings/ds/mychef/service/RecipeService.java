@@ -86,7 +86,7 @@ public class RecipeService {
         return recipeDTO;
     }
 
-    public void update(RecipeForm form) throws IOException {
+    public void update(RecipeForm form) throws IOException, NullPointerException {
 
         Long recipeId = form.getId();
         Recipe recipe = recipeRepository.findOne(recipeId);
@@ -153,7 +153,7 @@ public class RecipeService {
 
         List<RecipeStep> recipeStepList = one.getRecipeStepList();
 
-        if (recipeStepList != null && recipeStepList.size() > 0) {
+        if (recipeStepList != null && !recipeStepList.isEmpty()) {
             for (RecipeStep rs : recipeStepList) {
                 FileEntity image = rs.getImage();
                 fileService.delete(image.getId());

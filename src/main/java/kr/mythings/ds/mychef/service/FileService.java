@@ -8,21 +8,20 @@ import kr.mythings.ds.mychef.domain.FileEntity;
 import kr.mythings.ds.mychef.repository.FileRepository;
 import kr.mythings.ds.mychef.repository.RecipeStepRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class FileService {
-
-    //private String fileDir;
 
     private final FileRepository fileRepository;
 
@@ -31,39 +30,48 @@ public class FileService {
 
     private final StorageConfig storageConfig;
 
-    public Long saveFile(Long id, MultipartFile multipartFile) throws IOException {
+    public Long saveFile(Long id, MultipartFile multipartFile) throws IOException, NullPointerException {
 
 
         String path = storageConfig.getPath();
 
         String fileName = multipartFile.getOriginalFilename();
-        String fileExtName = fileName.substring(fileName.lastIndexOf(".")+1);
-        String uuid = UUID.randomUUID().toString();
-        String savedPath = path + "/" + uuid +  "." + fileExtName;
 
-        long fileSize = multipartFile.getSize();
-        String contentType = multipartFile.getContentType();
-
-        // 파일 엔티티 생성
-        FileEntity file = FileEntity.builder()
-                .recipeStep(recipeStepRepository.findOne(id))
-                .fileName(fileName)
-                .fileSaveName(savedPath)
-                .fileSize(fileSize)
-                .contentType(contentType)
-                .fileExtName(fileExtName)
-                .build();
+        if (fileName != null) {
 
 
-        File savedFile = new File(savedPath);
-        // 실제로 로컬에 uuid를 파일명으로 저장
-        multipartFile.transferTo(savedFile);
+            String fileExtName = fileName.substring(fileName.lastIndexOf(".") + 1);
+            String uuid = UUID.randomUUID().toString();
+            String savedPath = path + File.pathSeparator + uuid + "." + fileExtName;
 
-        ThumbnailGenerator.generate(savedFile, ThumbnailSize.SMALL);
+            long fileSize = multipartFile.getSize();
+            String contentType = multipartFile.getContentType();
 
-        FileEntity savedFileEntity = fileRepository.save(file);
+            // 파일 엔티티 생성
+            FileEntity file = FileEntity.builder()
+                    .recipeStep(recipeStepRepository.findOne(id))
+                    .fileName(fileName)
+                    .fileSaveName(savedPath)
+                    .fileSize(fileSize)
+                    .contentType(contentType)
+                    .fileExtName(fileExtName)
+                    .build();
 
-        return savedFileEntity.getId();
+
+            File savedFile = new File(savedPath);
+            // 실제로 로컬에 uuid를 파일명으로 저장
+            multipartFile.transferTo(savedFile);
+
+            ThumbnailGenerator.generate(savedFile, ThumbnailSize.SMALL);
+
+            FileEntity savedFileEntity = fileRepository.save(file);
+
+            return savedFileEntity.getId();
+        } else {
+            throw new NullPointerException("File Name is NULL!!");
+        }
+
+
     }
 
     public FileEntity findOne(Long id) {
@@ -107,15 +115,12 @@ public class FileService {
     }
 
     private boolean deleteFile(String path) {
-
-        boolean result = false;
-
-        File file = new File(path);
-
-        if (file.exists() && file.isFile()) {
-            result = file.delete();
+        try {
+            Files.delete(Paths.get(path));
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
-
-        return result;
     }
 }

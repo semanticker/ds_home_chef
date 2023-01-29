@@ -21,7 +21,6 @@ public class RecipeStepDTO {
 
     private Status status = Status.U;
 
-    //private MultipartFile uploadFile;
     private String imagePath;
 
     public RecipeStepDTO() {}
