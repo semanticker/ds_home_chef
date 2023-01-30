@@ -14,14 +14,6 @@ public class FoodApiController extends ApiController{
 
     private final FoodService foodService;
 
-    @GetMapping("/api/v1/foods")
-    public Result foodsV1() {
-
-        List<FoodDTO> list = foodService.list();
-
-        return new Result(list.size(), list);
-    }
-
     @GetMapping("/api/v2/foods")
     public Result foodsV2() {
 
