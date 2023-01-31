@@ -15,7 +15,7 @@ public class FoodApiController extends ApiController{
     private final FoodService foodService;
 
     @GetMapping("/api/v2/foods")
-    public Result foodsV2() {
+    public Result<FoodDTO> foodsV2() {
 
         List<FoodDTO> list = foodService.list();
 

@@ -15,7 +15,7 @@ public class CustomerApiController {
     private final CustomerService customerService;
 
     @GetMapping("/api/v2/customers")
-    public ApiController.Result foodsV2() {
+    public ApiController.Result<CustomerDTO> foodsV2() {
 
         List<CustomerDTO> list = customerService.list();
 

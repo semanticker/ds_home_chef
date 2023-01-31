@@ -18,7 +18,7 @@ public class RecipeApiController extends ApiController{
     private final RecipeService recipeService;
 
     @GetMapping("/api/v2/recipes")
-    public Result foodsV2() {
+    public Result<RecipeDTO> foodsV2() {
 
         List<RecipeDTO> list = recipeService.list();
 
@@ -26,7 +26,7 @@ public class RecipeApiController extends ApiController{
     }
 
     @GetMapping(value = "/api/v2/code/recipes/{id}", produces = "application/json; charset=UTF-8")
-    public Result edit(@PathVariable("id") Long foodId) {
+    public Result<RecipeDTO> edit(@PathVariable("id") Long foodId) {
         List<RecipeDTO> list = recipeService.findFoodRecipeList(foodId);
 
         List<ListTypeDTO> codeList = list.stream().map(m->new ListTypeDTO(String.valueOf(m.getId()), m.getName())).collect(Collectors.toList());
