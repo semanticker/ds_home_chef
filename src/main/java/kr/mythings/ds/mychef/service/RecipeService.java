@@ -103,36 +103,74 @@ public class RecipeService {
             int stepNo = 1;
             for (RecipeStepDTO recipeStepDTO : recipeStepList) {
 
-                // 입력
-                if (recipeStepDTO.getId() == null && Status.I == recipeStepDTO.getStatus()) {
-                    // create
-                    RecipeStep recipeStep = new RecipeStep();
-                    recipeStep.create(
-                            recipeId,
-                            stepNo++,
-                            recipeStepDTO.getHowTo()
-                    );
-                    recipeStepRepository.add(recipeStep);
-
-                    recipeStepDTO.setId(recipeStep.getId());
-                } else if(recipeStepDTO.getId() != null && Status.U == recipeStepDTO.getStatus()) {
-                    // status 에 따른 설정
-
-                    RecipeStep recipeStep = recipeStepRepository.findOne(recipeStepDTO.getId());
-                    recipeStep.setStep(stepNo++);
-                    recipeStep.setHowTo(recipeStepDTO.getHowTo());
-                } else if (recipeStepDTO.getId() != null && Status.D == recipeStepDTO.getStatus()) {
-                    recipeStepRepository.remove(recipeStepDTO.getId());
+                switch (recipeStepDTO.getStatus()) {
+                    case I :
+                        addRecipeStep(recipeId, stepNo++, recipeStepDTO);
+                        break;
+                    case U:
+                        updateRecipeStep(stepNo++, recipeStepDTO);
+                        break;
+                    case D:
+                        deleteRecipeStep(recipeStepDTO.getId());
+                        break;
                 }
 
-                MultipartFile img = recipeStepDTO.getImg();
-                if (img != null && img.getOriginalFilename() != null && !"".equals(img.getOriginalFilename())) {
-                    fileService.saveFile(recipeStepDTO.getId(),img);
-                }
+                saveAttachFile(recipeStepDTO);
             }
         }
     }
 
+    /**
+     * 첨부파일을 추가한다.
+     * @param recipeStepDTO
+     * @throws IOException
+     */
+    private void saveAttachFile(RecipeStepDTO recipeStepDTO) throws IOException {
+        MultipartFile img = recipeStepDTO.getImg();
+        if (img != null && img.getOriginalFilename() != null && !"".equals(img.getOriginalFilename())) {
+            fileService.saveFile(recipeStepDTO.getId(),img);
+        }
+    }
+
+    /**
+     * 레시피 단계를 삭제한다.
+     * @param id
+     */
+    private void deleteRecipeStep(Long id) {
+
+        if (id != null) {
+            recipeStepRepository.remove(id);
+        }
+    }
+
+    /**
+     * 레시피 단계를 수정한다.
+     * @param stepNo
+     * @param recipeStepDTO
+     */
+    private void updateRecipeStep(int stepNo, RecipeStepDTO recipeStepDTO) {
+        RecipeStep recipeStep = recipeStepRepository.findOne(recipeStepDTO.getId());
+        recipeStep.setStep(stepNo);
+        recipeStep.setHowTo(recipeStepDTO.getHowTo());
+    }
+
+    /**
+     * 레시피 단계를 추가한다.
+     * @param recipeId
+     * @param stepNo
+     * @param recipeStepDTO
+     */
+    private void addRecipeStep(long recipeId, int stepNo, RecipeStepDTO recipeStepDTO) {
+        RecipeStep recipeStep = new RecipeStep();
+        recipeStep.create(
+                recipeId,
+                stepNo,
+                recipeStepDTO.getHowTo()
+        );
+        recipeStepRepository.add(recipeStep);
+
+        recipeStepDTO.setId(recipeStep.getId());
+    }
 
 
     public void add(RecipeForm recipeForm) {
