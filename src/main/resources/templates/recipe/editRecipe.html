@@ -210,8 +210,6 @@
 <div class="container">
     <div class="py-5 text-center">
         <img class="d-block mx-auto mb-4" src="/image/chef.png" alt="" width="72" height="72">
-        <!--<h2>Checkout form</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
     </div>
 
     <div class="row">
@@ -286,7 +284,6 @@
                         <input type="text" th:value="${recipeStep.step}" th:field="*{recipeStepList[__${iStat.index}__].step}" class="form-control">
                         <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control">
                         <input type="file" th:value="${recipeStep.img}" th:field="*{recipeStepList[__${iStat.index}__].img}" class="form-control">
-                        <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
                         <div th:if="${not #strings.isEmpty(recipeStep.imagePath)}" th:id="|recipe_step_image_${recipeStep.imagePath}|">
                             <a th:href="|/attach/download/${recipeStep.imagePath}|">
                                 <img alt="레시피 단계 이미지" th:src="|/images/${recipeStep.imagePath}|"/>

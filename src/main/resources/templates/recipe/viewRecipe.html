@@ -2,13 +2,6 @@
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
   <title>레시피 보기</title>
-
-<!--  photoswipe !! => no good -->
-<!--  <link href="/photoswipe/photoswipe.css" rel="stylesheet">-->
-<!--  <link href="https://unpkg.com/photoswipe@5.2.2/dist/photoswipe.css" rel="stylesheet">-->
-
-
-
 </head>
 
 
@@ -16,14 +9,11 @@
 <link rel="stylesheet" href="/blueimp-gallery/blueimp-gallery.css" />
 <link rel="stylesheet" href="/blueimp-gallery/blueimp-gallery-indicator.css" />
 <link rel="stylesheet" href="/blueimp-gallery/blueimp-gallery-video.css" />
-<!--<link rel="stylesheet" href="/blueimp-gallery/demo/demo.css" />-->
 
 
 
 
 <script type="text/javascript" src="/js/jquery-3.6.1.js"></script>
-<!--<script type="text/javascript" src="/photoswipe/photoswipe.esm.js"></script>-->
-<!--<script type="text/javascript" src="/photoswipe/photoswipe-lightbox.esm.js"></script>-->
 <script type="text/javascript">
 
   function deleteRecipe(id) {
@@ -55,8 +45,6 @@
 <div class="container">
   <div class="py-5 text-center">
     <img class="d-block mx-auto mb-4" src="/image/chef_72_72.png" alt="" width="72" height="72">
-    <!--<h2>Checkout form</h2>
-    <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>-->
   </div>
 
 
@@ -82,8 +70,6 @@
             </div>
             <div class="is-invalid">
             </div>
-            <!--<div class="invalid-tooltip">
-            </div>-->
           </div>
         </div>
                 <div class="mb-3">
@@ -106,7 +92,6 @@
                 <input type="text" th:value="${recipeStep.howTo}" th:field="*{recipeStepList[__${iStat.index}__].howTo}" class="form-control" readonly="readonly" >
             </div>
             <div class="col-4">
-                <!--<input type='file' th:field="*{recipeStepList[__${iStat.index}__].uploadFile}">-->
                 <div th:id="|image_div_${iStat.index}|" id="image_div" th:if="${not #strings.isEmpty(recipeStep.imagePath)}">
                   <a th:href="|/images/${recipeStep.imagePath}|" th:alt="${recipeStep.howTo}" th:title="${recipeStep.howTo}" >
                     <img th:alt="${recipeStep.howTo}" th:src="|/thumbnail/${recipeStep.imagePath}|"/>
@@ -164,9 +149,7 @@
           <button type="button" class="btn btn-primary" th:onclick="|location.href='/recipe/${form.id}/edit'|">수정</button>
           <button type="button" class="btn btn-primary" th:onclick="|deleteRecipe('${form.id}')|">삭제</button>
         </div>
-    </div>
-  </div>
-  </form>
+    </form>
 </div>
 
 
@@ -179,9 +162,7 @@
 <script src="/blueimp-gallery/blueimp-gallery-video.js"></script>
 <script src="/blueimp-gallery/blueimp-gallery-vimeo.js"></script>
 <script src="/blueimp-gallery/blueimp-gallery-youtube.js"></script>
-<!--<script src="/blueimp-gallery/vendor/jquery.js"></script>-->
 <script src="/blueimp-gallery/jquery.blueimp-gallery.js"></script>
-<!--<script src="/blueimp-gallery/demo/demo.js"></script>-->
 
 <script>
   //document.getElementById('links').onclick = function (event) {
