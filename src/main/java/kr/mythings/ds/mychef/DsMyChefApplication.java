@@ -23,14 +23,18 @@ public class DsMyChefApplication {
 
     @Bean
     Hibernate5Module hibernate5Module() {
-        // case1
-        //return new hibernate5Module();
+        /*
+         * case1
+         * return new hibernate5Module();
+         */
 
         // case2
-        Hibernate5Module hibernate5Module = new Hibernate5Module();
-        // 아래 옵션은 되도록 사용하면 안됨.
-        //hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
+        // Hibernate5Module hibernate5Module = new Hibernate5Module();
+        /*
+         * 아래 옵션은 되도록 사용하면 안됨.
+         * hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING, true);
+         */
 
-        return hibernate5Module;
+        return new Hibernate5Module();
     }
 }
